@@ -114,7 +114,7 @@ exports.createRestaurant = async (req, res, next) => {
             const {lat, lon} = data[0];
             const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
-            if (!req.body.manager && req.user.role == 'manager') {
+            if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
                 req.body.manager = req.user._id;
             }
             req.body.map = mapLink;
