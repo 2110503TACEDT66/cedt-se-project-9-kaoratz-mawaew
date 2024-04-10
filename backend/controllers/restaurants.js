@@ -107,6 +107,7 @@ exports.getRestaurant = async (req, res, next) => {
 exports.createRestaurant = async (req, res, next) => {
     const {name, district, province} = req.body;
     const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+    console.log(mapUrl);
     try {
         const response = await fetch (mapUrl);
         const data = await response.json();
@@ -156,7 +157,7 @@ exports.updateRestaurant = async (req, res, next) => {
                 message: `No restaurant with the id of ${req.params.id}`
             });
         }
-        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+        if (req.user.id != restaurant.manager && req.user.role == 'manager') {
             return res.status(400).json({
                 success: false,
                 message: 'You are not the manager of this restaurant'
@@ -188,7 +189,7 @@ exports.deleteRestaurant = async (req, res, next) => {
                 message: `No restaurant with the id of ${req.params.id}`
             });
         }
-        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+        if (req.user.id != restaurant.manager && req.user.role == 'manager') {
             return res.status(400).json({
                 success: false,
                 message: 'You are not the manager of this restaurant'
