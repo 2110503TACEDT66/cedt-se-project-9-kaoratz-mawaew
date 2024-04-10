@@ -105,15 +105,32 @@ exports.getRestaurant = async (req, res, next) => {
 //@route POST /api/v1/restaurant
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
+    const {name, district, province} = req.body;
+    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
     try {
-        const restaurant = await Restaurant.create(req.body);
-        if (!req.body.manager && req.user.role == 'manager') {
-            req.body.manager = req.user._id;
+        const response = await fetch (mapUrl);
+        const data = await response.json();
+        if(data.length > 0) {
+            const {lat, lon} = data[0];
+            const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+
+            if (!req.body.manager && req.user.role == 'manager') {
+                req.body.manager = req.user._id;
+            }
+            req.body.map = mapLink;
+            const restaurant = await Restaurant.create(req.body);
+            
+            res.status(201).json({
+                success: true,
+                data: restaurant
+            });
         }
-        res.status(201).json({
-            success: true,
-            data: restaurant
-        });
+        else {
+            res.status(404).json({
+            success: false,
+            message: 'Location not found'});
+        }
+        
     } catch (err) {
         console.log(err.stack);
         res.status(400).json({

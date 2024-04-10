@@ -48,9 +48,14 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    map : {
+        type: String,
+        required: true
+    },
     manager: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
+        required: true
     }
 }, {
     toJSON: { virtuals: true },
