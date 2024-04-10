@@ -4,6 +4,8 @@ import { getServerSession } from 'next-auth';
 import getRestaurants from '@/libs/getRestaurants';
 import { RestaurantItem } from '../../interface';
 import { useState } from 'react';
+import { config } from 'process';
+import { configureStore } from '@reduxjs/toolkit';
 
 export async function LeftSideBar() {
     const session = await getServerSession(authOptions)
@@ -52,73 +54,4 @@ export async function LeftSideBar() {
         </div>
     );
 
-}
-
-
-export async function RightSideBar({ RestaurantJson }: { RestaurantJson: Promise<RestaurantItem> }) {
-
-    const session = await getServerSession(authOptions)
-    const [selectedCuisine, setSelectedCuisine] = useState<string>();
-
-    const restaurant: RestaurantItem = await RestaurantJson;
-
-    const cuisineTypes = [
-        'Thai',
-        'Japanese',
-        'Chinese',
-        'Italian',
-        'American',
-        'Mexican',
-        'Indian',
-        'Korean',
-        'Vietnamese',
-        'French'
-    ];
-
-    const preLogin = [
-        { href: '/', label: 'Home' },
-        { href: '/restaurant', label: 'Eatery' },
-        { href: '/api/auth/signin', label: 'Login' },
-    ];
-    const postLogin = [
-        { href: '/', label: 'Home' },
-        { href: '/reserve', label: 'Reserve' },
-        { href: '/myTable', label: 'My Table' },
-        { href: '/api/auth/signout', label: "Logout" }
-    ];
-
-
-    return (
-        <div className="width-[15%] mr-9">
-            <div className='width-[100%]'>
-                <div className='inline-flex items-center space-x-4 w-full'>
-                    <h2 className="text-zinc-900 font-bold">Category</h2>
-                    <hr className="border-zinc-900 w-24" />
-                </div>
-                <div>
-                    {
-                        cuisineTypes.map((cuisineType) => (
-                            <div
-                                key={cuisineType}
-                                className={`inline-flex items-center space-x-4 w-full 
-                                ${selectedCuisine === cuisineType ? 'rounded-lg blur-md' : ''}`}
-                                onClick={() => setSelectedCuisine(cuisineType)}>
-                                <span className="text-zinc-900">{cuisineType}</span>
-                                <hr className="border-zinc-900 w-24" />
-                                <div className="bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
-                            </div>
-                        ))
-                    }
-                </div>
-
-                {/* Add more items here */}
-            </div>
-            <hr className="border-zinc-900 w-52" />
-        </div>
-
-
-
-
-
-    );
 }

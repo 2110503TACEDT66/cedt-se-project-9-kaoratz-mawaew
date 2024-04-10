@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import TopBar from "@/components/TopBar";
-import { LeftSideBar, RightSideBar } from "@/components/SideBar";
+import { RightSideBar } from "@/components/RightSide";
 import nextAuth, { getServerSession } from 'next-auth'
 import { authOptions } from '../../../components/auth'
 import NextAuthProvider from '@/providers/NextAuthProvider'
@@ -31,7 +31,7 @@ export default async function RootLayout({
           <ReduxProvider>
           <NextAuthProvider session={session}>
             {children}
-            <RightSideBar />
+            <RightSideBar/>
           </NextAuthProvider>
           </ReduxProvider>
         </div>
@@ -48,8 +48,8 @@ export default async function RootLayout({
         <div className="flex flex-row w-[100vw] p-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
-            <LeftSideBar />
             {children}
+            <RightSideBar />
           </NextAuthProvider>
           </ReduxProvider>
         </div>

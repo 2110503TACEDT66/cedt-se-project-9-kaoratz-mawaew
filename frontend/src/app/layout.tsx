@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import TopBar from "@/components/TopBar";
-import { LeftSideBar, RightSideBar } from "@/components/SideBar";
+import { LeftSideBar } from "@/components/SideBar";
 import nextAuth, { getServerSession } from 'next-auth'
 import { authOptions } from '../components/auth'
 import NextAuthProvider from '@/providers/NextAuthProvider'
