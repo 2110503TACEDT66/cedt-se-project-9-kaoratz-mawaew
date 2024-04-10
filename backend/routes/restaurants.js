@@ -10,7 +10,7 @@ const {protect,authorize} = require('../middleware/auth');
 //Re-route into other resource routers
 router.use('/:restaurantId/reservations', reservationRouter);
 
-router.route('/').get(getRestaurants).post(protect, authorize('admin'), createRestaurant);
-router.route('/:id').get(getRestaurant).put(protect, authorize('admin'), updateRestaurant).delete(protect, authorize('admin'), deleteRestaurant);
+router.route('/').get(getRestaurants).post(protect, authorize('admin', 'manager'), createRestaurant);
+router.route('/:id').get(getRestaurant).put(protect, authorize('admin', 'manager'), updateRestaurant).delete(protect, authorize('admin', 'manager'), deleteRestaurant);
 
 module.exports = router;

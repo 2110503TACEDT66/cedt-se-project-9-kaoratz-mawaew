@@ -107,7 +107,9 @@ exports.getRestaurant = async (req, res, next) => {
 exports.createRestaurant = async (req, res, next) => {
     try {
         const restaurant = await Restaurant.create(req.body);
-
+        if (!req.body.manager && req.user.role == 'manager') {
+            req.body.manager = req.user._id;
+        }
         res.status(201).json({
             success: true,
             data: restaurant
@@ -126,26 +128,32 @@ exports.createRestaurant = async (req, res, next) => {
 //@access registered
 exports.updateRestaurant = async (req, res, next) => {
     try {
-        const hospital = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
         });
 
-        if (!hospital) {
+        if (!restaurant) {
             return res.status(400).json({
                 success: false,
-                message: `No hospital with the id of ${req.params.id}`
+                message: `No restaurant with the id of ${req.params.id}`
+            });
+        }
+        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+            return res.status(400).json({
+                success: false,
+                message: 'You are not the manager of this restaurant'
             });
         }
 
         res.status(200).json({
             success: true,
-            data: hospital
+            data: restaurant
         });
     } catch (err) {
         res.status(400).json({
             success: false,
-            message: 'Oh somthing went wrong! to updateRestaurant.'
+            message: 'Oh something went wrong to update restaurant.'
         });
     }
 };
@@ -161,6 +169,12 @@ exports.deleteRestaurant = async (req, res, next) => {
             return res.status(400).json({
                 success: false,
                 message: `No restaurant with the id of ${req.params.id}`
+            });
+        }
+        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+            return res.status(400).json({
+                success: false,
+                message: 'You are not the manager of this restaurant'
             });
         }
 
