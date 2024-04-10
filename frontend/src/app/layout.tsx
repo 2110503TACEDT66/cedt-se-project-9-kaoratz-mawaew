@@ -32,12 +32,11 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={ "whoami (needed login)" } />
 
-        <div className="flex flex-row">
+        <div className="flex w-[100vw] px-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             <LeftSideBar />
             {children}
-            <RightSideBar RestaurantJson={restaurant} />
           </NextAuthProvider>
           </ReduxProvider>
         </div>
@@ -53,12 +52,11 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={  profile.data.name } />
 
-        <div className="flex flex-row">
+        <div className="flex flex-row w-[100vw] p-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             <LeftSideBar />
             {children}
-            <RightSideBar RestaurantJson={restaurant} />
           </NextAuthProvider>
           </ReduxProvider>
         </div>

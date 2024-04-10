@@ -1,7 +1,7 @@
 
 export default function MainPageMiddleSkeleton() {
     return (
-    <div className="flex flex-col w-[88%] h-full px-9 overflow-y-auto">
+    <div className="flex flex-col w-[88%] h-full pl-9 overflow-y-auto">
         <div className="w-full h-[35vh] bg-gray-300 rounded-md">
         </div>
         <div className="flex lg:flex-row w-full mt-10 flex-wrap gap-10 justify-between flex-col items-center">
@@ -58,7 +58,7 @@ export default function MainPageMiddleSkeleton() {
                     <div className="bg-gray-300 w-[90%] h-[10%] ml-[5%] rounded-sm"></div>
                 </div> 
             </div>
-            
+
         </div>
 
 

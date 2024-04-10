@@ -22,7 +22,7 @@ export async function LeftSideBar() {
     ];
 
     return (
-        <div className="width-[15%] ml-9 border-r-2 border-r-gray-200 pr-9">
+        <div className="w-[12%] border-r-2 pr-5 border-r-gray-900">
             <ul>
                 {
                     session ?

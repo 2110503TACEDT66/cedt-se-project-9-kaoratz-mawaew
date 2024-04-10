@@ -5,7 +5,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-    timeout: 5000, // added this line to prevent the default !gannub
+    timeout: 1000, // added this line to prevent the default !gannub
     key: "rootPersist",
     storage
 }
