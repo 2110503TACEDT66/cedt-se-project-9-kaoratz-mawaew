@@ -35,6 +35,7 @@ export default async function RootLayout({
         <div className="flex w-[100vw] px-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
+            <LeftSideBar />
             {children}
           </NextAuthProvider>
           </ReduxProvider>

@@ -46,39 +46,51 @@ export function RightSideBar() {
         { href: '/myTable', label: 'My Table' },
         { href: '/api/auth/signout', label: "Logout" }
     ];
-    
-    const filter = async (selectedCuisine:string[])=> {
+
+    const filter = async (selectedCuisine: string[]) => {
         try {
             const result = await getfilterRestaurant(selectedCuisines);
-        } catch(err){
+            if (result) {
+                console.log("Filter: " + result);
+                return;
+            } else {
+                console.log("Filter: No result");
+            }
+
+            console.log("Filter: " + result);
+        } catch (err) {
             console.log(err)
-        } 
+        }
     }
 
     return (
-        <div className="width-[15%] mr-9">
-            <div className='width-[100%]'>
+        <div className="w-[16%] ml-4 border-l-2 pl-5 border-l-gray-900">
+            <div className='w-[100%]'>
                 <div className='inline-flex items-center space-x-4 w-full'>
-                    <h2 className="text-zinc-900 font-bold">Category</h2>
-                    <hr className="border-zinc-900 w-24" />
+                    <h2 className="text-base text-zinc-900 font-bold">Category</h2>
+                    <hr className="border-zinc-900 w-full" />
                 </div>
-                <div>
+                <div className='mt-9'>
                     {
                         cuisineTypes.map((cuisineType) => (
                             <div
                                 key={cuisineType}
-                                className={`inline-flex items-center space-x-4 w-full 
+                                className={`inline-flex items-center space-x-4 mt-4 w-full 
                                 ${selectedCuisines.includes(cuisineType) ? 'rounded-lg blur-md' : ''}`}
-                                onClick={() => handleCuisineClick(cuisineType)}>
+                                onClick={() => {
+                                    handleCuisineClick(cuisineType);
+                                    filter(selectedCuisines);
+                                }}
+                            >
                                 <span className="text-zinc-900">{cuisineType}</span>
-                                <hr className="border-zinc-900 w-24" />
-                                <div className="bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
+                                <hr className="border-zinc-900" />
+                                <div className="hover:blur-effect bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
                             </div>
                         ))
                     }
                 </div>
             </div>
-            <hr className="border-zinc-900 w-52" />
+            <hr className="border-zinc-900 w-full mt-4" />
         </div>
     );
 }

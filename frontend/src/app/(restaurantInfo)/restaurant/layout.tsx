@@ -8,6 +8,7 @@ import NextAuthProvider from '@/providers/NextAuthProvider'
 import ReduxProvider from '@/redux/ReduxProvider'
 import getRestaurants from "@/libs/getRestaurants";
 import getUserProfile from "@/libs/getUserProfile";
+import { LeftSideBar } from "@/components/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default async function RootLayout({
   if (!session || !session.user.token) {
     console.log("session: no session");
     return (
-        <div className="flex w-[100vw] px-9">
+        <div className="flex w-full mr-0 pr-0">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             {children}
@@ -37,23 +38,4 @@ export default async function RootLayout({
         </div>
     )
   }
-    console.log("session:", session.user.token);
-  
-    const profile = await getUserProfile(session.user.token)
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={  profile.data.name } />
-
-        <div className="flex flex-row w-[100vw] p-9">
-          <ReduxProvider>
-          <NextAuthProvider session={session}>
-            {children}
-            <RightSideBar />
-          </NextAuthProvider>
-          </ReduxProvider>
-        </div>
-      </body>
-    </html>
-  );
 }
