@@ -220,3 +220,27 @@ exports.deleteRestaurant = async (req, res, next) => {
         });
     }
 };
+
+//@desc get restaurant that have the tag
+//@route DELETE /api/v1/restaurant/:tag
+//@access registered
+exports.filterRestaurant = async (...tags) =>{
+    try {
+        const query = { tags: { $all: tags } };
+
+        // Find restaurants matching the query
+        const result = await Restaurant.find(query).toArray();
+
+        res.status(200).json({
+            success: true,
+            data: result
+        })
+    }catch(err){
+        console.log("something goes wrong")
+        res.status(400).json({
+            success: false,
+            data: []
+        })
+    }
+};
+console.log("hello")
