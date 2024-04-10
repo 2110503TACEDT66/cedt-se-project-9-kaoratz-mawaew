@@ -109,15 +109,16 @@ exports.createRestaurant = async (req, res, next) => {
     const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
     console.log(mapUrl);
     try {
+        if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
+            req.body.manager = req.user._id;
+        }
         const response = await fetch (mapUrl);
         const data = await response.json();
         if(data.length > 0) {
             const {lat, lon} = data[0];
             const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
-            if (!req.body.manager && req.user.role == 'manager') {
-                req.body.manager = req.user._id;
-            }
+
             req.body.map = mapLink;
             const restaurant = await Restaurant.create(req.body);
             
@@ -163,6 +164,17 @@ exports.updateRestaurant = async (req, res, next) => {
                 message: 'You are not the manager of this restaurant'
             });
         }
+        if(req.body.name && req.body.district && req.body.province){
+            const {name, district, province} = req.body;
+            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+            const response = await fetch (mapUrl);
+            const data = await response.json();
+            if(data.length > 0) {
+                const {lat, lon} = data[0];
+                const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+                req.body.map = mapLink;
+        }
+    }
 
         res.status(200).json({
             success: true,
@@ -209,3 +221,27 @@ exports.deleteRestaurant = async (req, res, next) => {
         });
     }
 };
+
+//@desc get restaurant that have the tag
+//@route DELETE /api/v1/restaurant/:tag
+//@access registered
+exports.filterRestaurant = async (...tags) =>{
+    try {
+        const query = { tags: { $all: tags } };
+
+        // Find restaurants matching the query
+        const result = await Restaurant.find(query).toArray();
+
+        res.status(200).json({
+            success: true,
+            data: result
+        })
+    }catch(err){
+        console.log("something goes wrong")
+        res.status(400).json({
+            success: false,
+            data: []
+        })
+    }
+};
+console.log("hello")

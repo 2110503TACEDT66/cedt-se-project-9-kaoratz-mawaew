@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import TopBar from "@/components/TopBar";
-import { LeftSideBar } from "@/components/SideBar";
+import { RightSideBar } from "@/components/RightSide";
 import nextAuth, { getServerSession } from 'next-auth'
-import { authOptions } from '../components/auth'
+import { authOptions } from '../../../components/auth'
 import NextAuthProvider from '@/providers/NextAuthProvider'
 import ReduxProvider from '@/redux/ReduxProvider'
 import getRestaurants from "@/libs/getRestaurants";
@@ -28,19 +27,14 @@ export default async function RootLayout({
   if (!session || !session.user.token) {
     console.log("session: no session");
     return (
-      <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={ "whoami (needed login)" } />
-
         <div className="flex w-[100vw] px-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             {children}
+            <RightSideBar/>
           </NextAuthProvider>
           </ReduxProvider>
         </div>
-      </body>
-    </html>
     )
   }
     console.log("session:", session.user.token);
@@ -49,13 +43,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopBar userName={ profile.data.name } />
+        <TopBar userName={  profile.data.name } />
 
         <div className="flex flex-row w-[100vw] p-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
-            <LeftSideBar />
             {children}
+            <RightSideBar />
           </NextAuthProvider>
           </ReduxProvider>
         </div>
