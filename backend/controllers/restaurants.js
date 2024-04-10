@@ -108,15 +108,16 @@ exports.createRestaurant = async (req, res, next) => {
     const {name, district, province} = req.body;
     const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
     try {
+        if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
+            req.body.manager = req.user._id;
+        }
         const response = await fetch (mapUrl);
         const data = await response.json();
         if(data.length > 0) {
             const {lat, lon} = data[0];
             const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
-            if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
-                req.body.manager = req.user._id;
-            }
+
             req.body.map = mapLink;
             const restaurant = await Restaurant.create(req.body);
             
@@ -162,6 +163,17 @@ exports.updateRestaurant = async (req, res, next) => {
                 message: 'You are not the manager of this restaurant'
             });
         }
+        if(req.body.name && req.body.district && req.body.province){
+            const {name, district, province} = req.body;
+            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+            const response = await fetch (mapUrl);
+            const data = await response.json();
+            if(data.length > 0) {
+                const {lat, lon} = data[0];
+                const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+                req.body.map = mapLink;
+        }
+    }
 
         res.status(200).json({
             success: true,
