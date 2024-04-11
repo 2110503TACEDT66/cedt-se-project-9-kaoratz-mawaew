@@ -70,6 +70,8 @@ const RestaurantSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
+RestaurantSchema.index({name: 1, address: 1, subdistrict: 1, district: 1, province: 1}, {unique: true});
+
 //Cascade delete reservation when a Restaurant is deleted
 RestaurantSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     console.log(`Reservation being removed from restaurant ${this._id}`);
