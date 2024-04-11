@@ -70,7 +70,7 @@ export function RightSideBar() {
                     <h2 className="text-base text-zinc-900 font-bold">Category</h2>
                     <hr className="border-zinc-900 grow" />
                 </div>
-                <div className='mt-9'>
+                <button className='mt-9'>
                     {
                         cuisineTypes.map((cuisineType) => (
                             <div
@@ -79,27 +79,42 @@ export function RightSideBar() {
                                 onClick={() => {
                                     handleCuisineClick(cuisineType);
                                     filter(selectedCuisines);
-                                    const myElement = document.getElementById(`${cuisineType} circle`)!;
-                                    myElement.style.filter = "blur(4px)";
+                                    const circleElement = document.getElementById(`${cuisineType} circle`)!;
+                                    if (circleElement) {
+                                        const currentFilter = circleElement.style.filter;
+                                        const currentScale = circleElement.style.transform;
+                                        const currentBg = circleElement.style.backgroundColor;
+
+                                        circleElement.style.filter = currentFilter === "blur(2px)" ? "blur(0px)" : "blur(2px)";
+                                        circleElement.style.transform = currentScale === "scale(1.5)" ? "scale(1)" : "scale(1.5)";
+                                        circleElement.style.backgroundColor = currentBg === "#1B1B1B" ? "white" : "#1B1B1B";
+                                    }
                                 }}
 
                                 onMouseEnter={() => {
-                                    const myElement = document.getElementById(`${cuisineType} circle`)!;
-                                    myElement.style.filter = "blur(4px)";
+                                    const nameElement = document.getElementById(`${cuisineType} name`)!;
+                                    const currentScale = nameElement.style.transform;
+
+                                    nameElement.style.fontWeight = "bold";
+                                    nameElement.style.transform = currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
                                 }}
 
                                 onMouseLeave={() => {
-                                    const myElement = document.getElementById(`${cuisineType} circle`)!;
-                                    myElement.style.filter = "blur(0px)";
+                                    const nameElement = document.getElementById(`${cuisineType} name`)!;
+                                    const currentScale = nameElement.style.transform;
+
+                                    nameElement.style.fontWeight = "normal";
+                                    nameElement.style.transform = currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
                                 }}
+
                             >
-                                <span className="text-zinc-900">{cuisineType}</span>
+                                <span id={`${cuisineType} name`} className="text-zinc-900 duration-300 ease-in-out">{cuisineType}</span>
                                 <hr className="border-zinc-900 grow" />
-                                <div id={`${cuisineType} circle`} className="bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
+                                <div id={`${cuisineType} circle`} className="border-2 border-black w-2.5 h-2.5 rounded-full transition duration-300 ease-in-out"></div>
                             </div>
                         ))
                     }
-                </div>
+                </button>
             </div>
             <hr className="border-zinc-900 w-full mt-4" />
         </div>
