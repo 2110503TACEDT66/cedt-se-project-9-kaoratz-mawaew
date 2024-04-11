@@ -23,41 +23,27 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions)
-  const restaurant = getRestaurants();
 
-  if (!session || !session.user.token) {
-    console.log("session: no session");
-    return (
-      <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={ "whoami (needed login)" } />
+  const isSessionValid = session && session.user.token;
+  let userName = "whoami";
 
-        <div className="flex w-[100%] px-9">
-          <ReduxProvider>
-          <NextAuthProvider session={session}>
-            <LeftSideBar />
-            {children}
-          </NextAuthProvider>
-          </ReduxProvider>
-        </div>
-      </body>
-    </html>
-    )
+  if(!isSessionValid) {
+    userName = "whoami (needed login)";
+  } else {
+    const profile = await getUserProfile(session.user.token);
+    userName = profile.data.name;
   }
-    console.log("session:", session.user.token);
-  
-    const profile = await getUserProfile(session.user.token)
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopBar userName={ profile.data.name } />
-
-        <div className="flex flex-row w-[100vw]">
+        <TopBar userName={userName} />
+        <div className="flex w-[100%] px-9">
           <ReduxProvider>
-          <NextAuthProvider session={session}>
-            <LeftSideBar />
-            {children}
-          </NextAuthProvider>
+            <NextAuthProvider session={session}>
+              <LeftSideBar />
+              {children}
+            </NextAuthProvider>
           </ReduxProvider>
         </div>
       </body>
