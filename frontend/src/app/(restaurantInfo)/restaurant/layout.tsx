@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import TopBar from "@/components/TopBar";
-import { LeftSideBar } from "@/components/SideBar";
+import { RightSideBar } from "@/components/RightSide";
 import nextAuth, { getServerSession } from 'next-auth'
-import { authOptions } from '../components/auth'
+import { authOptions } from '../../../components/auth'
 import NextAuthProvider from '@/providers/NextAuthProvider'
 import ReduxProvider from '@/redux/ReduxProvider'
 import getRestaurants from "@/libs/getRestaurants";
 import getUserProfile from "@/libs/getUserProfile";
+import { LeftSideBar } from "@/components/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,39 +28,14 @@ export default async function RootLayout({
   if (!session || !session.user.token) {
     console.log("session: no session");
     return (
-      <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={ "whoami (needed login)" } />
-
-        <div className="flex w-[100%] px-9">
+        <div className="flex w-full mr-0 pr-0">
           <ReduxProvider>
           <NextAuthProvider session={session}>
-            <LeftSideBar />
             {children}
+            <RightSideBar/>
           </NextAuthProvider>
           </ReduxProvider>
         </div>
-      </body>
-    </html>
     )
   }
-    console.log("session:", session.user.token);
-  
-    const profile = await getUserProfile(session.user.token)
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={ profile.data.name } />
-
-        <div className="flex flex-row w-[100vw]">
-          <ReduxProvider>
-          <NextAuthProvider session={session}>
-            <LeftSideBar />
-            {children}
-          </NextAuthProvider>
-          </ReduxProvider>
-        </div>
-      </body>
-    </html>
-  );
 }

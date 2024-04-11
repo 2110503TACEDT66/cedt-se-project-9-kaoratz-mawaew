@@ -21,7 +21,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     const mapHref = restaurantDetails.data.map ? restaurantDetails.data.map : '/';
 
     return (
-        <div className="w-[70%] pl-4">
+        <div className="w-[83%] pl-4">
             <h1 className="text-4xl	font-bold mb-16">{restaurantDetails.data.name}</h1>
             <div className="flex flex-row mb-4">
                 <div className="w-[50%]">

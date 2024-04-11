@@ -3,6 +3,9 @@ import { authOptions } from '../components/auth';
 import { getServerSession } from 'next-auth';
 import getRestaurants from '@/libs/getRestaurants';
 import { RestaurantItem } from '../../interface';
+import { useState } from 'react';
+import { config } from 'process';
+import { configureStore } from '@reduxjs/toolkit';
 
 export async function LeftSideBar() {
     const session = await getServerSession(authOptions)
@@ -46,85 +49,9 @@ export async function LeftSideBar() {
                                 </Link>
                             </li>
                         ))
-                        }
+                }
             </ul>
         </div>
     );
 
-}
-
-
-
-
-export async function RightSideBar({ RestaurantJson }: { RestaurantJson: Promise<RestaurantItem> }) {
-
-    const session = await getServerSession(authOptions)
-
-    const restaurant: RestaurantItem = await RestaurantJson;
-
-    const preLogin = [
-        { href: '/', label: 'Home' },
-        { href: '/restaurant', label: 'Eatery' },
-        { href: '/api/auth/signin', label: 'Login' },
-    ];
-    const postLogin = [
-        { href: '/', label: 'Home' },
-        { href: '/reserve', label: 'Reserve' },
-        { href: '/myTable', label: 'My Table' },
-        { href: '/api/auth/signout', label: "Logout" }
-    ];
-
-
-    return (
-        // <div className="width-[15%] mr-9">
-        //     <div className='width-[100%]]'>
-        //         {/* <p className='text-base font-bold'>Ranking</p>
-        //         <ul>
-        //         </ul> */}
-
-        // </div>
-        // </div>
-
-
-        <div className="bg-neutral-100 w-72 h-96 p-6 flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-                <h2 className="text-zinc-900 font-bold">Ranking</h2>
-                <hr className="border-zinc-900 w-28" />
-                <div className="flex items-center gap-2">
-                    <span className="text-zinc-900">Eat Food</span>
-                    <div className="bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-zinc-900">Fast Food</span>
-                    <div className="border-zinc-900 w-2.5 h-2.5 rounded-full"></div>
-                </div>
-                {/* Add more items here */}
-            </div>
-            <hr className="border-zinc-900 w-52" />
-            <div className="flex flex-col gap-2">
-                <h2 className="text-zinc-900 font-bold">Category</h2>
-                <hr className="border-zinc-900 w-24" />
-                <div className="flex items-center gap-2">
-                    <span className="text-zinc-900">Fine dining</span>
-                    <div className="bg-zinc-900 w-2.5 h-2.5 rounded-full"></div>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-zinc-900">Fast food</span>
-                    <div className="border-zinc-900 w-2.5 h-2.5 rounded-full"></div>
-                </div>
-                {/* Add more items here */}
-            </div>
-            <hr className="border-zinc-900 w-52" />
-            <div className="flex flex-col gap-2">
-                <h2 className="text-zinc-900 font-bold">Create blog</h2>
-                <hr className="border-zinc-900 w-20" />
-                <div className="bg-neutral-100 border-zinc-900 w-48 h-48"></div>
-            </div>
-        </div>
-
-
-
-
-
-    );
 }
