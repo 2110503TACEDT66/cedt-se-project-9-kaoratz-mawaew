@@ -7,7 +7,6 @@ export default function createRestaurantPage(){
     return (
         <div className="w-full h-full">
             <FormSection/>
-            <MapSection/>
         </div>
     );
     

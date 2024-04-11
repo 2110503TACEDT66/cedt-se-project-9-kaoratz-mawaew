@@ -1,12 +1,22 @@
 'use client';
 import MapScreen from "./MapScreen";
 import MapSearchSection from "./MapSearchSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function MapSection(){
+export default function MapSection({
+    setLocation
+}:{
+    setLocation: Function
+}){
 
 
     const [selectedLocation, setSelectedLocation] = useState(null);
+
+    useEffect(() => {
+
+        setLocation(selectedLocation);
+
+    }, [selectedLocation]);
 
 
 
