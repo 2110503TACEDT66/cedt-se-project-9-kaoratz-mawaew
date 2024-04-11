@@ -1,71 +1,87 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
 
 export default function MainPageMiddle() {
+    const [selectedImage, setSelectedImage] = useState(0);
+    const imageClassNames = [
+        "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
+        "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/streetFood.jpg')]",
+        "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/image_1.png')]",
+        // "w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
+    
+    ];
+
+    const changeImage = () => {
+        const nextIndex = (selectedImage + 1) % imageClassNames.length;
+        setSelectedImage(nextIndex);
+    };
+    // const selectedImage = "/buffetHero.jpg";
+
+
+    const crownStyle = {
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        border: '2px solid black',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer',
+        position: 'fixed',
+        right: '20px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        backgroundColor: 'white',
+        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)'
+    };
+    const [selectedNumber, setSelectedNumber] = useState(0);
+    const numbers = Array.from({length: imageClassNames.length}, (_, i) => i + 1); // Array of numbers from 1 to 10
+
+    const changeNumber = (direction:string) => {
+        if (direction === 'up' ) {
+            setSelectedNumber((selectedNumber - 1 + imageClassNames.length)%imageClassNames.length);
+            setSelectedImage(selectedNumber);
+        } else if (direction === 'down') {
+
+            setSelectedNumber((selectedNumber + 1)%imageClassNames.length);
+            setSelectedImage(selectedNumber);
+        }
+    };
+
+
     return (
-    <div className="flex flex-col w-full h-full pl-9 overflow-y-auto">
-        <div className="w-full h-[35vh] bg-gray-300 rounded-md bg-[url('/buffet.svg')] relative">
-            <div className="absolute right-5 bottom-2 text-white text-[30px]">ร้านโทนี่</div>
-        </div>
-        <div className="flex lg:flex-row w-full mt-10 flex-wrap gap-10 justify-between flex-col items-center">
-            <div className="flex flex-col items-start justify-between gap-0 pb-4 bg-gray-200 w-[60%] lg:w-1/5 h-[40vh] rounded-md">
-                <div className="bg-[url('/mock.svg')] w-full h-[70%] bg-gray-300 rounded-t-md flex justify-center items-center">
-                    {/* <svg className="w-10 h-10 text-gray-200 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                    </svg>  */}
+    <div className="flex flex-col w-full h-full pl-9 gap-9">
+        <div className={imageClassNames[selectedImage]}>
+            <div className="w-[35%] h-full backdrop-blur-md relative flex flex-col items-start p-10">
+                <div className="text-[60px] uppercase font-bold mt-9">
+                    Super Buffet
                 </div>
-               <div className="flex flex-col w-full h-[30%] gap-2 justify-end">
-                    <div className="bg-gray-300 w-[85%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[60%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[70%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[90%] h-[10%] ml-[5%] rounded-sm"></div>
-                </div> 
+                <div className="w-[80%]">
+                    Book with us today and savor the deliciousness all year long.
+                </div>
             </div>
-
-            <div className="flex flex-col items-start justify-between gap-0 pb-4 bg-gray-200 w-[60%] lg:w-1/5 h-[40vh] rounded-md">
-                <div className="bg-[url('/mock.svg')] w-full h-[70%] bg-gray-300 rounded-t-md flex justify-center items-center">
-                    {/* <svg className="w-10 h-10 text-gray-200 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                    </svg>  */}
+            <div className="flex items-center mr-10 transition-all">
+                <button className="w-12 h-12 rounded-full border-2 border-black flex justify-center items-center cursor-pointer mr-2" onClick={() => changeNumber('down')}>
+                    <span>&#9660;</span>
+                </button>
+                <div className="flex flex-col items-center text-[30px]">
+                    <div>{selectedNumber > 1 ? selectedNumber : ''}</div>
+                    <div className="text-[50px]">{selectedNumber + 1}</div>
+                    <div>{selectedNumber < numbers.length ? selectedNumber + 2 : ''}</div>
                 </div>
-               <div className="flex flex-col w-full h-[30%] gap-2 justify-end">
-                    <div className="bg-gray-300 w-[85%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[60%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[70%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[90%] h-[10%] ml-[5%] rounded-sm"></div>
-                </div> 
-            </div>
-            
-            <div className="flex flex-col items-start justify-between gap-0 pb-4 bg-gray-200 w-[60%] lg:w-1/5 h-[40vh] rounded-md">
-                <div className="bg-[url('/mock.svg')] w-full h-[70%] bg-gray-300 rounded-t-md flex justify-center items-center">
-                    {/* <svg className="w-10 h-10 text-gray-200 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                    </svg>  */}
-                </div>
-               <div className="flex flex-col w-full h-[30%] gap-2 justify-end">
-                    <div className="bg-gray-300 w-[85%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[60%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[70%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[90%] h-[10%] ml-[5%] rounded-sm"></div>
-                </div> 
-            </div>
-            
-            <div className="flex flex-col items-start justify-between gap-0 pb-4 bg-gray-200 w-[60%] lg:w-1/5 h-[40vh] rounded-md">
-                <div className="bg-[url('/mock.svg')] w-full h-[70%] bg-gray-300 rounded-t-md flex justify-center items-center">
-                    {/* <svg className="w-10 h-10 text-gray-200 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                    </svg>  */}
-                </div>
-               <div className="flex flex-col w-full h-[30%] gap-2 justify-end">
-                    <div className="bg-gray-300 w-[85%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[60%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[70%] h-[10%] ml-[5%] rounded-sm"></div>
-                    <div className="bg-gray-300 w-[90%] h-[10%] ml-[5%] rounded-sm"></div>
-                </div> 
+                <button className="w-12 h-12 rounded-full border-2 border-black flex justify-center items-center cursor-pointer ml-2" onClick={() => changeNumber('up')}>
+                    <span>&#9650;</span>
+                </button>
             </div>
         </div>
 
+        <div className="text-[60px] text-black">
+            test
+        </div>
 
-
+        <div className="w-12 h-12 rounded-full border-2 border-black flex justify-center items-center cursor-pointer fixed right-5 top-1/2 transform -translate-y-1/2 bg-white shadow-md" onClick={changeImage} >
+            <span>&#9650;</span>
+        </div>
     </div>
     );
 }

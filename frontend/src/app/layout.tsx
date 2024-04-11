@@ -32,7 +32,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={ "whoami (needed login)" } />
 
-        <div className="flex w-[100vw] px-9">
+        <div className="flex w-[100%] px-9">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             <LeftSideBar />
@@ -52,7 +52,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={  profile.data.name } />
 
-        <div className="flex flex-row w-[100vw] p-9">
+        <div className="flex flex-row w-[100vw]">
           <ReduxProvider>
           <NextAuthProvider session={session}>
             <LeftSideBar />
