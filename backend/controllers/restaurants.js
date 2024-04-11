@@ -18,11 +18,38 @@ exports.getRestaurants = async (req, res, next) => {
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Restaurant.find(JSON.parse(queryStr)).populate('reservation');
 
-    if (req.query.select) {
-        // { select: 'name,province,postalcode', sort: 'name' }
-        const fields = req.query.select.split(',').join(' ');
-        // name province postalcode
-        query = query.select(fields);
+    if (req.query.tag) {
+
+        const tags = Array.isArray(req.query.tag) ? req.query.tag : [req.query.tag];
+        query = "{ 'tag': { $all:  } }";
+        //query =     
+        console.log("query Tags : " + req.query.tag);
+
+
+        // query -> 
+        
+//         // const tags = req.query.tag.split(",");
+        // console.log(tags)
+        // // query = query.find({ tags: { $in: tags } });
+        // query.tag = { $all: tags};
+        // const restaurants = await Restaurant.find(query);
+        // console.log(restaurants)
+        
+    }
+    // if (req.query.select) {
+    //     // { select: 'name,province,postalcode', sort: 'name' }
+    //     const fields = req.query.select.split(',').join(' ');
+    //     // name province postalcode
+    //     query = query.select(fields);
+    // }
+
+
+
+    const fields = req.query.select?.split(',').join(' ') || '';
+    if (fields) {
+      query = collection.find(query).select(fields);
+    } else {
+      query = collection.find(query);
     }
 
     if (req.query.sort) {
@@ -44,6 +71,7 @@ exports.getRestaurants = async (req, res, next) => {
         query = query.skip(startIndex).limit(limit);
 
         const restaurant = await query;
+        
         const pagination = {};
 
         if (endIndex < total) {
