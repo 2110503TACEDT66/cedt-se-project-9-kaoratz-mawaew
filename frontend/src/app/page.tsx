@@ -1,6 +1,6 @@
 // pages/index.tsx
 
-import MainPageMiddle from '@/components/mainpage/HeroSection';
+import MainPageMiddle from '@/components/mainPage/HeroSection';
 import Image from 'next/image';
 import Link from 'next/link';
 export default function Home() {

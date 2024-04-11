@@ -29,12 +29,10 @@ export default async function RootLayout({
     console.log("session: no session");
     return (
         <div className="flex w-full mr-0 pr-0">
-          <ReduxProvider>
           <NextAuthProvider session={session}>
             {children}
             <RightSideBar/>
           </NextAuthProvider>
-          </ReduxProvider>
         </div>
     )
   }
