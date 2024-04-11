@@ -56,7 +56,7 @@ export interface RestaurantItem {
     id: string,
     rating: number,
     comment: string,
-    user: object,
-    restaurant: object,
+    user: string,
+    restaurant: RestaurantItem,
     createdAt: string,
   }
