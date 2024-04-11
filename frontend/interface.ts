@@ -4,6 +4,7 @@ export interface RestaurantItem {
     _id: string,
     name: string,
     address: string,
+    subdistrict: string,
     district: string,
     province: string,
     postalcode: string,
@@ -13,6 +14,7 @@ export interface RestaurantItem {
     closetime: string,
     imageUrl: string,
     map: string,
+    tag: [string],
     __v: number,
     id: string
   }

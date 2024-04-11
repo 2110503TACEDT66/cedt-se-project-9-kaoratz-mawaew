@@ -61,7 +61,7 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
                             Address
                         </p>
                         <p className='text-xs text-left pb-4'>
-                            {restaurantItem.address}, {restaurantItem.district}, {restaurantItem.province}, {restaurantItem.postalcode}
+                            {restaurantItem.address}, {restaurantItem.subdistrict}, {restaurantItem.district}, {restaurantItem.province}, {restaurantItem.postalcode}
                         </p>
                     </div>
                     <div className='flex flex-row m-2'>
