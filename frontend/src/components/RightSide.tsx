@@ -70,7 +70,7 @@ export function RightSideBar() {
                     <h2 className="text-base text-zinc-900 font-bold">Category</h2>
                     <hr className="border-zinc-900 grow" />
                 </div>
-                <button className='mt-9'>
+                <button className='mt-5'>
                     {
                         cuisineTypes.map((cuisineType) => (
                             <div
@@ -87,7 +87,7 @@ export function RightSideBar() {
 
                                         circleElement.style.filter = currentFilter === "blur(2px)" ? "blur(0px)" : "blur(2px)";
                                         circleElement.style.transform = currentScale === "scale(1.5)" ? "scale(1)" : "scale(1.5)";
-                                        circleElement.style.backgroundColor = currentBg === "#1B1B1B" ? "white" : "#1B1B1B";
+                                        circleElement.style.backgroundColor = currentBg === "rgb(27, 27, 27)" ? "#FFFFFF" : "rgb(27, 27, 27)";
                                     }
                                 }}
 
@@ -116,7 +116,7 @@ export function RightSideBar() {
                     }
                 </button>
             </div>
-            <hr className="border-zinc-900 w-full mt-4" />
+            <hr className="border-zinc-900 w-full mt-9" />
         </div>
     );
 }
