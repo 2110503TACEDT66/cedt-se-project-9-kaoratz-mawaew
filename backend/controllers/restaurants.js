@@ -105,8 +105,8 @@ exports.getRestaurant = async (req, res, next) => {
 //@route POST /api/v1/restaurant
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
-    const {name, district, province} = req.body;
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+    const {name, address, subdistrict, district, province} = req.body;
+    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
     console.log(mapUrl);
     try {
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
@@ -161,9 +161,9 @@ exports.updateRestaurant = async (req, res, next) => {
                 message: 'You are not the manager of this restaurant'
             });
         }
-        if(req.body.name && req.body.district && req.body.province){
-            const {name, district, province} = req.body;
-            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+        if(req.body.name && req.body.address && req.body.subdistrict && req.body.district && req.body.province){
+            const {name, address, subdistrict, district, province} = req.body;
+            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
             const response = await fetch (mapUrl);
             const data = await response.json();
             if(data.length > 0) {
