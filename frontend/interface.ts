@@ -1,3 +1,5 @@
+
+
 export interface RestaurantItem {
     _id: string,
     name: string,
@@ -42,4 +44,19 @@ export interface RestaurantItem {
     reservation: string;
     amount: number;
     paymentMethods: string;
+  }
+
+  export interface ReviewJson {
+    success: boolean,
+    count: number,
+    data: ReviewItem[]
+  }
+
+  export interface ReviewItem {
+    id: string,
+    rating: number,
+    comment: string,
+    user: string,
+    restaurant: RestaurantItem,
+    createdAt: string,
   }
