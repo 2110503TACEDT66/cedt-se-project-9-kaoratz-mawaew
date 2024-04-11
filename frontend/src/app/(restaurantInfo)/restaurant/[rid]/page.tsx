@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
+// import ReviewCard from '@/components/ReviewCard';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
     const restaurantDetails = await getRestaurant(params.rid);
@@ -65,6 +66,11 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full p-4" />
                 </div>
             </div>
+
+            {/* <div>
+               //  <ReviewCard/>
+            </div> */}
+
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
                     <button className="text-base w-[100%] mb-4 mr-4 inline-block border p-2 text-center

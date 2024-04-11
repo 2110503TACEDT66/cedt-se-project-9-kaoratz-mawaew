@@ -223,25 +223,31 @@ exports.deleteRestaurant = async (req, res, next) => {
 };
 
 //@desc get restaurant that have the tag
-//@route DELETE /api/v1/restaurant/:tag
+//@route DELETE /api/v1/restaurant/filter
 //@access registered
-exports.filterRestaurant = async (...tags) =>{
-    try {
-        const query = { tags: { $all: tags } };
-
-        // Find restaurants matching the query
-        const result = await Restaurant.find(query).toArray();
-
-        res.status(200).json({
-            success: true,
-            data: result
-        })
-    }catch(err){
-        console.log("something goes wrong")
-        res.status(400).json({
-            success: false,
-            data: []
-        })
+exports.filterRestaurant = async (req, res) => {
+    const { tags } = req.query.tag;
+  
+    if (!tags) {
+      return res.status(400).json({ error: 'Tags parameter is required' });
     }
-};
-console.log("hello")
+    try{
+        const tagsArray = tags.split(',');
+  
+        Restaurant.find({ tags: { $in: tagsArray } })
+    .then(restaurants => {
+        // Send the results back to the client
+        res.json(restaurants);
+    })
+    .catch(err => {
+        // Handle error
+        console.error('Error querying database:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    });
+  
+        res.status(400).json(filteredRestaurants);
+    }catch(err){
+        console.log(err)
+    }
+    
+  };
