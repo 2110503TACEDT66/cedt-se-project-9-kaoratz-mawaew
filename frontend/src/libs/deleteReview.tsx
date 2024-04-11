@@ -1,5 +1,5 @@
 export default async function deleteReview(token: string, revid: string) {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/reviews/${revid}`, {
+    const response = await fetch(`http://localhost:200/api/v1/reviews/${revid}`, {
 
         method: "DELETE",
         headers: {

@@ -16,7 +16,7 @@ export function RightSideBar() {
     const handleCuisineClick = (cuisineType: string) => {
         // Toggle selected cuisine
         if (selectedCuisines.includes(cuisineType)) {
-            setSelectedCuisines(selectedCuisines.filter(cuisine => cuisine !== cuisineType));
+            (selectedCuisines.filter(cuisine => cuisine !== cuisineType));
         } else {
             setSelectedCuisines([...selectedCuisines, cuisineType]);
         }
@@ -106,7 +106,6 @@ export function RightSideBar() {
                                     nameElement.style.fontWeight = "normal";
                                     nameElement.style.transform = currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
                                 }}
-
                             >
                                 <span id={`${cuisineType} name`} className="text-zinc-900 duration-300 ease-in-out">{cuisineType}</span>
                                 <hr className="border-zinc-900 grow" />

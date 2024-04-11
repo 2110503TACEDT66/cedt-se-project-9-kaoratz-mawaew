@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
+// import ReviewCard from '@/components/ReviewCard';
 
 import Map from '@/components/Map';
 
@@ -36,12 +37,8 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                     <p className="text-4xl mb-4 inline-block border border-stone-800 py-2 px-4">{restaurantDetails.data.opentime}</p>
                     <p className="text-4xl mb-4 inline-block p-2">-</p>
                     <p className="text-4xl mb-4 inline-block border border-stone-800 py-2 px-4">{restaurantDetails.data.closetime}</p>
-                    <div className="flex flex-row ">
-                        <div>
-                            <p className="text-2xl mb-4	">Date</p>
-                            <p className="text-4xl mb-4 mr-4 inline-block border border-stone-800 py-2 px-4">Mon-Fri</p>
-                        </div>
-                        <div>
+                    <div className="flex flex-row ">                        
+                        <div className=''>
                             <p className="text-2xl mb-4	">Status</p>
                             {
                                 flag ? <p className="text-4xl text-green-600 font-bold mb-4 inline-block border border-stone-800 p-2">OPENED</p> :
@@ -80,6 +77,11 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </div>
 
             </div>
+
+            {/* <div>
+               //  <ReviewCard/>
+            </div> */}
+
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
                     <button className="text-base w-[100%] mb-4 mr-4 inline-block border p-2 text-center
