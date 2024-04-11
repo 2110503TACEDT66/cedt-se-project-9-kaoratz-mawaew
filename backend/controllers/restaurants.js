@@ -20,21 +20,28 @@ exports.getRestaurants = async (req, res, next) => {
 
     if (req.query.tag) {
 
-        const tags = Array.isArray(req.query.tag) ? req.query.tag : [req.query.tag];
-        query = "{ 'tag': { $all:  } }";
-        //query =     
-        console.log("query Tags : " + req.query.tag);
+
+        // const tags = Array.isArray(req.query.tag) ? req.query.tag : [req.query.tag];
+        // query = "{ 'tag': { $all:  } }";
+        // //query =     
+        // console.log("query Tags : " + req.query.tag);
 
 
-        // query -> 
+        // query -> { tag : { $all : ["American" , "Fast Food"]}} 
+        // query = query.find({ tag : { $all : ["American" , "Fast Food"]}});
         
-//         // const tags = req.query.tag.split(",");
-        // console.log(tags)
-        // // query = query.find({ tags: { $in: tags } });
+        const tags = req.query.tag.split(",");
+        console.log(tags)
+       //{ $all: tags}
+    
+        let query1 = {tag: {$all: tags}};
         // query.tag = { $all: tags};
-        // const restaurants = await Restaurant.find(query);
-        // console.log(restaurants)
-        
+        const restaurants_with_tag = await Restaurant.find(query1);
+        return res.status(200).json({
+            success: true,
+            data: restaurants_with_tag
+        });
+    
     }
     // if (req.query.select) {
     //     // { select: 'name,province,postalcode', sort: 'name' }
@@ -45,12 +52,12 @@ exports.getRestaurants = async (req, res, next) => {
 
 
 
-    const fields = req.query.select?.split(',').join(' ') || '';
-    if (fields) {
-      query = collection.find(query).select(fields);
-    } else {
-      query = collection.find(query);
-    }
+    //const fields = req.query.select?.split(',').join(' ') || '';
+    // if (fields) {
+    //   query = collection.find(query).select(fields);
+    // } else {
+    //   query = collection.find(query);
+    // }
 
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');

@@ -13,6 +13,7 @@ import getfilterRestaurant from '@/libs/getfilterRestaurant';
 export function RightSideBar() {
     const [selectedCuisines, setSelectedCuisines] = useState<string[]>([]);
 
+    // fix this & rerender
     const handleCuisineClick = (cuisineType: string) => {
         // Toggle selected cuisine
         if (selectedCuisines.includes(cuisineType)) {
