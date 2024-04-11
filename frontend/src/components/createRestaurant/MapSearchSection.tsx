@@ -20,6 +20,7 @@ interface nominatimItem {
 
 
 export default function MapSearchSection({
+    
     selectedLocation,
     setSelectedLocation
 
@@ -42,7 +43,7 @@ export default function MapSearchSection({
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
-        fetch(`${NOMINATIM}?q=${searchText}&format=json&limit=10`)
+        fetch(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);

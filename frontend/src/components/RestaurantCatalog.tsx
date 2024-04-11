@@ -7,7 +7,7 @@ export default async function RestaurantCatalog({ RestaurantsJson }: { Restauran
     
     return (
         <>
-            <div className="flex flex-row content-center place-content-around flex-wrap">
+            <div className="flex flex-row content-center place-content-around flex-wrap text-black">
                 {
                     RestaurantReady.data ?
                         RestaurantReady.data.map((restaurantItem: RestaurantItem) =>

@@ -10,7 +10,7 @@ export default function Home() {
       <Suspense fallback={
         <p>Loading Restaurant...<LinearProgress /></p>
       }>
-      <p className='text-4xl mb-16 ml-7 text-left font-bold'>Dining Experience</p>
+      <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
         <RestaurantCatalog RestaurantsJson={restaurants} />
       </Suspense>
     </main>
