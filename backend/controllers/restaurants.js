@@ -105,12 +105,12 @@ exports.getRestaurant = async (req, res, next) => {
 //@route POST /api/v1/restaurant
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
-    const {name, district, province} = req.body;
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+    const {name, address, subdistrict, district, province} = req.body;
+    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
     console.log(mapUrl);
     try {
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
-            req.body.manager = req.user._id;
+            req.body.manager = req.user.id;
         }
         const response = await fetch (mapUrl);
         const data = await response.json();
@@ -147,13 +147,10 @@ exports.createRestaurant = async (req, res, next) => {
 //@access registered
 exports.updateRestaurant = async (req, res, next) => {
     try {
-        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+        const restaurant = await Restaurant.findById(req.params.id);
 
         if (!restaurant) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: `No restaurant with the id of ${req.params.id}`
             });
@@ -164,17 +161,27 @@ exports.updateRestaurant = async (req, res, next) => {
                 message: 'You are not the manager of this restaurant'
             });
         }
-        if(req.body.name && req.body.district && req.body.province){
-            const {name, district, province} = req.body;
-            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+        if(req.body.name && req.body.address && req.body.subdistrict && req.body.district && req.body.province){
+            const {name, address, subdistrict, district, province} = req.body;
+            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
             const response = await fetch (mapUrl);
             const data = await response.json();
             if(data.length > 0) {
                 const {lat, lon} = data[0];
                 const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
                 req.body.map = mapLink;
+            }
+            else {
+                res.status(404).json({
+                    success: false,
+                    message: 'Location not found'
+                })
+            }
         }
-    }
+        await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
 
         res.status(200).json({
             success: true,
