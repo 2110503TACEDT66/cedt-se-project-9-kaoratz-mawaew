@@ -52,14 +52,13 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tag: {
-        type: [String],
-        required: true
-    },
     manager: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true
+    },
+    tags: {
+        type:[String],
+        required:true
     }
 }, {
     toJSON: { virtuals: true },

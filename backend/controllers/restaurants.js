@@ -243,4 +243,3 @@ exports.filterRestaurant = async (...tags) =>{
         })
     }
 };
-console.log("hello")

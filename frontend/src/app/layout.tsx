@@ -9,6 +9,9 @@ import NextAuthProvider from '@/providers/NextAuthProvider'
 import ReduxProvider from '@/redux/ReduxProvider'
 import getRestaurants from "@/libs/getRestaurants";
 import getUserProfile from "@/libs/getUserProfile";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+  import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,18 +32,20 @@ export default async function RootLayout({
     console.log("session: no session");
     return (
       <html lang="en">
-      <body className={inter.className}>
-        <TopBar userName={ "whoami (needed login)" } />
 
-        <div className="flex w-[100vw] px-9">
-          <ReduxProvider>
-          <NextAuthProvider session={session}>
-            <LeftSideBar />
-            {children}
-          </NextAuthProvider>
-          </ReduxProvider>
-        </div>
-      </body>
+        <body className={inter.className}>
+
+          <TopBar userName={ "whoami (needed login)" } />
+
+          <div className="flex w-[100vw] px-9">
+            <ReduxProvider>
+            {/* <NextAuthProvider session={session}> */}
+              <LeftSideBar />
+              {children}
+            {/* </NextAuthProvider> */}
+            </ReduxProvider>
+          </div>
+        </body>
     </html>
     )
   }
@@ -50,6 +55,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+
         <TopBar userName={  profile.data.name } />
 
         <div className="flex flex-row w-[100vw] p-9">
@@ -62,5 +68,6 @@ export default async function RootLayout({
         </div>
       </body>
     </html>
+
   );
 }
