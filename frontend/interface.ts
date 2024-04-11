@@ -1,9 +1,11 @@
 
 
 export interface RestaurantItem {
+    tag: [string],
     _id: string,
     name: string,
     address: string,
+    subdistrict: string,
     district: string,
     province: string,
     postalcode: string,
@@ -13,6 +15,7 @@ export interface RestaurantItem {
     closetime: string,
     imageUrl: string,
     map: string,
+    tag: [string],
     __v: number,
     id: string
   }
@@ -56,7 +59,8 @@ export interface RestaurantItem {
     id: string,
     rating: number,
     comment: string,
-    user: string,
+    user: Object,
+    name: string,
     restaurant: RestaurantItem,
     createdAt: string,
   }
