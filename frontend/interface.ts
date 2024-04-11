@@ -1,6 +1,7 @@
 
 
 export interface RestaurantItem {
+    tag: [string],
     _id: string,
     name: string,
     address: string,
@@ -58,7 +59,8 @@ export interface RestaurantItem {
     id: string,
     rating: number,
     comment: string,
-    user: string,
+    user: Object,
+    name: string,
     restaurant: RestaurantItem,
     createdAt: string,
   }

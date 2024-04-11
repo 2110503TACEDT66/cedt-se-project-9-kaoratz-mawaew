@@ -5,7 +5,7 @@ import getRestaurants from '@/libs/getRestaurants';
 import { RestaurantItem } from '../../interface';
 import { useState } from 'react';
 import { config } from 'process';
-import { configureStore } from '@reduxjs/toolkit';
+
 
 export async function LeftSideBar() {
     const session = await getServerSession(authOptions)

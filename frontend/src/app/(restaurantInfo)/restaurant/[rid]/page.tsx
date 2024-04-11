@@ -1,10 +1,16 @@
 import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
+
 import Map from '@/components/Map';
+
+import AllReviewCard from '@/components/AllReviewCard';
+import getReviews from '@/libs/getReviews';
+
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
     const restaurantDetails = await getRestaurant(params.rid);
+    const reviews = getReviews(params.rid);
 
     const currentTime = new Date(); // Get current time
     const openTime = new Date();
@@ -61,7 +67,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                             </div>
                         </div>
                     </div>
-
+                    <AllReviewCard reviewJson={reviews}/>
                 </div>
                 <div className="w-[50%] flex flex-col items-center">
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full p-4 h-[50%]" />
@@ -72,6 +78,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                         </button>
                     </Link>
                 </div>
+
             </div>
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
