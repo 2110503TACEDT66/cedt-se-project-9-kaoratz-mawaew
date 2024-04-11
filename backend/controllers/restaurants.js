@@ -110,7 +110,7 @@ exports.createRestaurant = async (req, res, next) => {
     console.log(mapUrl);
     try {
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
-            req.body.manager = req.user._id;
+            req.body.manager = req.user.id;
         }
         const response = await fetch (mapUrl);
         const data = await response.json();
@@ -147,13 +147,10 @@ exports.createRestaurant = async (req, res, next) => {
 //@access registered
 exports.updateRestaurant = async (req, res, next) => {
     try {
-        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+        const restaurant = await Restaurant.findById(req.params.id);
 
         if (!restaurant) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: `No restaurant with the id of ${req.params.id}`
             });
@@ -173,8 +170,18 @@ exports.updateRestaurant = async (req, res, next) => {
                 const {lat, lon} = data[0];
                 const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
                 req.body.map = mapLink;
+            }
+            else {
+                res.status(404).json({
+                    success: false,
+                    message: 'Location not found'
+                })
+            }
         }
-    }
+        await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
 
         res.status(200).json({
             success: true,
