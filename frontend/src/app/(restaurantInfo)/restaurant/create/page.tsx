@@ -5,7 +5,7 @@ export default function createRestaurantPage(){
 
 
     return (
-        <div className="w-full h-full">
+        <div className="w-[88%] h-full text-black">
             <FormSection/>
         </div>
     );

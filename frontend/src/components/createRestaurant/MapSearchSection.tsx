@@ -55,8 +55,8 @@ export default function MapSearchSection({
 
 
     return (
-        <div className="w-[40%] h-[60vh] flex flex-col">
-            <div className="flex justify-center items-center">
+        <div className="w-[40%] h-[100%] flex flex-col">
+            <div className="flex justify-center items-center font-mono">
                 <TextField
                     id="outlined-basic"
                     label="Search Location"
@@ -65,6 +65,7 @@ export default function MapSearchSection({
                     onChange={(e) => {
                         setSearchText(e.target.value);
                     }}
+                    className="font-mono"
                 />
             </div>
             <div className="flex flex-col gap-3 overflow-y-auto mt-5">
@@ -72,7 +73,7 @@ export default function MapSearchSection({
                     resultData.length > 0 ?
                     resultData.map((item : nominatimItem) => {
                         return (
-                            <div key={item.osm_id} className="flex flex-row items-center gap-2"
+                            <div key={item.osm_id} className="flex flex-row items-center font-mono gap-2"
                             onClick={(e)=>setSelectedLocation(item)}>
                                 <div className="text-lg text-black"> {
                                     item.display_name

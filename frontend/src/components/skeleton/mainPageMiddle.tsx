@@ -1,9 +1,9 @@
 
 export default function MainPageMiddleSkeleton() {
     return (
-    <div className="flex flex-col w-[88%] h-full pl-9 overflow-y-auto">
-        <div className="w-full h-[35vh] bg-gray-300 rounded-md">
-        </div>
+    <div className="flex flex-col w-[88%] h-full pl-9 overflow-y-auto animate-pulse">
+        {/* <div className="w-full h-[35vh] bg-gray-300 rounded-md">
+        </div> */}
         <div className="flex lg:flex-row w-full mt-10 flex-wrap gap-10 justify-between flex-col items-center">
             <div className="flex flex-col items-start justify-between gap-0 pb-4 bg-gray-200 w-[60%] lg:w-1/5 h-[40vh] rounded-md">
                 <div className="w-full h-[70%] bg-gray-300 rounded-t-md flex justify-center items-center">

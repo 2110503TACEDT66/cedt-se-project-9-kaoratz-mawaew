@@ -28,7 +28,7 @@ export default function restaurantsPage() {
     , [tagParams]);
 
   return (
-    <main className="flex w-full mr-0 pr-0">
+    <main className="flex w-[88%] mr-0 pr-0">
       <div className='w-[83%] text-center pr-0 mr-0'>
           <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
         <Suspense fallback={
