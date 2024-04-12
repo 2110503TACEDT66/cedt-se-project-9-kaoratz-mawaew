@@ -1,14 +1,32 @@
 'use client'
+
+import update from "@/app/(reservation)/reservation/[resid]/page";
+import { useState, useEffect } from "react";
 import { UploadButton } from "@/utils/uploadthing";
+import Image from "next/image";
 
 const ImageUpload = () =>{
-    return <div>
+
+
+    const [uploadedImage, setUploadedImage] = useState<string>("/buffet.png"); // url
+
+
+
+    return <div className="w-full h-full">
+
+        <Image
+        src={uploadedImage}
+        alt="uploaded image"
+        objectFit="cover"
+        width={400}
+        height={400}
+        />
+     
         <UploadButton
-        endpoint="imageUploader"
+        endpoint="restaurantUploader"
         onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
+
+          setUploadedImage(res.findLast((r) => r.url)?.url || "");
         }}
         onUploadError={(error: Error) => {
           // Do something with the error.

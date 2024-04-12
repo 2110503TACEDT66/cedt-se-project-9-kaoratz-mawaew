@@ -22,7 +22,6 @@ exports.getRestaurants = async (req, res, next) => {
     if (req.query.tag) {
         const tags = req.query.tag.split(",");
 
-
         // query = query.find({tag: {$all: tags}}); // intersection approach
 
 
