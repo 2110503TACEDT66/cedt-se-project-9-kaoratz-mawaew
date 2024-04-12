@@ -21,7 +21,7 @@ export default function MapSection({
 
 
     return (
-        <div className="w-full h-full flex flex-row gap-4">
+        <div className="w-full h-full flex gap-4 flex-col">
             <MapScreen selectedLocation={selectedLocation}/>
             <MapSearchSection 
                 selectedLocation={selectedLocation}

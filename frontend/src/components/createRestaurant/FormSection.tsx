@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { ActionPostRestaurant } from "./FormSubmitAction";
 import MapSection from "./MapSection";
+import ImageUpload from "../image-upload";
 
 
 export default function FormSection() {
@@ -25,30 +26,84 @@ export default function FormSection() {
 
     }
         
-
+   
+    
     
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-white text-black mt-[400px]">
-            <form action={handleSubmit} className="space-y-4 flex flex-col">
-
-                <TextField name="name" label="Name" variant="outlined" />
-                <TextField name="address" label="Address" variant="outlined" />
-                <TextField name="subdistrict" label="Subdistrict" variant="outlined" />
-                <TextField name="district" label="District" variant="outlined" />
-                <TextField name="province" label="Province" variant="outlined" />
-                <TextField name="postalcode" label="Postal Code" variant="outlined" />
-                <TextField name="region" label="Region" variant="outlined" />
-                <TextField name="tel" label="Telephone" variant="outlined" />
-                <TextField name="opentime" label="Open Time" variant="outlined" />
-                <TextField name="closetime" label="Close Time" variant="outlined" />
-                <TextField name="imageUrl" label="Image URL" variant="outlined" />
+            <div className=" h-screen">
+                <form action={handleSubmit} className="space-y-4 flex flex-col space-x-8">
+                    <div className=" ml-20">
+                        <p className="font-mono text-6xl font-bold ">Create Restaurant</p>
+                    </div>
+                    <div className="">
+                        <div className="space-y-6">
+                        <div className="space-y-4">
+                            <p className="text-3xl font-mono">Restaurant</p>
+                            <TextField className="w-[41.5%] font-mono"name="name" variant="outlined" />
+                        </div>
+                        <div className="space-y-4">
+                            <p className="text-3xl font-mono">Operation hour</p>
+                            <div className="flex items-center space-x-6">
+                                
+                                <TextField className="w-[17%]" variant="outlined" />
+                                <p className="text-3xl font-mono"> - </p>
+                                <TextField className="w-[17%]" variant="outlined" />
+                            </div>
+                        </div>
+                        <div className="space-y-4">
+                            <p className="text-3xl font-mono">Location</p>
+                            <div className="flex space-x-6">
+                                <div className="flex flex-col space-y-2 w-[20%]">
+                                    <p className="text-xl font-mono">Address</p>
+                                    <TextField name="address"  variant="outlined" />
+                                    <p className="text-xl font-mono">Subdistrict</p>
+                                    <TextField name="subdistrict"  variant="outlined" />
+                                    <p className="text-xl font-mono">Region</p>
+                                    <TextField name="region"  variant="outlined" />
+                                </div>
+                                <div className="flex flex-col space-y-2 w-[20%]">
+                                    <p className="text-xl font-mono">District</p>
+                                    <TextField name="district"  variant="outlined" />
+                                    <p className="text-xl font-mono">Province</p>
+                                    <TextField name="province" variant="outlined" />
+                                    <p className="text-xl font-mono">Postalcode</p>
+                                    <TextField name="postalcode"  variant="outlined" />
+                                </div>
+                            </div>
+                            <div className="s">
+                                <p className="text-xl font-mono">Telephone</p>
+                                <TextField name="tel" variant="outlined" className="w-[41.5%]" />
+                            </div>
+                        </div>
+                        </div>
+                        <div >
+                            <div>
+                                <ImageUpload></ImageUpload>
+                            </div>
+                            <div className=" bg-pink h-[500px] w-[300px]">
+                                <MapSection setLocation={setLocation} />
+                            </div>
+                        </div>
+                    </div>
+                    
 
                 
-                <button className="mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200">
-                    Submit
-                </button>
-            </form>
-            <MapSection setLocation={setLocation} />
-        </div>
+                
+                    <div className="flex justify-center space-x-16">
+                        <button className="text-2xl font-mono mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 w-2/6">
+                            Back
+                        </button>
+                        <button className="text-2xl font-mono mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 w-[60%] ">
+                            Publish Now!
+                        </button>
+                    </div>
+                
+                </form>
+                
+                
+            </div>
+            
+            
+        
     );
 }
