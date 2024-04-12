@@ -22,7 +22,9 @@ exports.getRestaurants = async (req, res, next) => {
     if (req.query.tag) {
         const tags = req.query.tag.split(",");
 
+
         // query = query.find({tag: {$all: tags}}); // intersection approach
+
 
         query = query.find({tag: {$in: tags}}); // union approach
 
@@ -36,6 +38,7 @@ exports.getRestaurants = async (req, res, next) => {
         // });
     
     }
+
 
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');
