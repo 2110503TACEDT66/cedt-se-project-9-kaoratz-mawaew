@@ -24,6 +24,11 @@ exports.getReviews = async (req, res, next) => {
             console.log("3");
         }
 
+        //handle dashboard
+        if(req.body.user){
+            query = Review.find({user: req.body.user});
+        }
+
     try {
         const review = await query;
 
@@ -80,6 +85,7 @@ exports.createReview = async (req, res, next) => {
         req.body.restaurant = req.params.restaurantId;
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         req.body.user = req.user.id;
+        req.body.name = req.user.name;
         const existedReservation = await Reservation.find({ user: req.user.id });
 
         if (existedReservation.length < 1 && req.user.role !== 'admin') {
