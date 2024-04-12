@@ -123,6 +123,7 @@ exports.getRestaurant = async (req, res, next) => {
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
     // const {name, address, subdistrict, district, province} = req.body;
+    const { tag } = req.body;
     // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
     // console.log(mapUrl);
     try {
@@ -135,7 +136,8 @@ exports.createRestaurant = async (req, res, next) => {
         //     const {lat, lon} = data[0];
         //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
-
+        const tagArray = tag.split(',');
+        req.body.tag = tagArray;
         //     req.body.map = mapLink;
         const restaurant = await Restaurant.create(req.body);
         
