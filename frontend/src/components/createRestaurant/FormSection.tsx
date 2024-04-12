@@ -30,7 +30,7 @@ export default function FormSection() {
     
     
     return (
-            <div className=" h-screen">
+            <div className=" w-[75%]  h-screen">
                 <form action={handleSubmit} className="space-y-4 flex flex-col space-x-8">
                     <div className=" ml-20">
                         <p className="font-mono text-6xl font-bold ">Create Restaurant</p>
