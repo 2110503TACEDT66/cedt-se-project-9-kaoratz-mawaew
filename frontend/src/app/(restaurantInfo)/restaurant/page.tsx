@@ -16,7 +16,7 @@ export default function restaurantsPage() {
 
   const [tagParams, setTagParams] = useState<string[]>([]);
   // const [params, ]
-  let restaurants = getRestaurants();
+  const restaurants = getRestaurants();
 
   const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);
 

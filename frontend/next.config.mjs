@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['images.unsplash.com'],
+      domains: [
+        'images.unsplash.com',
+        'upload.wikimedia.org',
+        'utfs.io'
+    ],
     },
     env: {
         FRONTEND_URL : process.env.FRONTEND_URL,
