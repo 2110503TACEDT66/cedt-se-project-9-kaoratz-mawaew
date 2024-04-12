@@ -42,6 +42,7 @@ export default function FormSection() {
                 <TextField name="opentime" label="Open Time" variant="outlined" />
                 <TextField name="closetime" label="Close Time" variant="outlined" />
                 <TextField name="imageUrl" label="Image URL" variant="outlined" />
+                <TextField name="tag" label="Tags" variant="outlined" />
 
                 
                 <button className="mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200">
