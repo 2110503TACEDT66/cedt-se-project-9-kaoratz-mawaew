@@ -4,13 +4,17 @@ const RestaurantSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name'],
-        unique: true,
         trim: true,
+        unique: false,
         maxlength: [50, 'Name can not be more than 50 characters']
     },
     address: {
         type: String,
         required: [true, 'Please add an address']
+    },
+    subdistrict: {
+        type: String,
+        required: [true, 'Please add a subdistrict']
     },
     district: {
         type: String,
@@ -65,6 +69,7 @@ const RestaurantSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
+RestaurantSchema.index({name: 1, address: 1, subdistrict: 1, district: 1, province: 1}, {unique: true});
 
 //Cascade delete reservation when a Restaurant is deleted
 RestaurantSchema.pre('deleteOne', { document: true, query: false }, async function (next) {

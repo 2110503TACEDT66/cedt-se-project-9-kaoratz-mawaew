@@ -1,7 +1,10 @@
+
+
 export interface RestaurantItem {
     _id: string,
     name: string,
     address: string,
+    subdistrict: string,
     district: string,
     province: string,
     postalcode: string,
@@ -11,6 +14,7 @@ export interface RestaurantItem {
     closetime: string,
     imageUrl: string,
     map: string,
+    tag: [string],
     __v: number,
     id: string
   }
@@ -42,4 +46,35 @@ export interface RestaurantItem {
     reservation: string;
     amount: number;
     paymentMethods: string;
+  }
+
+  export interface ReviewJson {
+    success: boolean,
+    count: number,
+    data: ReviewItem[]
+  }
+
+  export interface ReviewItem {
+    id: string,
+    rating: number,
+    comment: string,
+    user: Object,
+    name: string,
+    restaurant: RestaurantItem,
+    createdAt: string,
+  }
+  
+  export interface nominatimItem {
+      place_id: string,
+      licence: string,
+      osm_type: string,
+      osm_id: string,
+      boundingbox: string[],
+      lat: string,
+      lon: string,
+      display_name: string,
+      class: string,
+      type: string,
+      importance: number,
+      icon: string
   }

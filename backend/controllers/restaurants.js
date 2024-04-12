@@ -8,22 +8,37 @@ const Reservation = require('../models/Reservation');
 exports.getRestaurants = async (req, res, next) => {
     let query;
     const reqQuery = { ...req.query };
-    const removeFields = ['select', 'sort', 'page', 'limit'];
+    const removeFields = ['select', 'sort', 'page', 'limit', 'tag']; // remove redundancies
 
     removeFields.forEach(param => delete reqQuery[param]);
 
     let queryStr = JSON.stringify(reqQuery);
+    // console.log(queryStr);
 
-    // ex {"fields" : {"gt" : "$A"}}
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Restaurant.find(JSON.parse(queryStr)).populate('reservation');
+    console.log(query);
 
-    if (req.query.select) {
-        // { select: 'name,province,postalcode', sort: 'name' }
-        const fields = req.query.select.split(',').join(' ');
-        // name province postalcode
-        query = query.select(fields);
+    if (req.query.tag) {
+        const tags = req.query.tag.split(",");
+
+
+        // query = query.find({tag: {$all: tags}}); // intersection approach
+
+
+        query = query.find({tag: {$in: tags}}); // union approach
+
+        //the find() chaining with the same attribute seems to be independent to each other. (no references)
+
+        // query.tag = { $all: tags };
+        // const restaurants_with_tag = await Restaurant.find(query);
+        // return res.status(200).json({
+        //     success: true,
+        //     data: restaurants_with_tag
+        // });
+    
     }
+
 
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');
@@ -44,6 +59,7 @@ exports.getRestaurants = async (req, res, next) => {
         query = query.skip(startIndex).limit(limit);
 
         const restaurant = await query;
+        
         const pagination = {};
 
         if (endIndex < total) {
@@ -65,6 +81,7 @@ exports.getRestaurants = async (req, res, next) => {
             count: restaurant.length,
             data: restaurant
         });
+
     } catch (err) {
         res.status(400).json({
             success: false,
@@ -105,32 +122,33 @@ exports.getRestaurant = async (req, res, next) => {
 //@route POST /api/v1/restaurant
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
-    const {name, district, province} = req.body;
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+    // const {name, address, subdistrict, district, province} = req.body;
+    // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
+    // console.log(mapUrl);
     try {
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
-            req.body.manager = req.user._id;
+            req.body.manager = req.user.id;
         }
-        const response = await fetch (mapUrl);
-        const data = await response.json();
-        if(data.length > 0) {
-            const {lat, lon} = data[0];
-            const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+        // const response = await fetch (mapUrl);
+        // const data = await response.json();
+        // if(data.length > 0) {
+        //     const {lat, lon} = data[0];
+        //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
 
-            req.body.map = mapLink;
-            const restaurant = await Restaurant.create(req.body);
-            
-            res.status(201).json({
-                success: true,
-                data: restaurant
-            });
-        }
-        else {
-            res.status(404).json({
-            success: false,
-            message: 'Location not found'});
-        }
+        //     req.body.map = mapLink;
+        const restaurant = await Restaurant.create(req.body);
+        
+        res.status(201).json({
+            success: true,
+            data: restaurant
+        });
+        // }
+        // else {
+        //     res.status(404).json({
+        //     success: false,
+        //     message: 'Location not found'});
+        // }
         
     } catch (err) {
         console.log(err.stack);
@@ -146,34 +164,41 @@ exports.createRestaurant = async (req, res, next) => {
 //@access registered
 exports.updateRestaurant = async (req, res, next) => {
     try {
-        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+        const restaurant = await Restaurant.findById(req.params.id);
 
         if (!restaurant) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: `No restaurant with the id of ${req.params.id}`
             });
         }
-        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+        if (req.user.id != restaurant.manager && req.user.role == 'manager') {
             return res.status(400).json({
                 success: false,
                 message: 'You are not the manager of this restaurant'
             });
         }
-        if(req.body.name && req.body.district && req.body.province){
-            const {name, district, province} = req.body;
-            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${district}` + `,${province}` + ',Thailand'}`;
+        if(req.body.name && req.body.address && req.body.subdistrict && req.body.district && req.body.province){
+            const {name, address, subdistrict, district, province} = req.body;
+            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
             const response = await fetch (mapUrl);
             const data = await response.json();
             if(data.length > 0) {
                 const {lat, lon} = data[0];
                 const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
                 req.body.map = mapLink;
+            }
+            else {
+                res.status(404).json({
+                    success: false,
+                    message: 'Location not found'
+                })
+            }
         }
-    }
+        await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
 
         res.status(200).json({
             success: true,
@@ -200,7 +225,7 @@ exports.deleteRestaurant = async (req, res, next) => {
                 message: `No restaurant with the id of ${req.params.id}`
             });
         }
-        if (req.user._id != restaurant.manager._id && req.user.role == 'manager') {
+        if (req.user.id != restaurant.manager && req.user.role == 'manager') {
             return res.status(400).json({
                 success: false,
                 message: 'You are not the manager of this restaurant'
@@ -222,24 +247,31 @@ exports.deleteRestaurant = async (req, res, next) => {
 };
 
 //@desc get restaurant that have the tag
-//@route DELETE /api/v1/restaurant/:tag
+//@route DELETE /api/v1/restaurant/filter
 //@access registered
-exports.filterRestaurant = async (...tags) =>{
-    try {
-        const query = { tags: { $all: tags } };
-
-        // Find restaurants matching the query
-        const result = await Restaurant.find(query).toArray();
-
-        res.status(200).json({
-            success: true,
-            data: result
-        })
-    }catch(err){
-        console.log("something goes wrong")
-        res.status(400).json({
-            success: false,
-            data: []
-        })
+exports.filterRestaurant = async (req, res) => {
+    const { tags } = req.query.tag;
+  
+    if (!tags) {
+      return res.status(400).json({ error: 'Tags parameter is required' });
     }
-};
+    try{
+        const tagsArray = tags.split(',');
+  
+        Restaurant.find({ tags: { $in: tagsArray } })
+    .then(restaurants => {
+        // Send the results back to the client
+        res.json(restaurants);
+    })
+    .catch(err => {
+        // Handle error
+        console.error('Error querying database:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    });
+  
+        res.status(400).json(filteredRestaurants);
+    }catch(err){
+        console.log(err)
+    }
+    
+  };

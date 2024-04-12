@@ -1,5 +1,5 @@
 const express = require('express');
-const {getRestaurants, getRestaurant, createRestaurant, updateRestaurant, deleteRestaurant} = require('../controllers/restaurants');
+const {getRestaurants, getRestaurant, createRestaurant, updateRestaurant, deleteRestaurant,filterRestaurant} = require('../controllers/restaurants');
 
 //Include other resource routers
 const reservationRouter = require('./reservations');
@@ -14,5 +14,6 @@ router.use('/:restaurantId/reviews',reviewRouter);
 
 router.route('/').get(getRestaurants).post(protect, authorize('admin', 'manager'), createRestaurant);
 router.route('/:id').get(getRestaurant).put(protect, authorize('admin', 'manager'), updateRestaurant).delete(protect, authorize('admin', 'manager'), deleteRestaurant);
+router.route('/filter').get(filterRestaurant);
 
 module.exports = router;

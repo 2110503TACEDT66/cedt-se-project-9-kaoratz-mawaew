@@ -61,8 +61,20 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
                             Address
                         </p>
                         <p className='text-xs text-left pb-4'>
-                            {restaurantItem.address}, {restaurantItem.district}, {restaurantItem.province}, {restaurantItem.postalcode}
+                            {restaurantItem.address}, {restaurantItem.subdistrict}, {restaurantItem.district}, {restaurantItem.province}, {restaurantItem.postalcode}
                         </p>
+                        <div className='text-lg text-black flex flex-row flex-wrap gap-3'>
+                            Tags : 
+                            {restaurantItem.tag?.map((tag, index) => {
+                                return (
+                                    <span key={index} className="">
+                                        {tag}
+                                    </span>
+                                )})
+
+                            }
+                        
+                        </div>
                     </div>
                     <div className='flex flex-row m-2'>
                         <Link data-testid="details" href={`/restaurant/${restaurantItem.id}`}>
@@ -79,7 +91,9 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
                                 Reserve
                             </button>
                         </Link>
+
                     </div>
+
                 </div>
             </div>
         </InteractiveCard>
