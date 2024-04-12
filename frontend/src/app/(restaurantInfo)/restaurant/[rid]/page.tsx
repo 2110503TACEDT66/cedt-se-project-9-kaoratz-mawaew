@@ -35,7 +35,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 <div className="w-[50%]">
                     <h1 className="text-4xl	font-bold mb-16">{restaurantDetails.data.name}</h1>
 
-                    <RestaurantTime restaurantDetails={restaurantDetails}/>
+                    <RestaurantTime restaurantDetails={restaurantDetails.data}/>
                     
                     <div>
                         <p className="text-2xl mb-4	">Address</p>

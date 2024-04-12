@@ -10,7 +10,7 @@ export default function RestaurantTime({restaurantDetails}: {restaurantDetails: 
                         <td className="text-right text-red-800 font-bold">CLOSED</td>
                     </tr>
                 </table>
-                <p className="w-full text-center text-[76px]">{`${restaurantDetails.data.opentime} - ${restaurantDetails.data.closetime}`}</p>
+                <p className="w-full text-center text-[76px]">{`${restaurantDetails.opentime} - ${restaurantDetails.closetime}`}</p>
             </div>
         </div>
     )
