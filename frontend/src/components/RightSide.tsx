@@ -5,19 +5,24 @@ import { authOptions } from '../components/auth';
 import { getServerSession } from 'next-auth';
 import getRestaurants from '@/libs/getRestaurants';
 import { RestaurantItem } from '../../interface';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { config } from 'process';
 import { configureStore } from '@reduxjs/toolkit';
 import getfilterRestaurant from '@/libs/getfilterRestaurant';
 
-export function RightSideBar() {
+export function RightSideBar({
+    setTagParams
+}:{
+    setTagParams: Function
+}) {
+    
     const [selectedCuisines, setSelectedCuisines] = useState<string[]>([]);
 
     // fix this & rerender
     const handleCuisineClick = (cuisineType: string) => {
         // Toggle selected cuisine
         if (selectedCuisines.includes(cuisineType)) {
-            (selectedCuisines.filter(cuisine => cuisine !== cuisineType));
+            setSelectedCuisines(selectedCuisines.filter(cuisine => cuisine !== cuisineType));
         } else {
             setSelectedCuisines([...selectedCuisines, cuisineType]);
         }
@@ -48,21 +53,29 @@ export function RightSideBar() {
         { href: '/api/auth/signout', label: "Logout" }
     ];
 
-    const filter = async (selectedCuisine: string[]) => {
-        try {
-            const result = await getfilterRestaurant(selectedCuisines);
-            if (result) {
-                console.log("Filter: " + result);
-                return;
-            } else {
-                console.log("Filter: No result");
-            }
+    // const filter = async (selectedCuisine: string[]) => {
+    //     console.log ("Filter: " + selectedCuisine);
+    //     try {
+    //         const result = await getfilterRestaurant(selectedCuisines);
+    //         if (result) {
+    //             console.log("Filter: " + result);
+    //             return;
+    //         } else {
+    //             console.log("Filter: No result");
+    //         }
 
-            console.log("Filter: " + result);
-        } catch (err) {
-            console.log(err)
-        }
+    //         console.log("Filter: " + result);
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    useEffect(() => {
+        console.log("Selected Cuisines: " + selectedCuisines);
+
+        setTagParams(selectedCuisines);
     }
+    , [selectedCuisines]);
 
     return (
         <div className="w-[17%] ml-4 border-l-2 pl-5 border-l-gray-900">
@@ -77,9 +90,9 @@ export function RightSideBar() {
                             <div
                                 key={cuisineType}
                                 className={`inline-flex items-center space-x-4 mt-4 w-full`}
-                                onClick={() => {
+                                onClick={(e) => {
                                     handleCuisineClick(cuisineType);
-                                    filter(selectedCuisines);
+                                    // filter(selectedCuisines);
                                     const circleElement = document.getElementById(`${cuisineType} circle`)!;
                                     if (circleElement) {
                                         const currentFilter = circleElement.style.filter;
@@ -96,7 +109,7 @@ export function RightSideBar() {
                                     const nameElement = document.getElementById(`${cuisineType} name`)!;
                                     const currentScale = nameElement.style.transform;
 
-                                    nameElement.style.fontWeight = "bold";
+                                    nameElement.style.fontWeight = "semi-bold";
                                     nameElement.style.transform = currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
                                 }}
 

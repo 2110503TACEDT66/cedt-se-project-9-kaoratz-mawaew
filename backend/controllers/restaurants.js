@@ -8,56 +8,37 @@ const Reservation = require('../models/Reservation');
 exports.getRestaurants = async (req, res, next) => {
     let query;
     const reqQuery = { ...req.query };
-    const removeFields = ['select', 'sort', 'page', 'limit'];
+    const removeFields = ['select', 'sort', 'page', 'limit', 'tag']; // remove redundancies
 
     removeFields.forEach(param => delete reqQuery[param]);
 
     let queryStr = JSON.stringify(reqQuery);
+    // console.log(queryStr);
 
-    // ex {"fields" : {"gt" : "$A"}}
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Restaurant.find(JSON.parse(queryStr)).populate('reservation');
+    console.log(query);
 
     if (req.query.tag) {
-
-
-        // const tags = Array.isArray(req.query.tag) ? req.query.tag : [req.query.tag];
-        // query = "{ 'tag': { $all:  } }";
-        // //query =     
-        // console.log("query Tags : " + req.query.tag);
-
-
-        // query -> { tag : { $all : ["American" , "Fast Food"]}} 
-        // query = query.find({ tag : { $all : ["American" , "Fast Food"]}});
-        
         const tags = req.query.tag.split(",");
-        console.log(tags)
-       //{ $all: tags}
-    
-        let query1 = {tag: {$all: tags}};
-        // query.tag = { $all: tags};
-        const restaurants_with_tag = await Restaurant.find(query1);
-        return res.status(200).json({
-            success: true,
-            data: restaurants_with_tag
-        });
+
+
+        // query = query.find({tag: {$all: tags}}); // intersection approach
+
+
+        query = query.find({tag: {$in: tags}}); // union approach
+
+        //the find() chaining with the same attribute seems to be independent to each other. (no references)
+
+        // query.tag = { $all: tags };
+        // const restaurants_with_tag = await Restaurant.find(query);
+        // return res.status(200).json({
+        //     success: true,
+        //     data: restaurants_with_tag
+        // });
     
     }
-    // if (req.query.select) {
-    //     // { select: 'name,province,postalcode', sort: 'name' }
-    //     const fields = req.query.select.split(',').join(' ');
-    //     // name province postalcode
-    //     query = query.select(fields);
-    // }
 
-
-
-    //const fields = req.query.select?.split(',').join(' ') || '';
-    // if (fields) {
-    //   query = collection.find(query).select(fields);
-    // } else {
-    //   query = collection.find(query);
-    // }
 
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');
@@ -100,6 +81,7 @@ exports.getRestaurants = async (req, res, next) => {
             count: restaurant.length,
             data: restaurant
         });
+
     } catch (err) {
         res.status(400).json({
             success: false,
@@ -140,33 +122,33 @@ exports.getRestaurant = async (req, res, next) => {
 //@route POST /api/v1/restaurant
 //@access registered
 exports.createRestaurant = async (req, res, next) => {
-    const {name, address, subdistrict, district, province} = req.body;
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
-    console.log(mapUrl);
+    // const {name, address, subdistrict, district, province} = req.body;
+    // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
+    // console.log(mapUrl);
     try {
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
             req.body.manager = req.user.id;
         }
-        const response = await fetch (mapUrl);
-        const data = await response.json();
-        if(data.length > 0) {
-            const {lat, lon} = data[0];
-            const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+        // const response = await fetch (mapUrl);
+        // const data = await response.json();
+        // if(data.length > 0) {
+        //     const {lat, lon} = data[0];
+        //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
 
-            req.body.map = mapLink;
-            const restaurant = await Restaurant.create(req.body);
-            
-            res.status(201).json({
-                success: true,
-                data: restaurant
-            });
-        }
-        else {
-            res.status(404).json({
-            success: false,
-            message: 'Location not found'});
-        }
+        //     req.body.map = mapLink;
+        const restaurant = await Restaurant.create(req.body);
+        
+        res.status(201).json({
+            success: true,
+            data: restaurant
+        });
+        // }
+        // else {
+        //     res.status(404).json({
+        //     success: false,
+        //     message: 'Location not found'});
+        // }
         
     } catch (err) {
         console.log(err.stack);
