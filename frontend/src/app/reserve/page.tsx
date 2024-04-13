@@ -56,8 +56,8 @@ export default function booking() {
     return (
         <main className="flex flex-col w-[70%] pl-4">
 
-            <div className='flex flex-row mb-4'>
-                <div className='w-[50%] flex flex-col'>
+            <div className='flex flex-row mb-4 '>
+                <div className='w-[50%] flex flex-col font-mono text-primary'>
 
                     <div>
                         <p className="text-4xl mb-16 font-bold">Reserve Table</p>
@@ -85,7 +85,7 @@ export default function booking() {
                             <MenuItem value="debit">Debit Card</MenuItem>
                             <MenuItem value="banking">Online Banking</MenuItem>
                             <MenuItem value="cash">Cash</MenuItem>
-                         </Select>
+                        </Select>
                         </p>
                     </div>
                 </div>

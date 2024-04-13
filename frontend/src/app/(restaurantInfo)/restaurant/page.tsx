@@ -16,7 +16,7 @@ export default function restaurantsPage() {
 
   const [tagParams, setTagParams] = useState<string[]>([]);
   // const [params, ]
-  const restaurants = getRestaurants();
+  const restaurants: Promise<RestaurantJson> = getRestaurants();
 
   const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);
 
@@ -34,10 +34,20 @@ export default function restaurantsPage() {
         <Suspense fallback={
           <MainPageMiddleSkeleton/> 
         }>
-            <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
-          {/* <RestaurantCatalog RestaurantsJson={filteredRestaurants} /> */}
+          {
+            restaurants?.data?.length > 0 ? (
+              <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
+            ) : (
+              <div className="text-center text-2xl font-bold mt-16">
+                <img src="/notFoundIcon" alt="icon" />
+                <h1>Not Found</h1>
+                <p>The restaurant corresponding to the selected tag was not found.</p>
+              </div>
+            )
+          }
         </Suspense>
       </div>
+      
       <RightSideBar setTagParams={setTagParams} />
     </main>
   );
