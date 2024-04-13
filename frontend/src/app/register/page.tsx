@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { NextPage } from 'next';
 import userRegister from '@/libs/userRegister';
+import { useRouter } from 'next/navigation';
 
 const Register: NextPage = () => {
   const [name, setName] = useState('');
@@ -13,20 +14,25 @@ const Register: NextPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
+  const router = useRouter();
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Your registration logic here
   };
 
-  const handleRegister = async()=>{
+  const handleRegister = async ()=>{
     const response = await userRegister(name,telephone,email,password,'user')
+    
     setName('')
     setTelephone('')
     setEmail('')
     setConfirmEmail('')
     setPassword('')
     setConfirmPassword('')
-    alert('Register Successfully')
+    // alert('Register Successfully')
+    router.push('/login')
+    
   }
 
   return (
