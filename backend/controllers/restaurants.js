@@ -134,6 +134,8 @@ exports.createRestaurant = async (req, res, next) => {
         //     const {lat, lon} = data[0];
         //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
+        const tags = req.body.tag.split(',');
+        req.body.tag = tags;
 
         //     req.body.map = mapLink;
         const restaurant = await Restaurant.create(req.body);

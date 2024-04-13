@@ -6,8 +6,11 @@ import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { Button, CircularProgress } from "@mui/material";
 
-const ImageUpload = () => {
-
+const ImageUpload = ({
+  setImageUrl
+}: {
+  setImageUrl: (url: string) => void
+}) => {
 
   const [uploadedImage, setUploadedImage] = useState<string>(""); // url
 
@@ -15,6 +18,7 @@ const ImageUpload = () => {
 
   useEffect(() => {
     if (uploadedImage) {
+      setImageUrl(uploadedImage);
       setIsLoading(true);
     }
   }, [uploadedImage]);
@@ -50,19 +54,19 @@ const ImageUpload = () => {
                 />
               </div>
             </div>
-              <div className="flex justify-center mt-5">
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={(e) => {
-                    setUploadedImage("");
-                  }}
-                >delete image</Button>
-              </div>
+            <div className="flex justify-center mt-5">
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={(e) => {
+                  setUploadedImage("");
+                }}
+              >delete image</Button>
+            </div>
           </>
 
           :
-          
+
           <UploadDropzone
             className="border-primary border-2 ut-label:text-lg ut-label:text-primary ut-button:bg-primary hover:cursor-pointer ut-button:text-white hover:scale-[101%] 
           transition-all ut-uploading:ut

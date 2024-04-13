@@ -10,9 +10,8 @@ export default async function RestaurantCatalog({ RestaurantsJson }: { Restauran
             <div className="flex flex-row content-center place-content-start gap-4 ml-9 flex-wrap text-black">
                 {
                     RestaurantReady.data ?
-                        RestaurantReady.data.map((restaurantItem: RestaurantItem) =>
-                            <Link href={`/restaurant/${restaurantItem.id}`} 
-                            className="mb-9">
+                        RestaurantReady.data.reverse().map((restaurantItem: RestaurantItem) =>
+                            <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9">
                                 <Card restaurantItem={restaurantItem} />
                             </Link>
                         ) : null

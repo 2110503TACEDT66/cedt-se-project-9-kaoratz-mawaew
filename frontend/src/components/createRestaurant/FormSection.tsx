@@ -22,16 +22,9 @@ export default function FormSection() {
 
 
     const [location, setLocation] = useState(null);
+    const [imageUrl, setImageUrl] = useState<string>("");
 
 
-    const handleSubmit = async (formData: FormData) => {
-
-        const token = session?.user.token;
-
-        if (!location) return alert("Please select location");
-        const response = await ActionPostRestaurant(formData, token, location);
-
-    }
 
     const tags: Array<string> = [
         'Thai',
@@ -61,6 +54,18 @@ export default function FormSection() {
 
     const router = useRouter();
 
+    const handleSubmit = async (formData: FormData) => {
+
+        const token = session?.user.token;
+
+        if (!location) return alert("Please select location");
+
+        const tags = clickedChips.join(',');
+
+        const response = await ActionPostRestaurant(formData, token, location, tags , imageUrl ); // server action
+
+
+    }
 
     return (
         <div className="w-full h-full flex flex-col  space-y-9 pl-9 pb-[5%]"  >
@@ -82,15 +87,15 @@ export default function FormSection() {
                                     <p className="text-2xl font-mono">Operation hour</p>
                                     <div className="flex items-center space-x-6">
 
-                                        <TextField className="w-[55%]" variant="outlined" required />
+                                        <TextField className="w-[55%]" name="opentime" variant="outlined" required />
                                         <p className="text-2xl font-mono"> - </p>
-                                        <TextField className="w-[50%]" variant="outlined" required />
+                                        <TextField className="w-[50%]" name="closetime" variant="outlined" required />
                                     </div>
                                 </div>
                             </div>
                             <div className="w-[45%] flex flex-col gap-[20%]">
                                 
-                                    <ImageUpload />
+                                    <ImageUpload setImageUrl={setImageUrl}/>
                                 
                             </div>
 

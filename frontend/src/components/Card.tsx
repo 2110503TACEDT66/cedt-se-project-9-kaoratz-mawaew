@@ -45,7 +45,7 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
                             {
                                 flag ?
                                     <p className='text-xs text-green-700 font-bold'>
-                                        OPENED
+                                        OPEN
                                     </p>
                                     :
                                     <p className='text-xs text-red-800 font-bold'>
