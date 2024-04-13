@@ -28,26 +28,16 @@ export default function restaurantsPage() {
     , [tagParams]);
 
   return (
-    <main className="flex w-[88%] mr-0 pr-0">
-      <div className='w-[83%] text-center pr-0 mr-0'>
-          <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
+    <main className="flex w-[88%]">
+      <div className='w-[83%] h-full'>
+        <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
         <Suspense fallback={
-          <MainPageMiddleSkeleton/> 
+          <MainPageMiddleSkeleton />
         }>
-          {
-            restaurants?.data?.length > 0 ? (
-              <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
-            ) : (
-              <div className="text-center text-2xl font-bold mt-16">
-                <img src="/notFoundIcon" alt="icon" />
-                <h1>Not Found</h1>
-                <p>The restaurant corresponding to the selected tag was not found.</p>
-              </div>
-            )
-          }
+          <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
         </Suspense>
       </div>
-      
+
       <RightSideBar setTagParams={setTagParams} />
     </main>
   );

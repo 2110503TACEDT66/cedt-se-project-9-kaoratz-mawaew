@@ -42,12 +42,12 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={userName} />
         <div className="flex w-[100%] px-9">
-          <ReduxProvider>
+          {/* <ReduxProvider> */}
             <NextAuthProvider session={session}>
               <LeftSideBar />
               {children}
             </NextAuthProvider>
-          </ReduxProvider>
+          {/* </ReduxProvider> */}
         </div>
       </body>
     </html>
