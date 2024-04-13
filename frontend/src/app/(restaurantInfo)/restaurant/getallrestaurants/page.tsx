@@ -14,8 +14,8 @@ export default async function RestaurantDetailPage({ params }: { params: { rid: 
                     alt="Restaurant Picture"
                     width={0} height={0} sizes="100vw"
                     className="rounded-lg w-[30%] bg-black" />
-                    <div className="text-md mx-5 text-left">{restaurantDetails.data.name}
-                        <div>Address: {restaurantDetails.data.address}</div>
+                    <div className="text-md mx-5 text-left text-black">{restaurantDetails.data.name}
+                        <div className="text-black">Address: {restaurantDetails.data.address}</div>
                         <div>Province: {restaurantDetails.data.province}</div>
                         <div>District {restaurantDetails.data.district}</div>
                         <div>Zipcode: {restaurantDetails.data.postalcode}</div>

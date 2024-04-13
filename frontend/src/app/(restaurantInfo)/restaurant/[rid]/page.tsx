@@ -29,7 +29,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     const mapHref = restaurantDetails.data.map ? restaurantDetails.data.map : '/';
 
     return (
-        <div className="w-[83%] pl-4">
+        <div className="w-[83%] pl-4 font-mono">
             <div className="flex flex-row mb-4">
                 <div className="w-[50%]">
                     <h1 className="text-4xl	font-bold mb-16">{restaurantDetails.data.name}</h1>
@@ -54,7 +54,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                             border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                             bg-stone-100 text-stone-800 transform">
                                 {/* hover:shadow-lg hover:shadow-stone-500/100 hover:-translate-x-1 hover:-translate-y-1 */}
-                            <div className="text-md mx-5 text-left">{restaurantDetails.data.name}
+                            <div className="text-md mx-5 text-left text-primary">{restaurantDetails.data.name}
                                 <div>Address: {restaurantDetails.data.address}</div>
                                 <div>Subdistrict: {restaurantDetails.data.subdistrict}</div>
                                 <div>District {restaurantDetails.data.district}</div>
@@ -70,7 +70,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full p-4 h-[50%]" />
                     <Map restaurant={restaurantDetails.data}/>
                     <Link href={restaurantDetails.data.map} className="text-center text-xs">
-                        <button className='bg-slate-300 rounded shadow-md px-2 py-1 hover:bg-slate-600 hover:text-white'>
+                        <button className='text-center text-base font-mono px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200'>
                             View full map
                         </button>
                     </Link>
