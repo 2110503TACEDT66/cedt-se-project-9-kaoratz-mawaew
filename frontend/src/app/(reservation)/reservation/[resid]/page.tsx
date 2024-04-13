@@ -24,7 +24,6 @@ export default function update({ params }: { params: { resid: string } }) {
     const { data: session } = useSession()
     //console.log(session?.user.token)
 
-    const dispatch = useDispatch<AppDisptach>()
     const now = dayjs().format('ddd D MMM YYYY');
     const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
 

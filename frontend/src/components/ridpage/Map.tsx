@@ -1,4 +1,4 @@
-import { RestaurantItem, RestaurantJson } from "../../interface";
+import { RestaurantItem, RestaurantJson } from "../../../interface";
 import Link from "next/link";
 
 export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
@@ -19,7 +19,7 @@ export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
     }
   
     return (
-        <div className="w-full p-4 h-[50%]">
+        <div className="w-full h-[50%]">
             <iframe src={mapLink} className="w-full h-full">
             </iframe>
         </div>

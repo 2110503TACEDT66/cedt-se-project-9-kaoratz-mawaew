@@ -1,25 +1,14 @@
 'use client'
 import DateReserve from "@/components/DateReserve";
 import { Select, MenuItem } from '@mui/material'
-import getUserProfile from "@/libs/getUserProfile";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../components/auth";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDisptach } from "@/redux/store";
-import { addReservation } from "@/redux/features/resSlice"; 
-import { removeReservation } from "@/redux/features/resSlice";
-import { reserveItem } from "../../../interface";
 import postReservation from "@/libs/postReservation";
-import utcPlugin from 'dayjs/plugin/utc';
 import { useSession } from "next-auth/react";
-import Card from "@/components/Card";
-import Image from "next/image";
 import postPayment from "@/libs/postPayment";
-
+import makeBooking from "./ReserveAction";
 
 export default function booking() {
     const urlParams = useSearchParams()
@@ -28,7 +17,6 @@ export default function booking() {
     const { data: session } = useSession()
     //console.log(session?.user.token
 
-    const dispatch = useDispatch<AppDisptach>()
     const now = dayjs().format('ddd D MMM YYYY');
     const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
 
@@ -49,21 +37,21 @@ export default function booking() {
         return () => clearInterval(intervalId);
     }, []);
 
-
-    const [bookDate, setBookDate] = useState<Date | null>(null)
+    const [bookDate, setBookDate] = useState<Date | null>(dayjs().toDate())
     const [numberValue, setnumberValue] = useState<number>(0)
     const [payM, setPayM] = useState<string>('')
-    const makeBooking = async () => {
-        console.log(rid)
-        console.log(dayjs(bookDate).format("YYYY-MM-DD"))
-        if(!session || !session.user.token) return null
-        console.log(dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss")) //    "resvDate": "2024-12-24T22:50:00.000Z"
-        if (rid && session) {
-            const response = await postReservation(rid, dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss"), session.user.token)
-            const reser = response.data._id
-            const pay = await postPayment(session.user.token,numberValue,payM,reser)
-        }
-    }
+
+    // const makeBooking = async () => {
+    //     // console.log(rid)
+    //     // console.log(dayjs(bookDate).format("YYYY-MM-DD"))
+    //     if(!session || !session.user.token) return null
+    //     // console.log(dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss")) //    "resvDate": "2024-12-24T22:50:00.000Z"
+    //     if (rid && session) {
+    //         const response = await postReservation(rid, dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss"), session.user.token)
+    //         const reser = response.data._id
+    //         const pay = await postPayment(session.user.token,numberValue,payM,reser)
+    //     }
+    // }
 
     return (
         <main className="flex flex-col w-[70%] pl-4">
@@ -110,16 +98,15 @@ export default function booking() {
                         hover:-translate-x-1 hover:-translate-y-1">Back</button>
                 </Link>
 
-                { session? 
-                <Link href="/">
+                { session && rid ? 
                 <button className="text-base w-[80%] mb-4 mr-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-                        hover:-translate-x-1 hover:-translate-y-1" onClick={makeBooking}>Reserve Now!</button>
-                </Link>:
+                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => {makeBooking(rid, bookDate, numberValue, payM)}}>Reserve Now!</button>
+                :
                 <Link href="/login">
                 <button className="text-base w-[80%] mb-4 mr-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-                        hover:-translate-x-1 hover:-translate-y-1" onClick={makeBooking}>Reserve Now!</button>
+                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => {}}>Reserve Now!</button>
                 </Link>
                 }
             </div>
