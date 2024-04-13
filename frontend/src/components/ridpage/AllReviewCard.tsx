@@ -1,6 +1,6 @@
 import getReviews from "@/libs/getReviews";
 import ReviewCard from "./ReviewCard";
-import { ReviewItem, ReviewJson } from "../../interface";
+import { ReviewItem, ReviewJson } from "../../../interface";
 
 export default async function AllReviewCard({reviewJson}:{reviewJson:Promise<ReviewJson>}) {
     const reviews = await reviewJson;

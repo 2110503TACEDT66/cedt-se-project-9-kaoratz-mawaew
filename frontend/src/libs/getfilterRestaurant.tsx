@@ -1,4 +1,7 @@
 export default async function getfilterRestaurant(tags:string[]) {
+
+    await new Promise((resolve)=>setTimeout(resolve,1000))
+
     const allTags = tags.join(',').toString();
     // const queryParams = new URLSearchParams({ tags: tags.join(',') }).toString();
     const url = `${process.env.BACKEND_URL}/api/v1/restaurants?tag=${allTags}`; // ex: allTags = American,Thai,Italian
