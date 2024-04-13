@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import Map from '@/components/Map';
 
+import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import AllReviewCard from '@/components/AllReviewCard';
 import getReviews from '@/libs/getReviews';
 
@@ -33,20 +34,9 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             <div className="flex flex-row mb-4">
                 <div className="w-[50%]">
                     <h1 className="text-4xl	font-bold mb-16">{restaurantDetails.data.name}</h1>
-                    <p className="text-2xl mb-4	">Time</p>
-                    <p className="text-4xl mb-4 inline-block border border-stone-800 py-2 px-4">{restaurantDetails.data.opentime}</p>
-                    <p className="text-4xl mb-4 inline-block p-2">-</p>
-                    <p className="text-4xl mb-4 inline-block border border-stone-800 py-2 px-4">{restaurantDetails.data.closetime}</p>
-                    <div className="flex flex-row ">                        
-                        <div className=''>
-                            <p className="text-2xl mb-4	">Status</p>
-                            {
-                                flag ? <p className="text-4xl text-green-600 font-bold mb-4 inline-block border border-stone-800 p-2">OPENED</p> :
-                                    <p className="text-4xl text-red-800 font-bold mb-4 inline-block border border-stone-800 p-2">CLOSED</p>
-                            }
 
-                        </div>
-                    </div>
+                    <RestaurantTime restaurantDetails={restaurantDetails.data} flag={flag}/>
+                    
                     <div>
                         <p className="text-2xl mb-4	">Address</p>
                         <div
@@ -68,12 +58,16 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </div>
                 <div className="w-[50%] flex flex-col items-center">
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full p-4 h-[50%]" />
-                    <Map restaurant={restaurantDetails.data}/>
-                    <Link href={restaurantDetails.data.map} className="text-center text-xs">
-                        <button className='bg-slate-300 rounded shadow-md px-2 py-1 hover:bg-slate-600 hover:text-white'>
-                            View full map
-                        </button>
-                    </Link>
+
+                    <div className="w-[50%] flex flex-col items-center">
+                        <img src={restaurantDetails.data.imageUrl} alt="" className="w-full p-4 h-[50%]" />
+                        <Map restaurant={restaurantDetails.data}/>
+                        <Link href={restaurantDetails.data.map} className="text-center text-xs">
+                            <button className='bg-slate-300 rounded shadow-md px-2 py-1 hover:bg-slate-600 hover:text-white'>
+                                View full map
+                            </button>
+                        </Link>
+                    </div>
                 </div>
 
             </div>
