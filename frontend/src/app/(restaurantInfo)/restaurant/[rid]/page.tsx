@@ -1,9 +1,6 @@
-import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
-// import ReviewCard from '@/components/ReviewCard';
-
-import Map from '@/components/ridpage/Map';
+import { Rating } from '@mui/material';
 
 import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
@@ -46,7 +43,6 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
                     <Address restaurantDetails={restaurantDetails.data}/>
 
-                    {/*<AllReviewCard reviewJson={reviews}/>*/}
                 </div>
                 
                 <div className="w-[63%] h-[100%] flex flex-col items-center">
@@ -57,7 +53,15 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             
             <Tag restaurantDetails={restaurantDetails.data}/>
 
-            <div className="flex flex-row mt-4">
+            <div className='w-full text-center'>
+                <Rating/>
+                <br/>
+                <input className='w-1/2 h-20 rounded-3xl bg-[#f5f5f5] border-black border-2 pl-4' placeholder='let show your opinion...'/>
+            </div>
+
+            <AllReviewCard reviewJson={reviews}/>
+
+            <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
                     <button className="text-base w-[100%] mb-4 mr-4 inline-block border p-2 text-center
                     border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
