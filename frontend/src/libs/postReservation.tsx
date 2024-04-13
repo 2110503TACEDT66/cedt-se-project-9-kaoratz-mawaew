@@ -11,7 +11,7 @@ export default async function postReservation(rid:string, date:string, token:str
     })
 
     if(!response.ok){
-        throw new Error("Failed to fetch user")
+        throw new Error("Failed to Post Reservation")
     }
     return await response.json()
 }

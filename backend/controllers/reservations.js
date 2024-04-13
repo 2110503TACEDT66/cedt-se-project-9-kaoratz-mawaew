@@ -326,6 +326,7 @@ exports.updateReservation = async (req, res, next) => {
 //@access registered
 exports.deleteReservation = async (req, res, next) => {
     try {
+        console.log(req.params);
         const reservation = await Reservation.findById(req.params.id);
 
         if (reservation.user.toString() !== req.user.id && req.user.role !== 'admin') {
