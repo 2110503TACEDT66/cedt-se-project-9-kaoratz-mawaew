@@ -7,6 +7,7 @@ import Map from '@/components/ridpage/Map';
 
 import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
+import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
 
@@ -40,23 +41,21 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             
             <div className="flex flex-row mb-4">
                 
-                <div className="w-[50%]">
+                <div className="w-[37%]">
                     <RestaurantTime restaurantDetails={restaurantDetails.data} flag={flag}/>
 
                     <Address restaurantDetails={restaurantDetails.data}/>
 
-                    <AllReviewCard reviewJson={reviews}/>
+                    {/*<AllReviewCard reviewJson={reviews}/>*/}
                 </div>
                 
-                <div className="w-[50%] flex flex-col items-center">
+                <div className="w-[63%] h-[100%] flex flex-col items-center">
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[50%]" />
                 </div>
 
             </div>
 
-            {/* <div>
-               //  <ReviewCard/>
-            </div> */}
+            <Tag restaurantDetails={restaurantDetails.data}/>
 
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
