@@ -1,23 +1,9 @@
 'use client'
 import DateReserve from "@/components/DateReserve";
-import { Select, MenuItem } from '@mui/material'
-import getUserProfile from "@/libs/getUserProfile";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../components/auth";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDisptach } from "@/redux/store";
-import { addReservation } from "@/redux/features/resSlice";
-import { removeReservation } from "@/redux/features/resSlice";
-import { reserveItem } from "../../../../../interface";
-import postReservation from "@/libs/postReservation";
-import utcPlugin from 'dayjs/plugin/utc';
 import { useSession } from "next-auth/react";
-import Card from "@/components/Card";
-import Image from "next/image";
 import updateReservation from "@/libs/updateReservation";
 
 export default function update({ params }: { params: { resid: string } }) {

@@ -30,7 +30,7 @@ export async function LeftSideBar() {
                 {
                     session ?
                         postLogin.map(({ href, label }) => (
-                            <li key={href} className="text-4xl pb-9 mt-4 mb-4 hover:bg-gray-100 
+                            <li key={href} className="text-4xl pb-9 mt-4 mb-4 
                             transition duration-200 transform ">
                                 <Link href={href}>
                                     <p className='text-stone-800 cursor-pointer hover:font-bold'> {/* Made text bold on hover here */}
@@ -40,7 +40,7 @@ export async function LeftSideBar() {
                             </li>
                         )) :
                         preLogin.map(({ href, label }) => (
-                            <li key={href} className="text-4xl pb-9 mt-4 mb-4 hover:bg-gray-100 
+                            <li key={href} className="text-4xl pb-9 mt-4 mb-4 
                             transition duration-200 transform ">
                                 <Link href={href}>
                                     <p className='text-stone-800 pb-9 cursor-pointer hover:border-b-2 hover:border-stone-800'> {/* Made text bold on hover here */}

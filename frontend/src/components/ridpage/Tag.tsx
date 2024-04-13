@@ -11,7 +11,7 @@ export default function Tag({restaurantDetails}: {restaurantDetails: RestaurantI
                 {
                     restaurantDetails.tag?.map((tag: string, index: number) => {
                         return (
-                            <div key={index} className="border-2 border-black m-1 p-4">
+                            <div key={index} className="border-2 border-black m-2 p-2 text-base">
                                 {tag}
                             </div>
                         )})       

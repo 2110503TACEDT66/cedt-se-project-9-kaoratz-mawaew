@@ -1,14 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { authOptions } from '../components/auth';
-import { getServerSession } from 'next-auth';
-import getRestaurants from '@/libs/getRestaurants';
-import { RestaurantItem } from '../../interface';
 import { useEffect, useState } from 'react';
-import { config } from 'process';
-import { configureStore } from '@reduxjs/toolkit';
-import getfilterRestaurant from '@/libs/getfilterRestaurant';
 
 export function RightSideBar({
     setTagParams
@@ -78,7 +70,7 @@ export function RightSideBar({
     , [selectedCuisines]);
 
     return (
-        <div className="w-[17%] ml-4 border-l-2 pl-5 border-l-gray-900">
+        <div className="w-[17%] border-l-2 pl-5 border-l-gray-900">
             <div className='w-[100%]'>
                 <div className='inline-flex items-center space-x-4 w-full'>
                     <h2 className="text-base text-zinc-900 font-bold">Category</h2>
