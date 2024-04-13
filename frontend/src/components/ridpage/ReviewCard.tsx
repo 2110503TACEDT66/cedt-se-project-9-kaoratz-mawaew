@@ -1,5 +1,5 @@
 
-import { ReviewJson, ReviewItem } from "../../interface"
+import { ReviewJson, ReviewItem } from "../../../interface"
 
 export default async function ReviewCard({ReviewItem}:{ReviewItem:ReviewItem}) {
     return (
