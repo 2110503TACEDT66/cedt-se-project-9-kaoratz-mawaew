@@ -10,10 +10,10 @@ export default async function RestaurantCatalog({ RestaurantsJson }: { Restauran
 
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-start justify-center">
             {
                 RestaurantReady.count > 0 ?
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 text-black">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-black">
                         {
                             RestaurantReady.data.reverse().map((restaurantItem: RestaurantItem) =>
                                 <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9">
