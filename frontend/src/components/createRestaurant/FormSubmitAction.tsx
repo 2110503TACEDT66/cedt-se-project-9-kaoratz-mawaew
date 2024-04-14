@@ -8,7 +8,9 @@ import { nominatimItem } from "../../../interface";
 export async function ActionPostRestaurant(
     formData: FormData,
     token: string,
-    location: nominatimItem
+    location: nominatimItem,
+    tags : string,
+    imageUrl: string
  ) {
 
     const params = Object.fromEntries(formData);
@@ -19,6 +21,8 @@ export async function ActionPostRestaurant(
     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
     params["map"] = mapLink;
+    params["tag"] = tags;
+    params["imageUrl"] = imageUrl;
     
     console.log(params);
 
@@ -35,5 +39,6 @@ export async function ActionPostRestaurant(
         throw new Error("Failed to post restaurant")
     }
     
-    redirect("/")
+    revalidatePath("/restaurant") 
+    redirect("/restaurant")
 }

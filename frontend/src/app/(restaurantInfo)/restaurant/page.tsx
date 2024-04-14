@@ -16,7 +16,7 @@ export default function restaurantsPage() {
 
   const [tagParams, setTagParams] = useState<string[]>([]);
   // const [params, ]
-  const restaurants = getRestaurants();
+  const restaurants: Promise<RestaurantJson> = getRestaurants();
 
   const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);
 
@@ -28,16 +28,16 @@ export default function restaurantsPage() {
     , [tagParams]);
 
   return (
-    <main className="flex w-full mr-0 pr-0">
-      <div className='w-[83%] text-center pr-0 mr-0'>
-          <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
+    <main className="flex w-[88%]">
+      <div className='w-[83%] h-full'>
+        <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
         <Suspense fallback={
-          <MainPageMiddleSkeleton/> 
+          <MainPageMiddleSkeleton />
         }>
-            <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
-          {/* <RestaurantCatalog RestaurantsJson={filteredRestaurants} /> */}
+          <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
         </Suspense>
       </div>
+
       <RightSideBar setTagParams={setTagParams} />
     </main>
   );

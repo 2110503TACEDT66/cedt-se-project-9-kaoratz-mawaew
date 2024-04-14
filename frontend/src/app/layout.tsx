@@ -9,6 +9,9 @@ import NextAuthProvider from '@/providers/NextAuthProvider'
 import ReduxProvider from '@/redux/ReduxProvider'
 import getRestaurants from "@/libs/getRestaurants";
 import getUserProfile from "@/libs/getUserProfile";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+  import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,14 +42,15 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopBar userName={userName} />
         <div className="flex w-[100%] px-9">
-          <ReduxProvider>
+          {/* <ReduxProvider> */}
             <NextAuthProvider session={session}>
               <LeftSideBar />
               {children}
             </NextAuthProvider>
-          </ReduxProvider>
+          {/* </ReduxProvider> */}
         </div>
       </body>
     </html>
+
   );
 }

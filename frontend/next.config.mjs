@@ -4,12 +4,16 @@ const nextConfig = {
       domains: [
         'images.unsplash.com',
         'upload.wikimedia.org',
-        'utfs.io'
-    ],
+        'utfs.io',
+      
+      ],
     },
     env: {
         FRONTEND_URL : process.env.FRONTEND_URL,
         BACKEND_URL : process.env.BACKEND_URL
+    },
+    experimental: {
+      serverActions: true
     }
     // other configurations...
   };
