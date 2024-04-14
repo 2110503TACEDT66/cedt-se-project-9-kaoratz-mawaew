@@ -32,7 +32,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
         <div className="w-[83%] pl-4 font-mono ">
 
             <div className='flex justify-start'>
-                <h1 className="text-4xl font-bold mb-12">{restaurantDetails.data.name}</h1>
+                <h1 className="text-4xl font-bold mb-12 text-primary">{restaurantDetails.data.name}</h1>
                 <hr className='border-black border-1 w-full m-5'/>
             </div>
             

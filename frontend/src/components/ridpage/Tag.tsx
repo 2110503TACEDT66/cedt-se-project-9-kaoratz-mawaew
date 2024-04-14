@@ -4,7 +4,7 @@ export default function Tag({restaurantDetails}: {restaurantDetails: RestaurantI
     return (
         <>
             <div className='flex justify-start w-[50%] ml-7'>
-                <h1 className="text-4xl mb-1">Tag</h1>
+                <h1 className="text-4xl mb-1 text-primary">Tag</h1>
                 <hr className='border-black border-1 w-full m-5'/>
             </div>
             <div className='flex flex-row ml-6'>
