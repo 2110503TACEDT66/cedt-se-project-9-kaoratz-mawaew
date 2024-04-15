@@ -24,8 +24,7 @@ export default function restaurantsPage() {
 
     setFilteredRestaurants(getfilterRestaurant(tagParams));
 
-  }
-    , [tagParams]);
+  }, [tagParams]);
 
   return (
     <main className="flex w-[88%]">
