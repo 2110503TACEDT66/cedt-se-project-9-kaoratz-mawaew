@@ -5,6 +5,7 @@ import { RestaurantItem } from "../../../interface"
 export default function Address({restaurantDetails}: {restaurantDetails: RestaurantItem}) {
     return (
         <table className="border-2 border-black w-full">
+            <tbody>
             <tr className="border-b-4 border-black">
                 <td><Map restaurant={restaurantDetails}/></td>
             </tr>
@@ -19,6 +20,7 @@ export default function Address({restaurantDetails}: {restaurantDetails: Restaur
                     <p>Tel: {restaurantDetails.tel}</p>
                 </td>
             </tr>
+            </tbody>
         </table>
     )
 } 
