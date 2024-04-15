@@ -79,3 +79,17 @@ export interface RestaurantItem {
       importance: number,
       icon: string
   }
+
+
+  export interface forminput {
+    name:string;
+    opentime:string;
+    closetime:string;
+    address:string;
+    subdistrict:string;
+    region:string;
+    district:string;
+    postalcode:string;
+    province:string;
+    tel:string;
+}
