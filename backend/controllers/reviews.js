@@ -8,6 +8,37 @@ const Review = require('../models/Review');
 // @access  Public
 exports.getReviews = async (req, res, next) => {
     let query;
+    const reqQuery = { ...req.query };
+    const removeFields = ['select', 'sort', 'page', 'limit', 'tag']; // remove redundancies
+
+    removeFields.forEach(param => delete reqQuery[param]);
+
+    let queryStr = JSON.stringify(reqQuery);
+    // console.log(queryStr);
+
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+    query = Review.find(JSON.parse(queryStr));
+    console.log(query);
+
+    if (req.query.rating) {
+        const rating = req.query.tag.split(",");
+
+
+        // query = query.find({tag: {$all: tags}}); // intersection approach
+
+
+        query = query.find({tag: {$in: rating}}); // union approach
+
+        //the find() chaining with the same attribute seems to be independent to each other. (no references)
+
+        // query.tag = { $all: tags };
+        // const restaurants_with_tag = await Restaurant.find(query);
+        // return res.status(200).json({
+        //     success: true,
+        //     data: restaurants_with_tag
+        // });
+    
+    }
         //all see all
         if (req.params.restaurantId) {
             console.log(req.params.restaurantId);
@@ -23,6 +54,7 @@ exports.getReviews = async (req, res, next) => {
             });
             console.log("3");
         }
+
 
         //handle dashboard
         if(req.body.user){

@@ -14,6 +14,7 @@ import { reserveItem } from '../../../interface';
 export default async function Home() {
   
   const session = await getServerSession(authOptions);
+  const currentTime = dayjs();
 
   if (!session || !session.user.token) return null
   const reserved = await getReservations(session.user.token);
@@ -25,8 +26,12 @@ export default async function Home() {
         <p className='text-4xl mb-16 ml-7 text-left font-bold'>Your Reservations</p>
         <div className='flex flex-auto justify-between'>
           {
-            reserved.data.map((item: reserveItem) => (
-              <div key={item.id} className='w-[298px] h-[248px] border border-stone-800 p-2'>
+            reserved.data.map((item: reserveItem) => 
+            { 
+              const reservationTime = dayjs(item.resvDate);
+              const isPastReservation = currentTime.isAfter(reservationTime);
+              (
+              <div key={item._id} className='w-[298px] h-[248px] border border-stone-800 p-2'>
                 <div>
                   <p className='text-4xl text-left mb-4'>{item.restaurant.name}</p>
                   <p className='text-base text-left mb-4'>{dayjs(item.createdAt).format('YYYY-MM-DD')}</p>
@@ -45,10 +50,17 @@ export default async function Home() {
                     </p>
                   </div>
                 </div>
+                <div className='flex flex-row mt-2 justify-between'>
+                {isPastReservation? (
+                   <p className='text-base text-left mb-4 text-red-500'>Reservation time has passed</p>
+                ) : (
+                  <LinkButton item={item}/>
+                )}
+                </div>
 
-                <LinkButton item={item}/>
+
               </div>
-            ))
+            )})
           }
         </div>
       </Suspense>

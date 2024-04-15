@@ -7,6 +7,7 @@ import Address from '@/components/ridpage/Address';
 import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
+import { useSession } from "next-auth/react";
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
