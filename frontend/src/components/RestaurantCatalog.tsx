@@ -13,7 +13,7 @@ export default async function RestaurantCatalog({ RestaurantsJson }: { Restauran
         <div className="flex items-center justify-center">
             {
                 RestaurantReady.count > 0 ?
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 text-black">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-10 text-black">
                         {
                             RestaurantReady.data.reverse().map((restaurantItem: RestaurantItem) =>
                                 <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9">

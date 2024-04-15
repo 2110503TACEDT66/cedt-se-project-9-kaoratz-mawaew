@@ -26,7 +26,7 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
     return (
         <InteractiveCard>
             <div data-testid="card" className='flex flex-col'>
-                <div className="w-[345px] h-[540px] p-3">
+                <div className="w-[375px] h-[540px]  p-3">
                     <div className="p-2 w-full h-[40%] relative">
                         {
                             <Image src={restaurantItem.imageUrl}
