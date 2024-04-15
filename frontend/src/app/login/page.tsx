@@ -30,11 +30,11 @@ const Login: NextPage = () => {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center mt-300">
-      <p className='text-4xl mb-16 ml-7 text-left font-bold'>Login</p>
+      {/* <p className='text-4xl mb-16 ml-7 text-left font-bold'>hello</p> */}
 
-      <form onSubmit={handleFormSubmit} className="w-full max-w-xs">
-        <div className="mb-4">
-          <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+      <form onSubmit={handleFormSubmit} className="w-full max-w-xs space-y-4">
+        <div className="space-y-3">
+          <label htmlFor="email" className="leading-7 text-gray-600 font-mono text-xl">
             Email
           </label>
           <input
@@ -48,8 +48,8 @@ const Login: NextPage = () => {
             required
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="leading-7 text-sm text-gray-600">
+        <div className="space-y-3">
+          <label htmlFor="password" className="leading-7 text-xl text-gray-600 font-mono">
             Password
           </label>
           <input
@@ -67,7 +67,7 @@ const Login: NextPage = () => {
           type="submit"
           className="w-full px-8 py-2 mt-4 inline-block border p-2 text-center border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
           hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-          hover:-translate-x-1 hover:-translate-y-1"
+          hover:-translate-x-1 hover:-translate-y-1 font-mono " style={{ fontSize: "20px" }}
         >
           Sign In
         </button>

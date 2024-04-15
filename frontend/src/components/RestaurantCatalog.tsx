@@ -1,23 +1,30 @@
 import Link from "next/link";
 import Card from "./Card";
 import { RestaurantJson, RestaurantItem } from "../../interface";
+import Image from "next/image";
+import RestaurantNotFound from "./RestaurantNotFound";
 
 export default async function RestaurantCatalog({ RestaurantsJson }: { RestaurantsJson: Promise<RestaurantJson> }) {
-    const RestaurantReady = await RestaurantsJson;
-    
+
+    const RestaurantReady: RestaurantJson = await RestaurantsJson;
+
+
     return (
-        <>
-            <div className="flex flex-row content-center place-content-start gap-4 ml-9 flex-wrap text-black">
-                {
-                    RestaurantReady.data ?
-                        RestaurantReady.data.map((restaurantItem: RestaurantItem) =>
-                            <Link href={`/restaurant/${restaurantItem.id}`} 
-                            className="mb-9">
-                                <Card restaurantItem={restaurantItem} />
-                            </Link>
-                        ) : null
-                }
-            </div>
-        </>
+        <div className="flex items-start justify-center">
+            {
+                RestaurantReady.count > 0 ?
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-black">
+                        {
+                            RestaurantReady.data.reverse().map((restaurantItem: RestaurantItem) =>
+                                <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9">
+                                    <Card restaurantItem={restaurantItem} />
+                                </Link>
+                            )
+                        }
+                    </div>
+                    :
+                    <RestaurantNotFound />
+            }
+        </div>
     );
 }

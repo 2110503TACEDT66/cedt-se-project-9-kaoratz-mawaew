@@ -21,9 +21,10 @@ export interface RestaurantItem {
   
 
   export interface reserveItem {
+    _id: string;
     user: string;
     id: string;
-    restaurant: string
+    restaurant: RestaurantItem
     resvDate: string;
     createdAt: string;
   }

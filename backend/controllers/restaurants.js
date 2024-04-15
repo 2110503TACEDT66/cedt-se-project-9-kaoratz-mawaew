@@ -17,11 +17,10 @@ exports.getRestaurants = async (req, res, next) => {
 
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Restaurant.find(JSON.parse(queryStr)).populate('reservation');
-    console.log(query);
+  
 
     if (req.query.tag) {
         const tags = req.query.tag.split(",");
-
 
         // query = query.find({tag: {$all: tags}}); // intersection approach
 
@@ -136,8 +135,9 @@ exports.createRestaurant = async (req, res, next) => {
         //     const {lat, lon} = data[0];
         //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
-        const tagArray = tag.split(',');
-        req.body.tag = tagArray;
+        const tags = req.body.tag.split(',');
+        req.body.tag = tags;
+
         //     req.body.map = mapLink;
         const restaurant = await Restaurant.create(req.body);
         
@@ -219,6 +219,7 @@ exports.updateRestaurant = async (req, res, next) => {
 //@access registered
 exports.deleteRestaurant = async (req, res, next) => {
     try {
+        
         const restaurant = await Restaurant.findById(req.params.id);
 
         if (!restaurant) {
