@@ -16,8 +16,8 @@ const handleCreate = async (
     const response = await postReview(id, rating, comment, session.user.token);
 
     revalidateTag('reviews');
-    revalidatePath('/myTable');
-    redirect('/myTable')
+    revalidatePath(`/restaurant/${id}`);
+    redirect(`/restaurant/${id}`)
 }
 
 export default handleCreate;
