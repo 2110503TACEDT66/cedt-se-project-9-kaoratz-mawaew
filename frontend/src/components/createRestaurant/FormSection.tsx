@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import postRestaurant from "@/libs/postRestaurant";
 import { getServerSession } from "next-auth";
@@ -13,6 +13,9 @@ import Paper from '@mui/material/Paper';
 import DoneIcon from '@mui/icons-material/Done';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useForm, SubmitHandler } from "react-hook-form"
+import { forminput } from "../../../interface";
+
 
 
 
@@ -23,7 +26,10 @@ export default function FormSection() {
 
     const [location, setLocation] = useState(null);
     const [imageUrl, setImageUrl] = useState<string>("");
-
+    const [restaurant, setRestaurant] = useState<string>("");
+    const [errRes, setErrres] = useState(false);
+    
+    const { register, handleSubmit,formState:{errors} } = useForm<forminput>()
 
 
     const tags: Array<string> = [
@@ -54,26 +60,21 @@ export default function FormSection() {
 
     const router = useRouter();
 
-    const handleSubmit = async (formData: FormData) => {
-
+    const onSubmit:SubmitHandler<forminput> = async (formData) => {
         const token = session?.user.token;
-
         if (!location) return alert("Please select location");
-
         const tags = clickedChips.join(',');
-
-        const response = await ActionPostRestaurant(formData, token, location, tags , imageUrl ); // server action
-
-
+        const response = await ActionPostRestaurant( formData, token, location, tags, imageUrl); // server action 
     }
 
     return (
+        
         <div className="w-full h-full flex flex-col  space-y-9 pl-9 pb-[5%]"  >
             <div className="">
                 <p className="font-mono text-4xl font-bold ">Create Restaurant</p>
             </div>
             <div className="h-full w-[100%] ">
-                <form action={handleSubmit} className="space-y-4 flex flex-col space-x-8 w-full h-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex flex-col space-x-8 w-full h-full">
 
                     <div className="flex flex-col w-[100%] h-[100%] items-start space-y-8">
 
@@ -81,22 +82,37 @@ export default function FormSection() {
                             <div className="flex flex-col w-[50%] space-y-6">
                                 <div className="space-y-4">
                                     <p className="text-2xl font-mono">Restaurant</p>
-                                    <TextField className="w-[100%] font-mono" name="name" variant="outlined" required />
+                                    <TextField
+                                        className="w-[100%] font-mono" 
+                                        variant="outlined" 
+                                        error={errors.name?true:false}
+                                        helperText={ errors.name&& "*This field is required"  }
+                                        {...register("name", { required: true})}
+                                     />
                                 </div>
                                 <div className="space-y-4">
                                     <p className="text-2xl font-mono">Operation hour</p>
                                     <div className="flex items-center space-x-6">
 
-                                        <TextField className="w-[55%]" name="opentime" variant="outlined" required />
+                                        <TextField className="w-[55%]" 
+                                            variant="outlined" 
+                                            error={errors.opentime?true:false}
+                                            helperText={ errors.opentime&& "*This field is required"  } 
+                                            {...register("opentime", { required: true})}/>
                                         <p className="text-2xl font-mono"> - </p>
-                                        <TextField className="w-[50%]" name="closetime" variant="outlined" required />
+                                        <TextField className="w-[50%]" 
+                                            error={errors.closetime?true:false}
+                                            helperText={ errors.closetime&& "*This field is required"  }
+                                            {...register("closetime", { required: true})}
+                                            variant="outlined" 
+                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="w-[45%] flex flex-col gap-[20%]">
-                                
-                                    <ImageUpload setImageUrl={setImageUrl}/>
-                                
+
+                                <ImageUpload setImageUrl={setImageUrl} />
+
                             </div>
 
                         </div>
@@ -108,24 +124,46 @@ export default function FormSection() {
                                     <div className="flex space-x-4 h-full w-full">
                                         <div className="flex flex-col space-y-2 w-[100%]">
                                             <p className="text-xl font-mono">Address</p>
-                                            <TextField name="address" variant="outlined" required />
+                                            <TextField {...register("address" , { required: true})} variant="outlined" 
+                                            error={errors.address?true:false}
+                                            helperText={ errors.address&& "*This field is required"  } />
                                             <p className="text-xl font-mono">Subdistrict</p>
-                                            <TextField name="subdistrict" variant="outlined" required />
+                                            <TextField {...register("subdistrict" , { required: true})} variant="outlined" 
+                                                error={errors.subdistrict?true:false}
+                                                helperText={ errors.subdistrict&& "*This field is required"  } />
                                             <p className="text-xl font-mono">Region</p>
-                                            <TextField name="region" variant="outlined" required />
+                                            <TextField {...register("region", { required: true})} variant="outlined" 
+                                                error={errors.region?true:false}
+                                                helperText={ errors.region && "*This field is required"  } />
                                         </div>
                                         <div className="flex flex-col space-y-2 w-[100%]">
                                             <p className="text-xl font-mono">District</p>
-                                            <TextField name="district" variant="outlined" required />
+                                            <TextField {...register("district", { required: true})} 
+                                                error={errors.district?true:false}
+                                                helperText={ errors.district&& "*This field is required"  }
+                                                variant="outlined"  />
                                             <p className="text-xl font-mono">Province</p>
-                                            <TextField name="province" variant="outlined" required />
+
+                                            <TextField  
+                                                error={errors.province?true:false}
+                                                helperText={ errors.province&& "*This field is required"  }
+                                                {...register("province", { required: true})} />
                                             <p className="text-xl font-mono">Postalcode</p>
-                                            <TextField name="postalcode" variant="outlined" required />
+                                            <TextField  variant="outlined" 
+                                                error={errors.postalcode?true:false}
+                                                helperText={ errors.postalcode&& "*This field is required"  }
+                                                {...register("postalcode", { required: true})}
+                                            />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <p className="text-xl font-mono">Telephone</p>
-                                        <TextField name="tel" variant="outlined" className="w-[100%]" required />
+                                        <TextField 
+                                        {...register("tel" , { required: true})} 
+                                        variant="outlined" 
+                                        className="w-[100%]"
+                                        error={errors.tel?true:false}
+                                        helperText={ errors.tel&& "*This field is required"  }  />
                                     </div>
                                 </div>
                                 <div className="w-[45%] h-[42vh]">
@@ -134,6 +172,8 @@ export default function FormSection() {
                             </div>
                         </div>
 
+                        <br />
+                        <br />
 
                         <div className="flex flex-col w-[50%] space-y-4">
                             <p className="font-mono text-2xl">Tag</p>
@@ -189,6 +229,6 @@ export default function FormSection() {
             </div>
 
         </div>
-
+        
     );
 }
