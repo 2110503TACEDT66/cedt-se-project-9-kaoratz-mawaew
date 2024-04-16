@@ -16,6 +16,7 @@ const restaurant = require('./routes/restaurants');
 const auth = require('./routes/auth');
 const reservation  = require('./routes/reservations');
 const payments = require('./routes/payments');
+const reviews = require('./routes/reviews');
 
 const limiter = ratelimit({
     windowMs: 10*60*1000, //10 mins
@@ -41,6 +42,7 @@ app.use('/api/v1/restaurants', restaurant);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/reservations', reservation );
 app.use('/api/v1/payments',payments);
+app.use('/api/v1/reviews',reviews);
 
 // Discord bot API
 // const botClient = require('./bot/index');

@@ -120,6 +120,7 @@ exports.createReview = async (req, res, next) => {
         req.body.name = req.user.name;
         const existedReservation = await Reservation.find({ user: req.user.id });
 
+
         if (existedReservation.length < 1 && req.user.role !== 'admin') {
             return res.status(400).json({
                 success: false,
