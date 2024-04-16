@@ -7,6 +7,7 @@ import Address from '@/components/ridpage/Address';
 import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
+import ReviewSection from './ReviewSection';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -53,28 +54,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             
             <Tag restaurantDetails={restaurantDetails.data}/>
 
-            <div className='w-full text-center flex flex-col items-center justify-center'>
-                <img src='/starBlack.svg'/>
-                <img src='/starWhite.svg'/>
-                <Box sx={{
-                    
-                    borderRadius: '8px', 
-                }}>
-                    <Rating className='' size="large" defaultValue={0} style={{ color: 'black'}} 
-                        sx={{
-                        '& .MuiRating-iconHover': {
-                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                        },
-                        }}/>
-                </Box>
-                
-                <br/>
-                <div className='relative border-black border-2 w-1/2 rounded-3xl bg-[#f5f5f5] '>
-                    <input className='focus:outline-none w-[90%] h-20  bg-[#f5f5f5]  pl-4 pt-2 resize-none' placeholder='let show your opinion...'></input>
-                    <button className='absolute right-3 bottom-3' ><img src="/sentButton.svg" alt="" /></button>
-                </div>
-                
-            </div>
+            <ReviewSection rid={restaurantDetails.data.id}/>
 
             <AllReviewCard reviewJson={reviews}/>
 
