@@ -21,7 +21,21 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
     const currentTime = dayjs();
 
     // Compare current time with openTime and closeTime
-    const flag = currentTime >= openTime && currentTime <= closeTime;
+    let flag
+    if(openTime < closeTime){
+        if(currentTime >= openTime && currentTime <= closeTime){
+            flag = true;
+        }else{
+            flag = false;
+        }
+    }else{
+        if(currentTime > closeTime && currentTime < openTime){
+            flag = false;
+        }
+        else{
+            flag = true;
+        }
+    }
 
     return (
         <InteractiveCard>

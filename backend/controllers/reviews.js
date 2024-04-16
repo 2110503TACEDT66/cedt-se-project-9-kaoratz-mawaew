@@ -118,7 +118,7 @@ exports.createReview = async (req, res, next) => {
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         req.body.user = req.user.id;
         req.body.name = req.user.name;
-        const existedReservation = await Reservation.find({ user: req.user.id });
+        const existedReservation = await Reservation.find({ user: req.user.id, restaurant: restaurant });
 
 
         if (existedReservation.length < 1 && req.user.role !== 'admin') {

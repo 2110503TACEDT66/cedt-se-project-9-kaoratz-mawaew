@@ -55,7 +55,7 @@ export default async function Home() {
                 <div className='flex flex-row mt-2 justify-between'>
                 
                 {isPastReservation? (
-                <Link href={`/reservation/${item._id}`}>
+                <Link href={`/restaurant/${item.restaurant._id}`}>
                   <button className='w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                   hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                   hover:-translate-x-1 hover:-translate-y-1'>Leave a Review</button>
