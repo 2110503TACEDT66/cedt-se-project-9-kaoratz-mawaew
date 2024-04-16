@@ -45,12 +45,18 @@ exports.getReviews = async (req, res, next) => {
             query = Review.find({ restaurant: req.params.restaurantId }).populate({
                 path: 'restaurant',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name'
             });
             console.log("2");
         } else {
             query = Review.find().populate({
                 path: 'restaurant',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name'
             });
             console.log("3");
         }
@@ -87,12 +93,18 @@ exports.getReview = async (req, res, next) => {
         const review = await Review.findById(req.params.id).populate({
             path: 'restaurant',
             select: 'name province tel'
+        }).populate({
+            path: 'user',
+            select: 'name'
         });
 
         if (!review) {
             return res.status(404).json({
                 success: false,
                 msg: `No review with the id of ${req.params.id}`
+            }).populate({
+                path: 'user',
+                select: 'name'
             });
         }
 
