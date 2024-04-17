@@ -6,7 +6,11 @@ const ReviewSchema = new mongoose.Schema({
         required: true
     },
     comment: {
-        type: String
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
     },
     user: {
         type: mongoose.Schema.ObjectId,

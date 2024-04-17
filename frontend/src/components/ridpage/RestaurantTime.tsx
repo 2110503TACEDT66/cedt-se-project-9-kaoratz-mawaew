@@ -5,6 +5,7 @@ export default function RestaurantTime({restaurantDetails, flag}: {restaurantDet
         <div className="mb-5 shadow-[0_4px_4px_rgba(0,0,0,0.3)]">
             <div className="border-2 border-black px-6 py-2 bg-[#b1b3aa] shadow-[-4px_-4px_rgba(0,0,0,0.3)]">
                 <table className="w-full text-base mb-2">
+                    <tbody>
                     <tr>
                         <td>Mon-Fri</td>
                         <td className="text-right">
@@ -15,6 +16,7 @@ export default function RestaurantTime({restaurantDetails, flag}: {restaurantDet
                             }
                         </td>
                     </tr>
+                    </tbody>
                 </table>
                 <p className="w-full text-center text-4xl">{`${restaurantDetails.opentime} - ${restaurantDetails.closetime}`}</p>
             </div>
