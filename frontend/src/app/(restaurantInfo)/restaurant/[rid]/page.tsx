@@ -5,10 +5,9 @@ import { Box , Rating } from '@mui/material';
 import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
 import Tag from '@/components/ridpage/Tag';
-import AddReviewBox from '@/components/ridpage/AddReviewBox';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
-import { useSession } from "next-auth/react";
+import ReviewSection from './ReviewSection';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -55,7 +54,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             
             <Tag restaurantDetails={restaurantDetails.data}/>
 
-            <AddReviewBox rid={params.rid}/>
+            <ReviewSection rid={restaurantDetails.data.id}/>
 
             <AllReviewCard reviewJson={reviews}/>
 

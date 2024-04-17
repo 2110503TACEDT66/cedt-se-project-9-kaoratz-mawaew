@@ -1,5 +1,14 @@
 
 
+export interface UserItem{
+    _id: string,
+    name: string,
+    tel: string,
+    email: string,
+    role: string,
+    
+}
+
 export interface RestaurantItem {
     _id: string,
     name: string,
@@ -59,7 +68,7 @@ export interface RestaurantItem {
     id: string,
     rating: number,
     comment: string,
-    user: Object,
+    user: UserItem,
     name: string,
     restaurant: RestaurantItem,
     createdAt: string,

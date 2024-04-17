@@ -1,4 +1,4 @@
-export default async function postReview(rid:string, rating:Number, comment:string,token:string){
+export default async function postReview(rid:string, rating:number, comment:string,token:string){
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants/${rid}/reviews`, {
         method: "POST",
         headers: {
