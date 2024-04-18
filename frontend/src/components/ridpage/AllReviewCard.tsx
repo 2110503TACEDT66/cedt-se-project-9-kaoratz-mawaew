@@ -8,7 +8,7 @@ export default async function AllReviewCard({reviewJson}:{reviewJson:Promise<Rev
 
     console.log(reviews.data)
     return (
-        <div className="ml-4 mb-24 flex flex-row overflow-x-scroll" id="all-review-card">
+        <div className="mt-7 ml-4 mb-24 flex flex-row overflow-x-scroll" id="all-review-card">
             { 
                 
                 reviews.data?

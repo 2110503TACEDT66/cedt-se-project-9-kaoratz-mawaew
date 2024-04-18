@@ -48,7 +48,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </div>
                 
                 <div className="w-[63%] h-[100%] flex flex-col items-center">
-                    <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[50%]" />
+                    <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[468px]" />
                 </div>
 
             </div>

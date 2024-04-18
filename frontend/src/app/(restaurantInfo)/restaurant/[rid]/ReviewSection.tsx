@@ -15,12 +15,12 @@ export default function ReviewSection({rid} : {rid: string}){
                     
                     borderRadius: '8px', 
                 }}>
-                    <Rating className='' size="large" onChange={(e, newValue) => {setRating(newValue)}} value={rating} defaultValue={0} style={{ color: 'black'}} 
-                        sx={{
+                    <Rating className='' size="large" onChange={(e, newValue) => {setRating(newValue)}} value={rating} defaultValue={0} style={{color: 'black'}}
+                        /*sx={{
                         '& .MuiRating-iconHover': {
                             // boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         },
-                        }}/>
+                        }}*//>
                 </Box>
                 
                 <br/>
