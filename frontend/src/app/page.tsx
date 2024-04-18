@@ -1,6 +1,6 @@
 // pages/index.tsx
 
-import MainPageMiddle from '@/components/mainpage/herosection';
+import MainPageMiddle from '@/components/mainPage/herosection';
 
 export default function Home() {
   return (

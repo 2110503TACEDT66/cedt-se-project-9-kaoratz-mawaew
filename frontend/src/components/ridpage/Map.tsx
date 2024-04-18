@@ -18,7 +18,7 @@ export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
     }
   
     return (
-        <div className="w-full h-[50%]">
+        <div className="w-full h-[100%]">
             <iframe src={mapLink} className="w-full h-full">
             </iframe>
         </div>

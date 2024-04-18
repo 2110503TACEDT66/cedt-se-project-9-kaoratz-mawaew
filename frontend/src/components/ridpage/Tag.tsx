@@ -2,12 +2,12 @@ import { RestaurantItem } from "../../../interface"
 
 export default function Tag({restaurantDetails}: {restaurantDetails: RestaurantItem}) {
     return (
-        <>
-            <div className='flex justify-start w-[50%] ml-7'>
-                <h1 className="text-4xl mb-1 text-primary">Tag</h1>
-                <hr className='border-black border-1 w-full m-5'/>
+        <div className="flex flex-col gap-5">
+            <div className='flex flex-row justify-center items-center gap-5'>
+                <h1 className="text-4xl font-bold text-primary text-nowrap">Tag</h1>
+                <hr className='border-black border-1 flex-grow ' />
             </div>
-            <div className='flex flex-row ml-6'>
+            <div className='flex flex-row'>
                 {
                     restaurantDetails.tag?.map((tag: string, index: number) => {
                         return (
@@ -17,6 +17,6 @@ export default function Tag({restaurantDetails}: {restaurantDetails: RestaurantI
                         )})       
                 }
             </div>
-        </>
+        </div>
     )
 }

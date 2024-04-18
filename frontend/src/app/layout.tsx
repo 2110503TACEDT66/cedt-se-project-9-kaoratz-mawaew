@@ -7,6 +7,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../components/auth'
 import NextAuthProvider from '@/providers/NextAuthProvider'
 import getUserProfile from "@/libs/getUserProfile";
+import { profile } from "console";
+import { UserItem } from "../../interface";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,18 +26,25 @@ export default async function RootLayout({
 
   const isSessionValid = session && session.user.token;
   let userName = "whoami";
+  let role = "";
 
+  
   if(!isSessionValid) {
-    userName = "whoami (needed login)";
+    userName = "guest";
+    role = "";
   } else {
     const profile = await getUserProfile(session.user.token);
     userName = profile.data.name;
+    if(profile.data.role === "manager" || profile.data.role === "admin"){
+      role = `(${profile.data.role})`;
+    }
   }
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopBar userName={userName} />
+
+        <TopBar userName={userName} role={role}/>
         <div className="flex w-[100%] px-9">
           <NextAuthProvider session={session}>
             <LeftSideBar />
