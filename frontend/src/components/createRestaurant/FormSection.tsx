@@ -1,17 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextField } from "@mui/material";
-import postRestaurant from "@/libs/postRestaurant";
-import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { ActionPostRestaurant } from "./FormSubmitAction";
 import MapSection from "./MapSection";
 import ImageUpload from "../image-upload";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 import DoneIcon from '@mui/icons-material/Done';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from "react-hook-form"
 import { forminput } from "../../../interface";
@@ -26,8 +22,6 @@ export default function FormSection() {
 
     const [location, setLocation] = useState(null);
     const [imageUrl, setImageUrl] = useState<string>("");
-    const [restaurant, setRestaurant] = useState<string>("");
-    const [errRes, setErrres] = useState(false);
     
     const { register, handleSubmit,formState:{errors} } = useForm<forminput>()
 

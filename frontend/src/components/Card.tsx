@@ -1,10 +1,8 @@
 'use client'
 
-import styles from '@/components/card.module.css'
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
 import * as React from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { RestaurantItem } from '../../interface'
@@ -21,7 +19,21 @@ export default function Card({ restaurantItem }: { restaurantItem: RestaurantIte
     const currentTime = dayjs();
 
     // Compare current time with openTime and closeTime
-    const flag = currentTime >= openTime && currentTime <= closeTime;
+    let flag
+    if(openTime < closeTime){
+        if(currentTime >= openTime && currentTime <= closeTime){
+            flag = true;
+        }else{
+            flag = false;
+        }
+    }else{
+        if(currentTime > closeTime && currentTime < openTime){
+            flag = false;
+        }
+        else{
+            flag = true;
+        }
+    }
 
     return (
         <InteractiveCard>

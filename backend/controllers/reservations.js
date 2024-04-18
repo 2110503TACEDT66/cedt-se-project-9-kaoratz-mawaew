@@ -52,9 +52,9 @@ exports.getReservations = async (req, res, next) => {
     }
 }
 
-//@desc get one reservation
-//@route GET /api/v1/reservations/:id
-//@access registered
+// @desc get one reservation
+// @route GET /api/v1/reservations/:id
+// @access registered
 exports.getReservation = async (req, res, next) => {
     try {
         const reservation = await Reservation.findById(req.params.id).populate({
@@ -82,9 +82,9 @@ exports.getReservation = async (req, res, next) => {
     }
 }
 
-//@desc Post single reservation
-//@route POST /api/v1/restaurants/:id
-//@access registered
+// @desc Post single reservation
+// @route POST /api/v1/restaurants/:id
+// @access registered
 exports.createReservation = async (req, res, next) => {
     try {
         req.body.restaurant = req.params.restaurantId;
@@ -126,7 +126,7 @@ exports.createReservation = async (req, res, next) => {
         console.log(reservationHour + " " + reservationMin);
         // -----------------TEST-----------------
         if(openHour > closeHour){
-            //openHour = 0;
+            
             if((reservationHour > closeHour || (reservationHour == closeHour && reservationMin > closeMin)) && (reservationHour < openHour || (reservationHour == openHour && reservationMin < openMin))){
                 return res.status(400).json({
                     success: false,
@@ -165,9 +165,9 @@ exports.createReservation = async (req, res, next) => {
     }
 }
 
-//@desc update one reservation
-//@route
-//@access
+// @desc update one reservation
+// @route
+// @access
 exports.updateReservation = async (req, res, next) => {
     try {
         let reservation = await Reservation.findById(req.params.id);
@@ -321,9 +321,9 @@ exports.updateReservation = async (req, res, next) => {
     }
 }
 
-//@desc Delete one reservation
-//@route DELETE /api/v1/reservations/:id
-//@access registered
+// @desc Delete one reservation
+// @route DELETE /api/v1/reservations/:id
+// @access registered
 exports.deleteReservation = async (req, res, next) => {
     try {
         console.log(req.params);

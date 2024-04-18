@@ -13,7 +13,6 @@ exports.getRestaurants = async (req, res, next) => {
     removeFields.forEach(param => delete reqQuery[param]);
 
     let queryStr = JSON.stringify(reqQuery);
-    // console.log(queryStr);
 
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Restaurant.find(JSON.parse(queryStr)).populate('reservation');
@@ -22,19 +21,7 @@ exports.getRestaurants = async (req, res, next) => {
     if (req.query.tag) {
         const tags = req.query.tag.split(",");
 
-        // query = query.find({tag: {$all: tags}}); // intersection approach
-
-
         query = query.find({tag: {$in: tags}}); // union approach
-
-        //the find() chaining with the same attribute seems to be independent to each other. (no references)
-
-        // query.tag = { $all: tags };
-        // const restaurants_with_tag = await Restaurant.find(query);
-        // return res.status(200).json({
-        //     success: true,
-        //     data: restaurants_with_tag
-        // });
     
     }
 
@@ -91,7 +78,7 @@ exports.getRestaurants = async (req, res, next) => {
     }
 };
 
-//@desc Get single restaurant
+// @desc Get single restaurant
 // @route   GET /api/v1/restaurant/:id
 // @access  Private
 exports.getRestaurant = async (req, res, next) => {
@@ -117,40 +104,26 @@ exports.getRestaurant = async (req, res, next) => {
     }
 };
 
-//@desc Post single restaurant
-//@route POST /api/v1/restaurant
-//@access registered
+// @desc Post single restaurant
+// @route POST /api/v1/restaurant
+// @access registered
 exports.createRestaurant = async (req, res, next) => {
-    // const {name, address, subdistrict, district, province} = req.body;
-    const { tag } = req.body;
-    // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${name + `,${address}` + `,${subdistrict}` + `,${district}` + `,${province}` + ',Thailand'}`;
-    // console.log(mapUrl);
+    
     try {
+
         if (!req.body.manager && (req.user.role == 'manager' || req.user.role == 'admin')) {
             req.body.manager = req.user.id;
         }
-        // const response = await fetch (mapUrl);
-        // const data = await response.json();
-        // if(data.length > 0) {
-        //     const {lat, lon} = data[0];
-        //     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
 
         const tags = req.body.tag.split(',');
         req.body.tag = tags;
 
-        //     req.body.map = mapLink;
         const restaurant = await Restaurant.create(req.body);
         
         res.status(201).json({
             success: true,
             data: restaurant
         });
-        // }
-        // else {
-        //     res.status(404).json({
-        //     success: false,
-        //     message: 'Location not found'});
-        // }
         
     } catch (err) {
         console.log(err.stack);
@@ -161,9 +134,9 @@ exports.createRestaurant = async (req, res, next) => {
     };
 };
 
-//@desc Update single restaurant
-//@route PUT /api/v1/restaurant/:id
-//@access registered
+// @desc Update single restaurant
+// @route PUT /api/v1/restaurant/:id
+// @access registered
 exports.updateRestaurant = async (req, res, next) => {
     try {
         const restaurant = await Restaurant.findById(req.params.id);
@@ -214,9 +187,9 @@ exports.updateRestaurant = async (req, res, next) => {
     }
 };
 
-//@desc Delete single restaurant
-//@route DELETE /api/v1/restaurant/:id
-//@access registered
+// @desc Delete single restaurant
+// @route DELETE /api/v1/restaurant/:id
+// @access registered
 exports.deleteRestaurant = async (req, res, next) => {
     try {
         
@@ -249,9 +222,9 @@ exports.deleteRestaurant = async (req, res, next) => {
     }
 };
 
-//@desc get restaurant that have the tag
-//@route DELETE /api/v1/restaurant/filter
-//@access registered
+// @desc get restaurant that have the tag
+// @route DELETE /api/v1/restaurant/filter
+// @access registered
 exports.filterRestaurant = async (req, res) => {
     const { tags } = req.query.tag;
   

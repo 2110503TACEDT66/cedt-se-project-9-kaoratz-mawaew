@@ -1,4 +1,3 @@
-
 export default function MainPageMiddleSkeleton() {
         const skeletonItems = [1, 2, 3, 4];
 

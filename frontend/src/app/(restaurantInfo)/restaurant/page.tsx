@@ -4,18 +4,14 @@ import getRestaurants from '@/libs/getRestaurants';
 import RestaurantCatalog from '@/components/RestaurantCatalog';
 import { RightSideBar } from '@/components/RightSide';
 import { Suspense, useState, useEffect } from 'react';
-import { LinearProgress } from '@mui/material';
 import getfilterRestaurant from '@/libs/getfilterRestaurant';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { RestaurantJson } from '../../../../interface';
 import MainPageMiddleSkeleton from '@/components/skeleton/mainPageMiddle';
 
 export default function restaurantsPage() {
-  // console.log('get all restaurants');
 
   const [tagParams, setTagParams] = useState<string[]>([]);
-  // const [params, ]
+
   const restaurants: Promise<RestaurantJson> = getRestaurants();
 
   const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);

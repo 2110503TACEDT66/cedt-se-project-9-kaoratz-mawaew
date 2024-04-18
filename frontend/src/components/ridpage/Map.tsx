@@ -1,5 +1,4 @@
-import { RestaurantItem, RestaurantJson } from "../../../interface";
-import Link from "next/link";
+import { RestaurantItem } from "../../../interface";
 
 export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
 

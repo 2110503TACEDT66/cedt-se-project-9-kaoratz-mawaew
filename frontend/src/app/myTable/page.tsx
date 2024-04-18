@@ -2,11 +2,9 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../components/auth';
 import getReservations from '@/libs/getReservations';
-import { MouseEventHandler, Suspense } from 'react';
+import { Suspense } from 'react';
 import { LinearProgress } from '@mui/material';
 import dayjs from 'dayjs';
-import deleteReservation from '@/libs/deleteReservation';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import LinkButton from './LinkButton';
 import { reserveItem } from '../../../interface';
@@ -54,15 +52,20 @@ export default async function Home() {
                 </div>
                 <div className='flex flex-row mt-2 justify-between'>
                 
-                {isPastReservation? (
-                <Link href={`/reservation/${item._id}`}>
+                {isPastReservation? 
+
+                  (item.user == session.user._id?
+                (
+                <Link href={`/restaurant/${item.restaurant._id}`}>
                   <button className='w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                   hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                   hover:-translate-x-1 hover:-translate-y-1'>Leave a Review</button>
                 </Link>
-                ) : (
+                ) : null 
+               ) :
+                (
                   <LinkButton item={item}/>
-                )} 
+                )}
                 </div>
 
 

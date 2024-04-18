@@ -1,5 +1,3 @@
-
-
 export interface UserItem{
     _id: string,
     name: string,

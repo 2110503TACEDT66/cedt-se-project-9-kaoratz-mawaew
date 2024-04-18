@@ -45,23 +45,6 @@ export function RightSideBar({
         { href: '/api/auth/signout', label: "Logout" }
     ];
 
-    // const filter = async (selectedCuisine: string[]) => {
-    //     console.log ("Filter: " + selectedCuisine);
-    //     try {
-    //         const result = await getfilterRestaurant(selectedCuisines);
-    //         if (result) {
-    //             console.log("Filter: " + result);
-    //             return;
-    //         } else {
-    //             console.log("Filter: No result");
-    //         }
-
-    //         console.log("Filter: " + result);
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     useEffect(() => {
         console.log("Selected Cuisines: " + selectedCuisines);
 
@@ -84,7 +67,7 @@ export function RightSideBar({
                                 className={`inline-flex items-center space-x-4 mt-4 w-full`}
                                 onClick={(e) => {
                                     handleCuisineClick(cuisineType);
-                                    // filter(selectedCuisines);
+                                    
                                     const circleElement = document.getElementById(`${cuisineType} circle`)!;
                                     if (circleElement) {
                                         const currentFilter = circleElement.style.filter;

@@ -1,6 +1,5 @@
 'use client'; 
 
-import { createContext } from 'react';
 import { motion } from 'framer-motion';
 
 const marqueeVariants = {

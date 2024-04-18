@@ -1,6 +1,5 @@
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
-import { Box , Rating } from '@mui/material';
 
 import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
@@ -8,6 +7,7 @@ import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
+import { Suspense } from 'react';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -27,27 +27,25 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;
 
-    const mapHref = restaurantDetails.data.map ? restaurantDetails.data.map : '/';
-
     return (
-        <div className="w-[83%] pl-4 font-mono ">
+        <div className="w-[83%] h-full pl-9 font-mono ">
 
             <div className='flex justify-start'>
-                <h1 className="text-4xl font-bold mb-12 text-primary">{restaurantDetails.data.name}</h1>
+                <h1 className="text-4xl font-bold mb-12 text-primary text-nowrap">{restaurantDetails.data.name}</h1>
                 <hr className='border-black border-1 w-full m-5'/>
             </div>
             
-            <div className="flex flex-row mb-4 text-primary">
+            <div className="flex flex-row mb-4 text-primary h-[70vh] w-full">
                 
-                <div className="w-[37%]">
+                <div className="w-[37%] h-full">
                     <RestaurantTime restaurantDetails={restaurantDetails.data} flag={flag}/>
 
                     <Address restaurantDetails={restaurantDetails.data}/>
 
                 </div>
                 
-                <div className="w-[63%] h-[100%] flex flex-col items-center">
-                    <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[50%]" />
+                <div className="w-[63%] h-[100%] items-center">
+                    <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[468px]" />
                 </div>
 
             </div>
@@ -55,8 +53,11 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             <Tag restaurantDetails={restaurantDetails.data}/>
 
             <ReviewSection rid={restaurantDetails.data.id}/>
-
-            <AllReviewCard reviewJson={reviews}/>
+            <Suspense fallback={<>
+            Loading...
+            </>}>
+                <AllReviewCard reviewJson={reviews}/>
+            </Suspense>
 
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>

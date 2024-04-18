@@ -1,6 +1,6 @@
 'use client';
 
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface nominatimItem {
@@ -20,8 +20,7 @@ interface nominatimItem {
 
 
 export default function MapSearchSection({
-    
-    selectedLocation,
+
     setSelectedLocation
 
 }:{
@@ -74,7 +73,7 @@ export default function MapSearchSection({
                     resultData.map((item : nominatimItem) => {
                         return (
                             <div key={item.osm_id} className="flex flex-row items-center font-mono gap-2"
-                            onClick={(e)=>setSelectedLocation(item)}>
+                            onClick={(_)=>setSelectedLocation(item)}>
                                 <div className="text-lg text-black"> {
                                     item.display_name
                                 }</div>
