@@ -56,7 +56,7 @@ export default function FormSection() {
 
     const onSubmit:SubmitHandler<forminput> = async (formData) => {
         const token = session?.user.token;
-        if (!location) return alert("Please select location");
+        //if (!location) return alert("Please select location");
         const tags = clickedChips.join(',');
         const response = await ActionPostRestaurant( formData, token, location, tags, imageUrl); // server action 
     }
