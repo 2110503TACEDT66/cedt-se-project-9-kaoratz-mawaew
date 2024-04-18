@@ -1,9 +1,6 @@
 // pages/index.tsx
 
-import ImageUpload from '@/components/image-upload';
-import MainPageMiddle from '@/components/mainPage/herosection';
-import Image from 'next/image';
-import Link from 'next/link';
+import MainPageMiddle from '@/components/mainpage/herosection';
 
 export default function Home() {
   return (

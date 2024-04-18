@@ -3,11 +3,9 @@ import DateReserve from "@/components/DateReserve";
 import { Select, MenuItem } from '@mui/material'
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import postReservation from "@/libs/postReservation";
 import { useSession } from "next-auth/react";
-import postPayment from "@/libs/postPayment";
 import makeBooking from "./ReserveAction";
 
 export default function booking() {
@@ -15,15 +13,10 @@ export default function booking() {
     const rid = urlParams.get('id')
     const rName = urlParams.get('name')
     const { data: session } = useSession()
-    //console.log(session?.user.token
-
-    const now = dayjs().format('ddd D MMM YYYY');
-    const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             const newTime = dayjs().format('HH:mm');
-            setCurrentTime(newTime);
 
             // Check if the minutes have changed
             const currentMinutes = dayjs().minute();
@@ -40,18 +33,6 @@ export default function booking() {
     const [bookDate, setBookDate] = useState<Date | null>(dayjs().toDate())
     const [numberValue, setnumberValue] = useState<number>(0)
     const [payM, setPayM] = useState<string>('')
-
-    // const makeBooking = async () => {
-    //     // console.log(rid)
-    //     // console.log(dayjs(bookDate).format("YYYY-MM-DD"))
-    //     if(!session || !session.user.token) return null
-    //     // console.log(dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss")) //    "resvDate": "2024-12-24T22:50:00.000Z"
-    //     if (rid && session) {
-    //         const response = await postReservation(rid, dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss"), session.user.token)
-    //         const reser = response.data._id
-    //         const pay = await postPayment(session.user.token,numberValue,payM,reser)
-    //     }
-    // }
 
     return (
         <main className="flex flex-col w-[70%] pl-4">

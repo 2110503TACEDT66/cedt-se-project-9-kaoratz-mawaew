@@ -1,4 +1,3 @@
-
 import Marquee from './marquee';
 
 interface NavBarProps {

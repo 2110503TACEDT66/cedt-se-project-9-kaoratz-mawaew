@@ -1,11 +1,9 @@
 'use server';
 
-import { LatLngTuple } from "leaflet";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { nominatimItem } from "../../../interface";
 import { forminput } from "../../../interface";
-import { Entries } from "type-fest"
 
 export async function ActionPostRestaurant(
     formData: forminput,
@@ -15,19 +13,10 @@ export async function ActionPostRestaurant(
     imageUrl: string
  ) {
 
-   
-    // const params =  Object.entries(formData) as Entries<typeof formData>;
-
     const lat = location.lat;
     const lon = location.lon;
     
     const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
-
-    // params["map"] = mapLink;
-    // params["tag"] = tags;
-    // params["imageUrl"] = imageUrl;
-    
-    // console.log(params);
 
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants`, {
         method: 'POST',

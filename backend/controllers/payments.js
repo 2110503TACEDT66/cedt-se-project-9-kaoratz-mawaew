@@ -59,9 +59,9 @@ exports.getPayment = async (req, res, next) => {
 }
 
 
-//@desc Create payment for a reservation
-//@route POST /api/v1/payments
-//@access registered
+// @desc Create payment for a reservation
+// @route POST /api/v1/payments
+// @access registered
 exports.createPayment = async (req, res, next) => {
     try {
         const { reservationId, amount, paymentMethod } = req.body;
@@ -103,9 +103,9 @@ exports.createPayment = async (req, res, next) => {
     }
 }
 
-//@desc Update one payment
-//@route PUT /api/v1/payments/:id
-//@access registered
+// @desc Update one payment
+// @route PUT /api/v1/payments/:id
+// @access registered
 exports.updatePayment = async (req, res, next) => {
     try {
         let payment = await Payment.findById(req.params.id);
@@ -138,9 +138,9 @@ exports.updatePayment = async (req, res, next) => {
 
 }
 
-//@desc Delete one payment
-//@route DELETE /api/v1/payments/:id
-//@access registered
+// @desc Delete one payment
+// @route DELETE /api/v1/payments/:id
+// @access registered
 exports.deletePayment = async (req, res, next) => {
     try {
         const payment = await Payment.findById(req.params.id);

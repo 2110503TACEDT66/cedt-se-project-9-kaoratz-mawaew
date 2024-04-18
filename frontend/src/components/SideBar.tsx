@@ -1,10 +1,6 @@
 import Link from 'next/link';
 import { authOptions } from '../components/auth';
 import { getServerSession } from 'next-auth';
-import getRestaurants from '@/libs/getRestaurants';
-import { RestaurantItem } from '../../interface';
-import { useState } from 'react';
-import { config } from 'process';
 
 
 export async function LeftSideBar() {

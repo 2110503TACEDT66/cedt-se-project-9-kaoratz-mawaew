@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function payment() {
     return (
         <div className="w-[70%] pl-4 pr-4">
