@@ -17,7 +17,7 @@ const handleCreate = async (
 
     revalidateTag('reviews');
     revalidatePath(`/restaurant/${id}`);
-    redirect(`/restaurant/${id}`)
+    redirect(`/restaurant/${id}`);
 }
 
 export default handleCreate;
