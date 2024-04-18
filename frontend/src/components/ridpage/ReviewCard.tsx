@@ -1,5 +1,5 @@
 import { Rating } from "@mui/material"
-import { ReviewJson, ReviewItem } from "../../../interface"
+import { ReviewItem } from "../../../interface"
 
 export default async function ReviewCard({ReviewItem}:{ReviewItem:ReviewItem}) {
     return (

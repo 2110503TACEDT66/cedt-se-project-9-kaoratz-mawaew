@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Card from "./Card";
 import { RestaurantJson, RestaurantItem } from "../../interface";
-import Image from "next/image";
 import RestaurantNotFound from "./RestaurantNotFound";
 
 export default async function RestaurantCatalog({ RestaurantsJson }: { RestaurantsJson: Promise<RestaurantJson> }) {

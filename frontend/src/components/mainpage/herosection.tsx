@@ -7,14 +7,7 @@ export default function MainPageMiddle() {
         "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
         "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/streetFood.jpg')]",
         "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/image_1.png')]",
-        // "w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
     ];
-
-    const changeImage = () => {
-        const nextIndex = (selectedImage + 1) % imageClassNames.length;
-        setSelectedImage(nextIndex);
-    };
-    // const selectedImage = "/buffetHero.jpg";
 
     const formatNumber = (number: number) => {
         return number < 10 ? `0${number}` : number;

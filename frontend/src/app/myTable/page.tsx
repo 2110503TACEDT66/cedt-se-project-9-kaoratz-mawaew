@@ -2,11 +2,9 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../components/auth';
 import getReservations from '@/libs/getReservations';
-import { MouseEventHandler, Suspense } from 'react';
+import { Suspense } from 'react';
 import { LinearProgress } from '@mui/material';
 import dayjs from 'dayjs';
-import deleteReservation from '@/libs/deleteReservation';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import LinkButton from './LinkButton';
 import { reserveItem } from '../../../interface';

@@ -1,6 +1,5 @@
 import getRestaurant from '@/libs/getRestaurant';
 import Link from 'next/link';
-import { Box , Rating } from '@mui/material';
 
 import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';

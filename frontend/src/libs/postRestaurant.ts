@@ -1,4 +1,3 @@
-
 export default async function postRestaurant(
     formData: FormData,
     token: string

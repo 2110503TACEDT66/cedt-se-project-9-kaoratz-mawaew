@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import { MouseEventHandler} from 'react';
 import { reserveItem } from "../../../interface";
 import handleDelete from "./MyTableAction";
 

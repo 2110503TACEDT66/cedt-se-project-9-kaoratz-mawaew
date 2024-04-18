@@ -1,10 +1,8 @@
 'use client'
 
-import styles from '@/components/card.module.css'
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
 import * as React from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { RestaurantItem } from '../../interface'

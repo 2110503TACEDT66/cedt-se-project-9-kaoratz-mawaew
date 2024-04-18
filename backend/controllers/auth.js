@@ -11,8 +11,7 @@ exports.register = async (req, res, next) => {
             password,
             role
         });
-        //const token= user.getSignedJwtToken();
-        //res.status(200).json({success:true, token});
+        
         sendTokenResponse(user, 200, res);
     } catch (err) {
         res.status(400).json({
@@ -49,12 +48,6 @@ exports.login = async (req, res, next) => {
             });
         }
 
-        //const token = user.getSignedJwtToken();
-
-        /*res.status(200).json({
-            success: true,
-            token
-        });*/
         sendTokenResponse(user, 200, res);
     } catch (err) {
         return res.status(401).json({

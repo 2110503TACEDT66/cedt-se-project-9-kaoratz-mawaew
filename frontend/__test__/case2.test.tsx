@@ -16,7 +16,9 @@ const mockRestaurantItem: RestaurantItem = {
     "map": "https://www.openstreetmap.org/?mlat=13.7197536&mlon=100.5153455#map=18",
     "__v": 0,
     "imageUrl": "https://images.unsplash.com/photo-1603361513137-219be38712ed?q=80&amp;",
-    "id": "65e5e9095fdd0600a91e9f7e"
+    "id": "65e5e9095fdd0600a91e9f7e",
+    "subdistrict": "",
+    "tag": [""],
 };
 
 

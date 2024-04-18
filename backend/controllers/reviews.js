@@ -23,20 +23,7 @@ exports.getReviews = async (req, res, next) => {
     if (req.query.rating) {
         const rating = req.query.tag.split(",");
 
-
-        // query = query.find({tag: {$all: tags}}); // intersection approach
-
-
         query = query.find({tag: {$in: rating}}); // union approach
-
-        //the find() chaining with the same attribute seems to be independent to each other. (no references)
-
-        // query.tag = { $all: tags };
-        // const restaurants_with_tag = await Restaurant.find(query);
-        // return res.status(200).json({
-        //     success: true,
-        //     data: restaurants_with_tag
-        // });
     
     }
         //all see all
@@ -85,9 +72,9 @@ exports.getReviews = async (req, res, next) => {
     }
 }
 
-//@desc get one reservation
-//@route GET /api/v1/reservations/:id
-//@access registered
+// @desc get one reservation
+// @route GET /api/v1/reservations/:id
+// @access registered
 exports.getReview = async (req, res, next) => {
     try {
         const review = await Review.findById(req.params.id).populate({
@@ -121,9 +108,9 @@ exports.getReview = async (req, res, next) => {
     }
 }
 
-//@desc Post single reservation
-//@route POST /api/v1/restaurants/:id
-//@access registered
+// @desc Post single reservation
+// @route POST /api/v1/restaurants/:id
+// @access registered
 exports.createReview = async (req, res, next) => {
     try {
         req.body.restaurant = req.params.restaurantId;
@@ -172,9 +159,9 @@ exports.createReview = async (req, res, next) => {
     }
 }
 
-//@desc update one reservation
-//@route
-//@access
+// @desc update one reservation
+// @route
+// @access
 exports.updateReview = async (req, res, next) => {
     try {
         let review = await Review.findById(req.params.id);
@@ -211,9 +198,9 @@ exports.updateReview = async (req, res, next) => {
     }
 }
 
-//@desc Delete one reservation
-//@route DELETE /api/v1/reservations/:id
-//@access registered
+// @desc Delete one reservation
+// @route DELETE /api/v1/reservations/:id
+// @access registered
 exports.deleteReview = async (req, res, next) => {
     try {
         const review = await Review.findById(req.params.id);

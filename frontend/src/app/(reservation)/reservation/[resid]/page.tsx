@@ -1,22 +1,17 @@
 'use client'
 import DateReserve from "@/components/DateReserve";
 import Link from "next/link";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import updateReservation from "@/libs/updateReservation";
 
 export default function update({ params }: { params: { resid: string } }) {
     const { data: session } = useSession()
-    //console.log(session?.user.token)
-
-    const now = dayjs().format('ddd D MMM YYYY');
-    const [currentTime, setCurrentTime] = useState(dayjs().format('HH:mm'));
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             const newTime = dayjs().format('HH:mm');
-            setCurrentTime(newTime);
 
             // Check if the minutes have changed
             const currentMinutes = dayjs().minute();
@@ -32,9 +27,6 @@ export default function update({ params }: { params: { resid: string } }) {
 
 
     const [bookDate, setBookDate] = useState<Date | null>(null)
-    const [fName, setfName] = useState<string>('')
-    const [lname, setlName] = useState<string>('')
-    const [cid, setCid] = useState<string>('')
     const makeBooking = async () => {
         console.log(dayjs(bookDate).format("YYYY-MM-DD"))
         if(!session || !session.user.token) return

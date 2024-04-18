@@ -1,4 +1,3 @@
-
 export default function MainHeroSkeleton() {
     return (
     <div className="flex flex-col w-[88%] h-full pl-9 gap-9">

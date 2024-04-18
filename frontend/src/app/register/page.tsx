@@ -2,7 +2,6 @@
 "use client";
 import { useState } from 'react';
 import type { NextPage } from 'next';
-import userRegister from '@/libs/userRegister';
 import { useRouter } from 'next/navigation';
 
 const Register: NextPage = () => {
@@ -22,7 +21,6 @@ const Register: NextPage = () => {
   };
 
   const handleRegister = async ()=>{
-    const response = await userRegister(name,telephone,email,password,'user')
     
     setName('')
     setTelephone('')
@@ -30,7 +28,7 @@ const Register: NextPage = () => {
     setConfirmEmail('')
     setPassword('')
     setConfirmPassword('')
-    // alert('Register Successfully')
+
     router.push('/login')
     
   }

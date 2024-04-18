@@ -1,4 +1,3 @@
-import getReviews from "@/libs/getReviews";
 import ReviewCard from "./ReviewCard";
 import { ReviewItem, ReviewJson } from "../../../interface";
 
