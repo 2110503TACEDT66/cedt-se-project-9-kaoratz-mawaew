@@ -1,10 +1,10 @@
 import { RestaurantItem } from "../../../interface";
 
-export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
+export default function Map({restaurant} : {restaurant: RestaurantItem}) {
 
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${restaurant.name + `,${restaurant.address}` + `,${restaurant.subdistrict}` + `,${restaurant.district}` + `,${restaurant.province}` + ',Thailand'}`;
-    const response = await fetch(mapUrl);
-    const data = await response.json();  
+    // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${restaurant.name + `,${restaurant.address}` + `,${restaurant.subdistrict}` + `,${restaurant.district}` + `,${restaurant.province}` + ',Thailand'}`;
+    // const response = await fetch(mapUrl);
+    // const data = await response.json();  
     let mapLink = '';
     if(restaurant.map){
         const map =  restaurant.map; 

@@ -7,7 +7,7 @@ export default function HeroDash() {
             <div className="text-3xl">
                 Dashboard (sprint 2)
             </div>
-            <Link href="/restaurant/create" className="w-[20%] flex flex-row items-center justify-center">
+            <Link href="/restaurant/create" className="w-[20%] flex flex-row items-center justify-center" prefetch>
                 <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
                     Create Restaurant
                 </div>
