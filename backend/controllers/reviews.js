@@ -18,7 +18,7 @@ exports.getReviews = async (req, res, next) => {
 
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Review.find(JSON.parse(queryStr));
-    console.log(query);
+    //console.log(query);
 
     if (req.query.rating) {
         const rating = req.query.tag.split(",");
@@ -28,7 +28,7 @@ exports.getReviews = async (req, res, next) => {
     }
         //all see all
         if (req.params.restaurantId) {
-            console.log(req.params.restaurantId);
+            //console.log(req.params.restaurantId);
             query = Review.find({ restaurant: req.params.restaurantId }).populate({
                 path: 'restaurant',
                 select: 'name province tel'
@@ -36,7 +36,7 @@ exports.getReviews = async (req, res, next) => {
                 path: 'user',
                 select: 'name'
             });
-            console.log("2");
+            //console.log("2");
         } else {
             query = Review.find().populate({
                 path: 'restaurant',
@@ -45,7 +45,7 @@ exports.getReviews = async (req, res, next) => {
                 path: 'user',
                 select: 'name'
             });
-            console.log("3");
+            //console.log("3");
         }
 
 

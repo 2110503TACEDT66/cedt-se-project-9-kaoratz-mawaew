@@ -12,15 +12,15 @@ export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
         const lon = map.split('/')[map.split('/').length-1];
         console.log(lat, lon);
         mapLink = `https://www.openstreetmap.org/export/embed.html?bbox=${lon}%2C${lat}%2C${lon}%2C${lat}&layer=mapnik&marker=${lat}%2C${lon}`;
-    } else{
-        const {lat, lon} = data[0];
-        mapLink = `https://www.openstreetmap.org/export/embed.html?bbox=${lon}%2C${lat}%2C${lon}%2C${lat}&layer=mapnik&marker=${lat}%2C${lon}`;
     }
   
     return (
         <div className="w-full h-[50%]">
-            <iframe src={mapLink} className="w-full h-full">
-            </iframe>
+            {
+                restaurant.map? <iframe src={mapLink} className="w-full h-full">
+            </iframe> : <h1 className="text-lg text-center text-rose-600 font-bold">Map Not Found</h1>
+            }
+            
         </div>
     )
 }

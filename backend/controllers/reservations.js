@@ -14,22 +14,22 @@ exports.getReservations = async (req, res, next) => {
             path: 'restaurant',
             select: 'name province tel'
         });
-        console.log("1");
+        //console.log("1");
     } else {
         //admin see all
         if (req.params.restaurantId) {
-            console.log(req.params.restaurantId);
+            //console.log(req.params.restaurantId);
             query = Reservation.find({ hospital: req.params.restaurantId }).populate({
                 path: 'restaurant',
                 select: 'name province tel'
             });
-            console.log("2");
+            //console.log("2");
         } else {
             query = Reservation.find().populate({
                 path: 'restaurant',
                 select: 'name province tel'
             });
-            console.log("3");
+            //console.log("3");
         }
     }
 
@@ -326,7 +326,7 @@ exports.updateReservation = async (req, res, next) => {
 // @access registered
 exports.deleteReservation = async (req, res, next) => {
     try {
-        console.log(req.params);
+        //console.log(req.params);
         const reservation = await Reservation.findById(req.params.id);
 
         if (reservation.user.toString() !== req.user.id && req.user.role !== 'admin') {
