@@ -8,15 +8,20 @@ import { forminput } from "../../../interface";
 export async function ActionPostRestaurant(
     formData: forminput,
     token: string,
-    location: nominatimItem,
+    location: nominatimItem | null,
     tags : string,
     imageUrl: string
  ) {
 
-    const lat = location.lat;
-    const lon = location.lon;
+    let mapLink = null;
+
+    if (location) {
+        const lat = location?.lat;
+        const lon = location?.lon;
+        mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`
+    }
     
-    const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+    
 
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants`, {
         method: 'POST',

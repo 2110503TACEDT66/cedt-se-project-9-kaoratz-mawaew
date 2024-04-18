@@ -56,7 +56,7 @@ export default function FormSection() {
 
     const onSubmit:SubmitHandler<forminput> = async (formData) => {
         const token = session?.user.token;
-        if (!location) return alert("Please select location");
+        //if (!location) return alert("Please select location");
         const tags = clickedChips.join(',');
         const response = await ActionPostRestaurant( formData, token, location, tags, imageUrl); // server action 
     }
@@ -68,11 +68,11 @@ export default function FormSection() {
                 <p className="font-mono text-4xl font-bold ">Create Restaurant</p>
             </div>
             <div className="h-full w-[100%] ">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex flex-col space-x-8 w-full h-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex flex-col space-x-8 w-full h-[80%]">
 
-                    <div className="flex flex-col w-[100%] h-[100%] items-start space-y-8">
+                    <div className="flex flex-col w-[100%] h-[100%] items-start space-y-4">
 
-                        <div className="flex flex-row gap-[5%] w-[100%]">
+                        <div className="flex flex-row gap-[5%] w-[100%] ">
                             <div className="flex flex-col w-[50%] space-y-6">
                                 <div className="space-y-4">
                                     <p className="text-2xl font-mono">Restaurant</p>
@@ -111,12 +111,12 @@ export default function FormSection() {
 
                         </div>
                         {/* under section */}
-                        <div className="space-y-4 w-full h-full" >
+                        <div className="space-y-6 w-full  " >
                             <p className="text-2xl font-mono">Location</p>
-                            <div className="flex flex-row w-full h-[42vh] gap-[5%]">
+                            <div className="flex flex-row w-full h-[45vh] gap-[5%]">
                                 <div className="flex flex-col gap-4 w-[50%] h-[42vh]">
                                     <div className="flex space-x-4 h-full w-full">
-                                        <div className="flex flex-col space-y-2 w-[100%]">
+                                        <div className="flex flex-col space-y-2  w-[100%] h-[100%]">
                                             <p className="text-xl font-mono">Address</p>
                                             <TextField {...register("address" , { required: true})} variant="outlined" 
                                             error={errors.address?true:false}
@@ -130,7 +130,7 @@ export default function FormSection() {
                                                 error={errors.region?true:false}
                                                 helperText={ errors.region && "*This field is required"  } />
                                         </div>
-                                        <div className="flex flex-col space-y-2 w-[100%]">
+                                        <div className="flex flex-col space-y-2  w-[100%] h-[100%]">
                                             <p className="text-xl font-mono">District</p>
                                             <TextField {...register("district", { required: true})} 
                                                 error={errors.district?true:false}
@@ -150,7 +150,7 @@ export default function FormSection() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 w-[100%] h-[100%]">
                                         <p className="text-xl font-mono">Telephone</p>
                                         <TextField 
                                         {...register("tel" , { required: true})} 
@@ -164,43 +164,43 @@ export default function FormSection() {
                                     <MapSection setLocation={setLocation} />
                                 </div>
                             </div>
+                                <div className="flex flex-col w-[50%] space-y-2 ">
+                                <p className="font-mono text-2xl">Tag</p>
+                                <Stack direction="row" spacing={1}>
+                                    {tags.map((tag) => {
+                                        return (
+                                            <div key={tag}>
+                                                {
+                                                    clickedChips.includes(tag) ?
+                                                        <Chip
+                                                            label={`${tag}`}
+                                                            deleteIcon={<DoneIcon />}
+                                                            color='primary'
+                                                            onClick={(e) => {
+                                                                handleChipClick(tag);
+                                                            }}
+                                                        />
+                                                        :
+                                                        <Chip
+                                                            label={`${tag}`}
+                                                            deleteIcon={<DoneIcon />}
+                                                            variant='outlined'
+                                                            onClick={(e) => {
+                                                                handleChipClick(tag);
+                                                            }}
+                                                        />
+                                                }
+                                            </div>
+                                        );
+                                    }
+                                    )}
+                                </Stack>
+                            </div>
                         </div>
 
-                        <br />
-                        <br />
+                        
 
-                        <div className="flex flex-col w-[50%] space-y-4">
-                            <p className="font-mono text-2xl">Tag</p>
-                            <Stack direction="row" spacing={1}>
-                                {tags.map((tag) => {
-                                    return (
-                                        <div key={tag}>
-                                            {
-                                                clickedChips.includes(tag) ?
-                                                    <Chip
-                                                        label={`${tag}`}
-                                                        deleteIcon={<DoneIcon />}
-                                                        color='primary'
-                                                        onClick={(e) => {
-                                                            handleChipClick(tag);
-                                                        }}
-                                                    />
-                                                    :
-                                                    <Chip
-                                                        label={`${tag}`}
-                                                        deleteIcon={<DoneIcon />}
-                                                        variant='outlined'
-                                                        onClick={(e) => {
-                                                            handleChipClick(tag);
-                                                        }}
-                                                    />
-                                            }
-                                        </div>
-                                    );
-                                }
-                                )}
-                            </Stack>
-                        </div>
+                        
 
                     </div>
                     <div className="flex justify-center space-x-16 w-[95%]">
