@@ -6,7 +6,7 @@ export default function Address({restaurantDetails}: {restaurantDetails: Restaur
     return (
         <table className="border-2 border-black w-full h-full">
             <tbody>
-                <tr className="border-b-4 sborder-black">
+                <tr className="border-b-4 border-black">
                     <td><Map restaurant={restaurantDetails}/></td>
                 </tr>
                 <tr className="">
