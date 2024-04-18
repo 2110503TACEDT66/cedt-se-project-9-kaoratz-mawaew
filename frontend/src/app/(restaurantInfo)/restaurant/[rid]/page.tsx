@@ -35,9 +35,9 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 <hr className='border-black border-1 w-full m-5'/>
             </div>
             
-            <div className="flex flex-row mb-4 text-primary h-[70vh] w-full">
+            <div className="flex flex-row mb-4 text-primary h-[468px] w-full">
                 
-                <div className="w-[37%] h-full">
+                <div className="w-[37%] h-[25%]">
                     <RestaurantTime restaurantDetails={restaurantDetails.data} flag={flag}/>
 
                     <Address restaurantDetails={restaurantDetails.data}/>
