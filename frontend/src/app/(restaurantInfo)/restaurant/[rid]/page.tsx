@@ -31,23 +31,23 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     const mapHref = restaurantDetails.data.map ? restaurantDetails.data.map : '/';
 
     return (
-        <div className="w-[83%] pl-4 font-mono ">
+        <div className="w-[83%] h-full pl-9 font-mono ">
 
-            <div className='flex justify-start'>
-                <h1 className="text-4xl font-bold mb-12 text-primary">{restaurantDetails.data.name}</h1>
-                <hr className='border-black border-1 w-full m-5'/>
+            <div className='flex justify-start w-full'>
+                <h1 className="text-4xl font-bold pb-12 text-primary ">{restaurantDetails.data.name}</h1>
+                <hr className='border-black border-[1.25px] flex-grow m-5'/>
             </div>
             
-            <div className="flex flex-row mb-4 text-primary">
+            <div className="flex flex-row mb-4 text-primary h-[70vh] w-full">
                 
-                <div className="w-[37%]">
+                <div className="w-[37%] h-full">
                     <RestaurantTime restaurantDetails={restaurantDetails.data} flag={flag}/>
 
                     <Address restaurantDetails={restaurantDetails.data}/>
 
                 </div>
                 
-                <div className="w-[63%] h-[100%] flex flex-col items-center">
+                <div className="w-[63%] h-[100%] items-center">
                     <img src={restaurantDetails.data.imageUrl} alt="" className="w-full ml-9 h-[468px]" />
                 </div>
 

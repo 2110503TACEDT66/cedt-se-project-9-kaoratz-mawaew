@@ -3,12 +3,9 @@ import ReviewCard from "./ReviewCard";
 import { ReviewItem, ReviewJson } from "../../../interface";
 
 export default async function AllReviewCard({reviewJson}:{reviewJson:Promise<ReviewJson>}) {
-
     const reviews = await reviewJson;
-
-    console.log(reviews.data)
     return (
-        <div className="mt-7 ml-4 mb-24 flex flex-row overflow-x-scroll" id="all-review-card">
+        <div className="ml-4 mb-24 flex flex-row overflow-x-scroll" id="all-review-card">
             { 
                 
                 reviews.data?
