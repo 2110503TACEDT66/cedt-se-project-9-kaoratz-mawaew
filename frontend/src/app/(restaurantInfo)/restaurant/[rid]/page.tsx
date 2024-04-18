@@ -8,6 +8,7 @@ import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
+import { Suspense } from 'react';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -55,8 +56,11 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
             <Tag restaurantDetails={restaurantDetails.data}/>
 
             <ReviewSection rid={restaurantDetails.data.id}/>
-
-            <AllReviewCard reviewJson={reviews}/>
+            <Suspense fallback={<>
+            Loading...
+            </>}>
+                <AllReviewCard reviewJson={reviews}/>
+            </Suspense>
 
             <div className="flex flex-row">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
