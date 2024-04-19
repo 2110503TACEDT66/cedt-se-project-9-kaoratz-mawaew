@@ -24,16 +24,17 @@ export default function ReviewSection({rid} : {rid: string}){
                     <button className='w-[10%]' onClick={(e) => {
                         if(!session || !session.user.token){
                             alert('Please log in to post review')
-                        } 
+                        }
+                        else{ 
                             if(rating && comment) {
                                     handleCreate(rid, rating, comment);
                             } else {
                                 alert('Please fill in all fields')
                             }
-                        
+                        }
                         }}>
                             <img src="/sentButton.svg" alt="" />
-                        </button>
+                    </button>
                 </div>
                 
         </div>

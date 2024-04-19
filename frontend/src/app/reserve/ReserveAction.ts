@@ -23,8 +23,11 @@ export default async function makeBooking (
         const response = await postReservation(rid, 
             dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss"), 
             session.user.token)
-        const reser = response.data._id
+        // const reser = response.data._id
+        if(response == null) return null
+        
     }
+    
 
     revalidatePath('/myTable');
     redirect('/myTable');

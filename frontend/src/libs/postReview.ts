@@ -12,7 +12,9 @@ export default async function postReview(rid:string, rating:number, comment:stri
     })
 
     if(!response.ok){
+        alert("Failed to Create Review");
         throw new Error("Failed to fetch user")
+        
     }
     return await response.json()
 }

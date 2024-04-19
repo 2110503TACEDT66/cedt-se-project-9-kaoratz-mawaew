@@ -14,6 +14,8 @@ import Map from "@/components/ridpage/Map";
 import { RestaurantItem } from "../../../interface";
 import Image from "next/image";
 
+import Snackbar from "@mui/material/Snackbar";
+
 export default function booking() {
 
     type RestaurantJsonHa = {
@@ -28,7 +30,14 @@ export default function booking() {
     const { data: session } = useSession()
 
     const [restaurantData, setRestaurantData] = useState<RestaurantItem | null>(null);
-
+    const [toastState, setToastState] = useState(false);
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setToastState(false);
+      };
 
     const getRestaurantFunction = async (rid: string) => {
         const restaurantJson: RestaurantJsonHa = await getRestaurant(rid);
@@ -119,7 +128,14 @@ export default function booking() {
                 {session && rid ?
                     <button className="text-base w-[80%] mb-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => { makeBooking(rid, bookDate) }}>Reserve Now!</button>
+                        hover:-translate-x-1 hover:-translate-y-1" onClick={ async () => { 
+                            const res = await makeBooking(rid, bookDate);
+                            if(res == null) {
+                                setToastState(true);
+                            
+                            };
+                        
+                        }}>Reserve Now!</button>
                     :
                     <Link href="/login" className="w-full">
                         <button className="text-base w-[80%] mb-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
@@ -127,6 +143,15 @@ export default function booking() {
                         hover:-translate-x-1 hover:-translate-y-1" onClick={() => { }}>Reserve Now!</button>
                     </Link>
                 }
+
+            <Snackbar
+                    open={toastState}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                    message="Failed to Post Reservation"
+                    
+                    // action={}
+                />
             </div>
         </main>
     );
