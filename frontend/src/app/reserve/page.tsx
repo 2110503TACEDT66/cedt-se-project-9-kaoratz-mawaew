@@ -1,7 +1,7 @@
 'use client'
 
 import DateReserve from "@/components/DateReserve";
-import { Select, MenuItem, CircularProgress } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dayjs from "dayjs";
@@ -9,11 +9,9 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import makeBooking from "./ReserveAction";
 import getRestaurant from "@/libs/getRestaurant";
-import Address from "@/components/ridpage/Address";
-import RestaurantData from "./restaurantData";
 import Map from "@/components/ridpage/Map";
 
-import { RestaurantJson, RestaurantItem } from "../../../interface";
+import { RestaurantItem } from "../../../interface";
 import Image from "next/image";
 
 export default function booking() {
@@ -48,7 +46,6 @@ export default function booking() {
     }, []);
 
     const [bookDate, setBookDate] = useState<Date | null>(dayjs().toDate())
-    const [numberValue, setnumberValue] = useState<number>(0)
 
 
     return (
@@ -56,21 +53,25 @@ export default function booking() {
 
             <div className='w-full flex flex-row mb-4 '>
                 <div className='w-full flex flex-col font-mono text-primary p-10'>
+                    
+                    <div className='flex flex-row justify-center items-center gap-5 mb-14'>
+                        <h1 className="text-4xl font-bold text-primary text-nowrap">Reserve Table</h1>
+                        <hr className='border-black border-1 flex-grow '/>
+                    </div>
 
-
-                    <p className="text-4xl mb-16 font-mono">Reserve Table</p>
                     {
 
                         restaurantData ?
                             <>
-                                <h1 className="text-3xl font-mono mb-12 text-primary text-nowrap">{restaurantData.name}</h1>
-                                <div className="flex flex-row h-max w-full gap-[2%]">
-                                    <div className="w-[55%] h-full flex flex-col border-2 border-black">
+                                <h1 className="text-2xl font-mono mb-1 text-primary text-nowrap">{restaurantData.name}</h1>
+                                
+                                <div className="flex flex-row h-max w-full gap-[4%] mb-4">
+                                    <div className="w-[50%] h-full flex flex-col">
 
-                                        <div className="w-full relative h-[50vh]">
+                                        <div className="w-full relative h-[175px] mb-4 border-2 border-black">
                                             <Map restaurant={restaurantData} />
                                         </div>
-                                        <div className="p-4 bg-gray-200 h-max">
+                                        <div className="p-4 bg-gray-200 h-max border-2 border-black">
                                             <p>Address: {restaurantData.address}</p>
                                             <p>Subdistrict: {restaurantData.subdistrict}</p>
                                             <p>District {restaurantData.district}</p>
@@ -97,13 +98,11 @@ export default function booking() {
                             </div>
                     }
 
-                    <div className="w-full flex flex-col justify-center items-start mt-5 gap-5 text-lg">
-                        <p className="font-mono">Date & Time</p>
-                        <div className="text-4xl mb-4 inline-block border border-stone-800 p-2">
+                    <div className="w-full flex flex-col justify-center items-start text-lg mb-11">
+                        <p className="text-2xl font-mono mb-2">Date & Time</p>
+                        <div className="text-4xl mb-4 inline-block border border-stone-800 p-3">
                             <DateReserve onDateTimeChange={(value: Date) => { setBookDate(value) }} />
                         </div>
-
-
                     </div>
                 </div>
 
