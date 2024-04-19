@@ -10,7 +10,7 @@ import LinkButton from './LinkButton';
 import { reserveItem } from '../../../interface';
 
 export default async function Home() {
-  
+
   const session = await getServerSession(authOptions);
   const currentTime = dayjs();
 
@@ -22,7 +22,7 @@ export default async function Home() {
       <Suspense fallback={<div>Loading... <LinearProgress /></div>}>
 
         <p className='text-4xl mb-16 ml-7 text-left font-bold'>Your Reservations</p>
-        <div className='flex flex-auto justify-between'>
+        <div className='m-10 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-black'>
           {
             reserved.data.map((item: reserveItem) => {
               const reservationTime = dayjs(item.resvDate);
@@ -31,42 +31,42 @@ export default async function Home() {
               console.log(isPastReservation);
               console.log(item.restaurant.name);
               return (
-              <div key={item._id} className='w-[298px] h-[248px] border border-stone-800 p-2'>
-                <div>
-                  <p className='text-4xl text-left mb-4'>{item.restaurant.name}</p>
-                  <p className='text-base text-left mb-4'>{dayjs(item.createdAt).format('YYYY-MM-DD')}</p>
-                </div>
-                <p className='text-base text-left mb-4'>Reservation Date:
-                </p>
-                <div className='flex flex-row justify-between'>
+                <div key={item._id} className='w-[298px] h-[300px] border border-stone-800 p-2'>
                   <div>
-                    <p className='text-base inline-block border border-stone-800 p-2'>
-                      {dayjs(item.resvDate).format('YYYY-MM-DD')}
-                    </p>
+                    <p className='text-4xl text-left mb-4'>{item.restaurant.name}</p>
+                    <p className='text-base text-left mb-4'>{dayjs(item.createdAt).format('YYYY-MM-DD')}</p>
                   </div>
-                  <div>
-                    <p className='text-base inline-block border border-stone-800 p-2'>
-                      {dayjs(item.resvDate).format('HH:mm')}
-                    </p>
+                  <p className='text-base text-left mb-4'>Reservation Date:
+                  </p>
+                  <div className='flex flex-row justify-between'>
+                    <div>
+                      <p className='text-base inline-block border border-stone-800 p-2'>
+                        {dayjs(item.resvDate).format('YYYY-MM-DD')}
+                      </p>
+                    </div>
+                    <div>
+                      <p className='text-base inline-block border border-stone-800 p-2'>
+                        {dayjs(item.resvDate).format('HH:mm')}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className='flex flex-row mt-2 justify-between'>
-                
-                {isPastReservation? (
-                <Link href={`/restaurant/${item.restaurant._id}`}>
-                  <button className='w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                  <div className='flex flex-row mt-2 relative bottom-0 justify-between'>
+
+                    {isPastReservation ? (
+                      <Link href={`/restaurant/${item.restaurant._id}`}>
+                        <button className='w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                   hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                   hover:-translate-x-1 hover:-translate-y-1'>Leave a Review</button>
-                </Link>
-                ) : (
-                  <LinkButton item={item}/>
-                )} 
+                      </Link>
+                    ) : (
+                      <LinkButton item={item} />
+                    )}
+                  </div>
+
+
                 </div>
-
-
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </Suspense>
     </main>

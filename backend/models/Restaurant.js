@@ -54,7 +54,7 @@ const RestaurantSchema = new mongoose.Schema({
     },
     map : {
         type: String,
-        required: true
+        default: null
     },
     tag: {
         type: [String],

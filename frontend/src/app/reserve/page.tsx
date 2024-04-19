@@ -1,94 +1,131 @@
 'use client'
+
 import DateReserve from "@/components/DateReserve";
-import { Select, MenuItem } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import makeBooking from "./ReserveAction";
+import getRestaurant from "@/libs/getRestaurant";
+import Map from "@/components/ridpage/Map";
+
+import { RestaurantItem } from "../../../interface";
+import Image from "next/image";
 
 export default function booking() {
+
+    type RestaurantJsonHa = {
+        success: boolean,
+        count: number,
+        pagination: Object,
+        data: RestaurantItem
+    }
+
     const urlParams = useSearchParams()
     const rid = urlParams.get('id')
-    const rName = urlParams.get('name')
     const { data: session } = useSession()
 
+    const [restaurantData, setRestaurantData] = useState<RestaurantItem | null>(null);
+
+
+    const getRestaurantFunction = async (rid: string) => {
+        const restaurantJson: RestaurantJsonHa = await getRestaurant(rid);
+        let restaurantItem: RestaurantItem = restaurantJson.data;
+        setRestaurantData(restaurantItem)
+    }
+
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            const newTime = dayjs().format('HH:mm');
 
-            // Check if the minutes have changed
-            const currentMinutes = dayjs().minute();
-            if (currentMinutes === 0) {
-                // Perform your desired action when minutes change
-                console.log('Minutes changed');
-            }
-        }, 1000); // Update every second
+        if (rid) {
+            getRestaurantFunction(rid);
+            console.log(restaurantData);
+        }
 
-        // Clean up interval on component unmount
-        return () => clearInterval(intervalId);
     }, []);
 
     const [bookDate, setBookDate] = useState<Date | null>(dayjs().toDate())
-    const [numberValue, setnumberValue] = useState<number>(0)
-    const [payM, setPayM] = useState<string>('')
+
 
     return (
-        <main className="flex flex-col w-[70%] pl-4">
+        <main className="flex flex-col w-[88%] pl-4">
 
-            <div className='flex flex-row mb-4 '>
-                <div className='w-[50%] flex flex-col font-mono text-primary'>
+            <div className='w-full flex flex-row mb-4 '>
+                <div className='w-full flex flex-col font-mono text-primary p-10'>
+                    
+                    <div className='flex flex-row justify-center items-center gap-5 mb-14'>
+                        <h1 className="text-4xl font-bold text-primary text-nowrap">Reserve Table</h1>
+                        <hr className='border-black border-1 flex-grow '/>
+                    </div>
 
-                    <div>
-                        <p className="text-4xl mb-16 font-bold">Reserve Table</p>
+                    {
 
-                        <div className="text-2xl mb-6">
-                            Resturant Name 
+                        restaurantData ?
+                            <>
+                                <h1 className="text-2xl font-mono mb-1 text-primary text-nowrap">{restaurantData.name}</h1>
+                                
+                                <div className="flex flex-row h-max w-full gap-[4%] mb-4">
+                                    <div className="w-[50%] h-full flex flex-col">
+
+                                        <div className="w-full relative h-[175px] mb-4 border-2 border-black">
+                                            <Map restaurant={restaurantData} />
+                                        </div>
+                                        <div className="p-4 bg-gray-200 h-max border-2 border-black">
+                                            <p>Address: {restaurantData.address}</p>
+                                            <p>Subdistrict: {restaurantData.subdistrict}</p>
+                                            <p>District {restaurantData.district}</p>
+                                            <p>Province: {restaurantData.province}</p>
+                                            <p>Postal Code: {restaurantData.postalcode}</p>
+                                            <p>Tel: {restaurantData.tel}</p>
+                                        </div>
+
+                                    </div>
+                                    <div className="w-[50%] relative">
+                                        <Image
+                                            src={restaurantData.imageUrl}
+                                            alt="restaurant image"
+                                            width={0}
+                                            height={0}
+                                            objectFit="cover"
+                                            layout="fill"
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                            : <div className="w-full h-[50vh] flex flex-row justify-center items-center">
+                                <CircularProgress />
+                            </div>
+                    }
+
+                    <div className="w-full flex flex-col justify-center items-start text-lg mb-11">
+                        <p className="text-2xl font-mono mb-2">Date & Time</p>
+                        <div className="text-4xl mb-4 inline-block border border-stone-800 p-3">
+                            <DateReserve onDateTimeChange={(value: Date) => { setBookDate(value) }} />
                         </div>
-                        <p className="text-2xl mb-6">{rName}</p>
-                        <p className="text-2xl mb-6">Date</p>
-                        <p className="text-4xl mb-4 inline-block border border-stone-800 p-2">
-                            <DateReserve onDateTimeChange={(value:Date)=>{setBookDate(value)}}/>
-                        </p>
-                        <div className="text-2xl mb-6">
-                            Payments 
-                        </div>
-                        <p className="text-4xl mb-6">Amount</p>
-                        <p className="text-2xl mb-4 inline-block border border-stone-800 p-2">
-                            <input type="number" className="MuiInput-input" value={numberValue} onChange={(e)=>{setnumberValue(e.target.valueAsNumber)}}/>
-                        </p>
-                        <p className="text-4xl mb-6">Payment Method</p>
-                        <p className="text-2xl mb-4 inline-block border border-stone-800 p-2">
-                        <Select variant="standard" name="hospital" id="hospital" className="h-[2em] w-[200px]" value={payM}
-                            onChange={(e)=> {setPayM(e.target.value)}}>
-                            <MenuItem value="credit">Credit Card</MenuItem>
-                            <MenuItem value="debit">Debit Card</MenuItem>
-                            <MenuItem value="banking">Online Banking</MenuItem>
-                            <MenuItem value="cash">Cash</MenuItem>
-                        </Select>
-                        </p>
                     </div>
                 </div>
 
             </div>
-            <div className="flex flex-row">
+
+
+            <div className="flex flex-row px-10 w-full">
                 <Link href="/restaurant" className='w-[20%] mr-4 inline-block'>
                     <button className="text-base w-[100%] mb-4 mr-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                         hover:-translate-x-1 hover:-translate-y-1">Back</button>
                 </Link>
 
-                { session && rid ? 
-                <button className="text-base w-[80%] mb-4 mr-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
+                {session && rid ?
+                    <button className="text-base w-[80%] mb-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => {makeBooking(rid, bookDate, numberValue, payM)}}>Reserve Now!</button>
-                :
-                <Link href="/login">
-                <button className="text-base w-[80%] mb-4 mr-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
+                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => { makeBooking(rid, bookDate) }}>Reserve Now!</button>
+                    :
+                    <Link href="/login" className="w-full">
+                        <button className="text-base w-[80%] mb-4 inline-block border border-stone-800 p-2 text-center relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => {}}>Reserve Now!</button>
-                </Link>
+                        hover:-translate-x-1 hover:-translate-y-1" onClick={() => { }}>Reserve Now!</button>
+                    </Link>
                 }
             </div>
         </main>
