@@ -9,7 +9,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
 import { useRouter } from 'next/navigation';
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler, set } from "react-hook-form"
 import { forminput } from "../../../interface";
 
 
@@ -57,6 +57,7 @@ export default function FormSection() {
     const onSubmit:SubmitHandler<forminput> = async (formData) => {
         const token = session?.user.token;
         if (!location) return alert("Please select location");
+
         const tags = clickedChips.join(',');
         const response = await ActionPostRestaurant( formData, token, location, tags, imageUrl); // server action 
     }
