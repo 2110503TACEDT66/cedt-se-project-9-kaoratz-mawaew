@@ -1,4 +1,3 @@
-'use client'
 
 export default function InteractiveCard({ children }: { children: React.ReactNode }) {
     

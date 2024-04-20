@@ -12,7 +12,7 @@ import getRestaurant from "@/libs/getRestaurant";
 import Map from "@/components/ridpage/Map";
 
 import { RestaurantItem } from "../../../interface";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 import Snackbar from "@mui/material/Snackbar";
 
@@ -24,6 +24,7 @@ export default function booking() {
         pagination: Object,
         data: RestaurantItem
     }
+
 
     const urlParams = useSearchParams()
     const rid = urlParams.get('id')

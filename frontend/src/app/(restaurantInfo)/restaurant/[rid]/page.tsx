@@ -8,7 +8,7 @@ import AllReviewCard from '@/components/ridpage/AllReviewCard';
 import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
