@@ -13,7 +13,7 @@ exports.getReservations = async (req, res, next) => {
         query = Reservation.find({ user: req.user.id }).populate({
             path: 'restaurant',
             select: 'name province tel'
-        }).sort({resvDate: -1});
+        }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
         //console.log("1");
     } else {
         //admin see all
@@ -22,13 +22,13 @@ exports.getReservations = async (req, res, next) => {
             query = Reservation.find({ hospital: req.params.restaurantId }).populate({
                 path: 'restaurant',
                 select: 'name province tel'
-            }).sort({resvDate: -1});
+            }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
             //console.log("2");
         } else {
             query = Reservation.find().populate({
                 path: 'restaurant',
                 select: 'name province tel'
-            }).sort({resvDate: -1});
+            }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
             //console.log("3");
         }
     }
