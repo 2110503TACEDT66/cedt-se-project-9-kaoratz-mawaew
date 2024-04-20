@@ -34,6 +34,7 @@ export interface RestaurantItem {
     restaurant: RestaurantItem
     resvDate: string;
     createdAt: string;
+    completed: Boolean;
   }
 
   export interface reserveJson {

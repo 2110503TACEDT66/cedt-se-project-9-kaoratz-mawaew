@@ -18,7 +18,19 @@ const ReservationSchema = new mongoose.Schema({
     createdAt: {
         type: Date, 
         default: Date.now
+    },
+    completed: {
+        type: Boolean,
+        default: false
     }
 
 });
+
+ReservationSchema.pre('save' , function(next) {
+    if (this.resvDate < new Date()) {
+        this.completed = true;
+    }
+    next();
+});
+
 module.exports = mongoose.model('Reservation', ReservationSchema);

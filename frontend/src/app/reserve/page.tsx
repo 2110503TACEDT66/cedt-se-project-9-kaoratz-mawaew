@@ -25,6 +25,7 @@ export default function booking() {
         data: RestaurantItem
     }
 
+
     const urlParams = useSearchParams()
     const rid = urlParams.get('id')
     const { data: session } = useSession()
