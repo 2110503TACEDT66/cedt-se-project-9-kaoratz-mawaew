@@ -5,8 +5,7 @@ import Link from "next/link";
 export default function UserHistory ({reservation} : {reservation : reserveJson}) {
     const data = reservation.data;
     return (
-        
-        <div className="w-full pl-[10%]">
+        <div className="w-full">
             <table className="text-center text-sm w-full items-center border-b-2 border-gray-900">
                 <thead>
                     <tr>
