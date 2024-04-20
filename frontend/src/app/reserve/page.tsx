@@ -13,13 +13,14 @@ import RestaurantData from "./restaurantData";
 import Map from "@/components/ridpage/Map";
 
 import { RestaurantJson, RestaurantItem } from "../../../interface";
+import { haha } from "./serverAction";
 
 export default function booking() {
     const urlParams = useSearchParams()
     const rid = urlParams.get('id')
     const { data: session } = useSession()
 
-    const [restaurantData, setRestaurantData] = useState<RestaurantItem | null>(null);
+    const [restaurantData, setRestaurantData] = useState<RestaurantJson | null>(null);
 
     interface RestaurantJsonHa {
         success: boolean,
@@ -28,18 +29,21 @@ export default function booking() {
         data: RestaurantItem
     }
 
+
     const getRestaurantFunction = async (rid: string) => {
-        const restaurantJson: RestaurantJsonHa = await getRestaurant(rid);
-        let hahaha: RestaurantItem = restaurantJson.data;
-        setRestaurantData(hahaha)
+        //const restaurantJson: RestaurantJsonHa = await getRestaurant(rid);
+        // const restaurantJson = await haha(rid);
+        // //let hahaha: RestaurantItem = restaurantJson.data;
+        // setRestaurantData(restaurantJson);
     }
 
     useEffect(() => {
 
 
         if (rid) {
-            getRestaurantFunction(rid);
+            haha(setRestaurantData, rid);
         }
+        console.log(restaurantData);
 
         // Clean up interval on component unmount
 
@@ -62,22 +66,22 @@ export default function booking() {
                             restaurantData ?
                                 <div className="flex flex-row w-full">
                                     <div>
-                                        <h1 className="text-4xl font-mono mb-12 text-primary text-nowrap">{restaurantData.name}</h1>
+                                        <h1 className="text-4xl font-mono mb-12 text-primary text-nowrap">{restaurantData.data[0].name}</h1>
 
-                                        <Map restaurant={restaurantData} />
+                                        <Map restaurant={restaurantData.data[0]} />
 
                                         <div className="p-4">
-                                            {restaurantData.name}
-                                            <p>Address: {restaurantData.address}</p>
-                                            <p>Subdistrict: {restaurantData.subdistrict}</p>
-                                            <p>District {restaurantData.district}</p>
-                                            <p>Province: {restaurantData.province}</p>
-                                            <p>Postal Code: {restaurantData.postalcode}</p>
-                                            <p>Tel: {restaurantData.tel}</p>
+                                            {restaurantData.data[0].name}
+                                            <p>Address: {restaurantData.data[0].address}</p>
+                                            <p>Subdistrict: {restaurantData.data[0].subdistrict}</p>
+                                            <p>District {restaurantData.data[0].district}</p>
+                                            <p>Province: {restaurantData.data[0].province}</p>
+                                            <p>Postal Code: {restaurantData.data[0].postalcode}</p>
+                                            <p>Tel: {restaurantData.data[0].tel}</p>
                                         </div>
 
                                     </div>
-                                    <img src={restaurantData.imageUrl} alt="" className="w-full ml-9" />
+                                    <img src={restaurantData.data[0].imageUrl} alt="" className="w-full ml-9" />
                                 </div>
                                 : <div><p>Not found</p></div>
                         }
