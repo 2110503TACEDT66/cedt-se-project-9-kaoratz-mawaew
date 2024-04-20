@@ -9,10 +9,10 @@ const handleDelete = async (
     id : string
 ) => {
     const session = await getServerSession(authOptions);
+    
     if (!session || !session.user.token) return null
-    else{
-        deleteReservation(session.user.token, id);
-    }
+    
+    const response = await deleteReservation(session.user.token, id);
 
     revalidatePath('/myTable');
     redirect('/myTable')

@@ -4,8 +4,8 @@ import { useState } from 'react';
 export default function MainPageMiddle() {
     const [selectedImage, setSelectedImage] = useState(0);
     const imageClassNames = [
-        "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
-        "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/streetFood.jpg')]",
+        "flex flex-row items-center text-white justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/buffetHero.jpg')]",
+        "flex flex-row items-center text-white justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/streetFood.jpg')]",
         "flex flex-row items-center justify-between w-full h-[65vh] bg-gray-300 bg-cover relative bg-[url('/image_1.png')]",
     ];
 

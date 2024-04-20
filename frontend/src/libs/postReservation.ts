@@ -11,7 +11,8 @@ export default async function postReservation(rid:string, date:string, token:str
     })
 
     if(!response.ok){
-        throw new Error("Failed to Post Reservation")
+        // throw new Error("Failed to Post Reservation")
+        return null
     }
     return await response.json()
 }

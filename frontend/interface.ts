@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface UserItem{
     _id: string,
     name: string,
@@ -34,6 +36,7 @@ export interface RestaurantItem {
     restaurant: RestaurantItem
     resvDate: string;
     createdAt: string;
+    completed: Boolean;
   }
 
   export interface reserveJson {

@@ -1,10 +1,10 @@
 import { RestaurantItem } from "../../../interface";
 
-export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
+export default function Map({restaurant} : {restaurant: RestaurantItem}) {
 
-    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${restaurant.name + `,${restaurant.address}` + `,${restaurant.subdistrict}` + `,${restaurant.district}` + `,${restaurant.province}` + ',Thailand'}`;
-    const response = await fetch(mapUrl);
-    const data = await response.json();  
+    // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${restaurant.name + `,${restaurant.address}` + `,${restaurant.subdistrict}` + `,${restaurant.district}` + `,${restaurant.province}` + ',Thailand'}`;
+    // const response = await fetch(mapUrl);
+    // const data = await response.json();  
     let mapLink = '';
     if(restaurant.map){
         const map =  restaurant.map; 
@@ -15,7 +15,7 @@ export default async function Map({restaurant} : {restaurant: RestaurantItem}) {
     }
   
     return (
-        <div className="w-full h-[50%]">
+        <div className="w-full h-full">
             {
                 restaurant.map? <iframe src={mapLink} className="w-full h-full">
             </iframe> : <h1 className="text-lg text-center text-rose-600 font-bold">Map Not Found</h1>
