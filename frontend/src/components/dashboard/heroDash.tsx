@@ -70,17 +70,16 @@ export default async function HeroDash() {
                         </button>
                     </div>
                     
-                    <Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
-                    <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
-                        Add Manager
-                    </div>
-            </Link>
                     
                 </>: null
             }
 
             {
-                profile.data.role == "admin"? <></>: null
+                profile.data.role == "admin"? <><Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
+                    <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
+                        Add Manager
+                    </div>
+                </Link></>: null
             }
             
             
