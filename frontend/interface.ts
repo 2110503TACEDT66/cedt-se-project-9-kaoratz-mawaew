@@ -101,3 +101,11 @@ export interface RestaurantItem {
     province:string;
     tel:string;
 }
+ export interface managerform {
+    name:string;
+    tel:string;
+    email:string;
+    password:string;
+    c_email:string;
+    c_password:string;
+ }
