@@ -1,5 +1,3 @@
-import { Dayjs } from "dayjs";
-
 export interface UserItem{
     _id: string,
     name: string,
