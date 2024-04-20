@@ -34,13 +34,13 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                 data.length > 0 ? data.map((res) => 
                     <tr>
                         <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
-                            {dayjs(res.resvDate).format('DD/MM/YY')}
+                            {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
                         </td>
                         <td className="w-[40%] py-4 border-r-2 border-gray-900">
                             {res.restaurant.name}
                         </td>
                         <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
-                            {dayjs(res.createdAt).format('DD/MM/YY')}
+                            {dayjs(res.createdAt).format('DD/MM/YY HH:mm:ss')}
                         </td> 
                         <td className="w-[10%] py-4 border-r-2 border-gray-900">
                             {res.completed? <p className="text-emerald-600">Completed</p> : <p className="text-red-600">Upcoming</p>}
