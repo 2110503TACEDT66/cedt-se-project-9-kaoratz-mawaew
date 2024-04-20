@@ -6,7 +6,8 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
     const data = reservation.data;
     return (
         
-            <table className="text-left text-xs w-full ml-[20%] items-center">
+        <div className="w-full pl-[10%]">
+            <table className="text-left text-xs w-full items-center">
                 <tr>
                     <th className="w-[15%] py-4 font-semibold">Date of Issue</th>
                     <th className="w-[40%] py-4 font-semibold">Restaurant</th>
@@ -59,6 +60,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                 </tr>
             }
             </table>
+        </div>
         
     )
 }
