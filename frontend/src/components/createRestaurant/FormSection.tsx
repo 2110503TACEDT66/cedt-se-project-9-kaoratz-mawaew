@@ -19,7 +19,6 @@ export default function FormSection() {
     const { data: session } = useSession();
     if (!session) return null;
 
-
     const [location, setLocation] = useState(null);
     const [imageUrl, setImageUrl] = useState<string>("");
     
