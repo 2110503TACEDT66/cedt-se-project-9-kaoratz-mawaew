@@ -4,17 +4,19 @@ import getReservations from "@/libs/getReservations";
 import { authOptions } from "../auth";
 import UserHistory from "../userDashboard/userHistory";
 import getUserProfile from "@/libs/getUserProfile";
+import { profile } from "console";
 
 export default async function HeroDash() {
 
     const session = await getServerSession(authOptions);
     let reservationJson = null;
     let userRole = null;
+    let userName = null;
 
     if (session) {
         reservationJson = await getReservations(session.user.token);
         const profile = await getUserProfile(session.user.token);
-
+        userName = profile.data.name;
         switch (profile.data.role) {
             case 'manager': {
                 //statements;
@@ -38,6 +40,9 @@ export default async function HeroDash() {
         <div className="w-full flex flex-col items-center justify-center gap-10 pr-[17%] ml-[5%]">
             <div className="text-3xl">
                 Dashboard (sprint 2)
+            </div>
+            <div className="text-5xl font-medium">
+                Hello {userName}
             </div>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl font-medium text-left">{userRole} dashboard</h1>
