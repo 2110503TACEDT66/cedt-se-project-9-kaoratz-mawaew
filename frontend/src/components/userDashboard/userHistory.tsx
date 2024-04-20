@@ -17,9 +17,21 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                         <th className="w-[10%] py-4 font-semibold text-center">Review</th>
                     </tr>
                 </thead>
+            </table>
+            <div className="w-full overflow-y-scroll h-[384px] no-scrollbar">
+            <table className="text-center text-sm w-full items-center ">
+                {/* <thead>
+                    <tr>
+                        <th className="w-[15%] py-4 font-semibold">Date of Reservation</th>
+                        <th className="w-[40%] py-4 font-semibold">Restaurant</th>
+                        <th className="w-[15%] py-4 font-semibold">Date of Issue</th>
+                        <th className="w-[10%] py-4 font-semibold">Status</th>
+                        <th className="w-[10%] py-4 font-semibold text-center">Review</th>
+                    </tr>
+                </thead> */}
                 <tbody>                   
             {
-                data? data.map((res) => 
+                data.length > 0 ? data.map((res) => 
                     <tr>
                         <td className="w-[15%] py-4" suppressHydrationWarning>
                             {dayjs(res.resvDate).format('DD/MM/YY')}
@@ -68,6 +80,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
             }
                 </tbody>   
             </table>
+            </div>
         </div>
         
     )
