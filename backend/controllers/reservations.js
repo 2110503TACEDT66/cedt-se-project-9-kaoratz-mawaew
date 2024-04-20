@@ -90,7 +90,7 @@ exports.createReservation = async (req, res, next) => {
         req.body.restaurant = req.params.restaurantId;
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         req.body.user = req.user.id;
-        const existedReservation = await Reservation.find({ user: req.user.id });
+        const existedReservation = await Reservation.find({ user: req.user.id, completed: false });
 
         if (existedReservation.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({

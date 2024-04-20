@@ -8,23 +8,26 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
         
         <div className="w-full pl-[10%]">
             <table className="text-left text-xs w-full items-center">
-                <tr>
-                    <th className="w-[15%] py-4 font-semibold">Date of Issue</th>
-                    <th className="w-[40%] py-4 font-semibold">Restaurant</th>
-                    <th className="w-[15%] py-4 font-semibold">Date of Reservation</th>
-                    <th className="w-[10%] py-4 font-semibold">Status</th>
-                    <th className="w-[10%] py-4 font-semibold text-center">Review</th>
-                </tr>
-                       
+                <thead>
+                    <tr>
+                        <th className="w-[15%] py-4 font-semibold">Date of Issue</th>
+                        <th className="w-[40%] py-4 font-semibold">Restaurant</th>
+                        <th className="w-[15%] py-4 font-semibold">Date of Reservation</th>
+                        <th className="w-[10%] py-4 font-semibold">Status</th>
+                        <th className="w-[10%] py-4 font-semibold text-center">Review</th>
+                    </tr>
+                </thead>
+                <tbody>                   
             {
-                data? data.map((res) => <tr>
-                        <td className="w-[15%] py-4">
+                data? data.map((res) => 
+                    <tr>
+                        <td className="w-[15%] py-4" suppressHydrationWarning>
                             {dayjs(res.createdAt).format('DD/MM/YY')}
                         </td>
                         <td className="w-[40%] py-4">
                             {res.restaurant.name}
                         </td>
-                        <td className="w-[15%] py-4">
+                        <td className="w-[15%] py-4" suppressHydrationWarning>
                             {dayjs(res.resvDate).format('DD/MM/YY')}
                         </td> 
                         <td className="w-[10%] py-4">
@@ -39,8 +42,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                                 </button>
                             </Link>
                         </td>
-                    
-                </tr>) : 
+                    </tr>) : 
                 <tr>
                     <td className="w-[15%] py-4">
                         No History
@@ -59,6 +61,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                     </td>
                 </tr>
             }
+                </tbody>   
             </table>
         </div>
         
