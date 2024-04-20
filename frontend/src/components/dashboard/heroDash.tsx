@@ -1,22 +1,37 @@
-import { Button } from "@mui/material";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import getReservations from "@/libs/getReservations";
 import { authOptions } from "../auth";
 import UserHistory from "../userDashboard/userHistory";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default async function HeroDash() {
 
     const session = await getServerSession(authOptions);
     let reservationJson = null;
+    let userRole = null;
+
     if (session) {
         reservationJson = await getReservations(session.user.token);
-    }
-    if (session?.user.role == 'manager') {
-        // blah blah
-    }
-    else {
-        // blah blah
+        const profile = await getUserProfile(session.user.token);
+
+        switch (profile.data.role) {
+            case 'manager': {
+                //statements;
+                userRole = 'manager';
+                break;
+            }
+            case 'user': {
+                //statements;
+                userRole = 'user';
+                break;
+            }
+            case 'admin': {
+                //statements;
+                userRole = 'admin';
+                break;
+            }
+        }
     }
 
     return (
@@ -25,19 +40,25 @@ export default async function HeroDash() {
                 Dashboard (sprint 2)
             </div>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                <h1 className="text-xl font-medium text-left ">Member dashboard</h1>
+                <h1 className="text-xl font-medium text-left">{userRole} dashboard</h1>
                 <hr className="border-zinc-900 grow" />
-                <Button className="">setting</Button>
+                <Link href={`/restaurant/`}>
+                    <button className="pt-2 pb-2 pl-4 pr-4 border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                        hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
+                        hover:-translate-x-1 hover:-translate-y-1 text-lg">
+                        setting
+                    </button>
+                </Link>
             </div>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl font-medium text-left">History</h1>
                 <hr className="border-zinc-900 grow" />
             </div>
-            
+
             {
-                session? <UserHistory reservation={reservationJson}/> : "No Session"
+                session ? <UserHistory reservation={reservationJson} /> : "No Session"
             }
-            
+
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl font-medium text-lef">Comments</h1>
                 <hr className="border-zinc-900 grow" />
