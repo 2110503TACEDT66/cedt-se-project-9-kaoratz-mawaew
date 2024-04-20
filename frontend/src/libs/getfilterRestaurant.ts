@@ -1,6 +1,6 @@
 export default async function getfilterRestaurant(tags:string[]) {
 
-    await new Promise((resolve)=>setTimeout(resolve,1500))
+    // await new Promise((resolve)=>setTimeout(resolve,1500))
 
     const allTags = tags.join(',').toString();
     

@@ -58,6 +58,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
             </div>
             <div className='flex flex-col w-full'>
+                
                 <Tag restaurantDetails={restaurantDetails.data} />
 
                 <ReviewSection rid={restaurantDetails.data.id} />
