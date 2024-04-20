@@ -17,23 +17,22 @@ export default async function HeroDash() {
         reservationJson = await getReservations(session.user.token);
         const profile = await getUserProfile(session.user.token);
         userName = profile.data.name;
-        switch (profile.data.role) {
-            case 'manager': {
-                //statements;
-                userRole = 'manager';
-                break;
-            }
-            case 'user': {
-                //statements;
-                userRole = 'user';
-                break;
-            }
-            case 'admin': {
-                //statements;
-                userRole = 'admin';
-                break;
-            }
-        }
+        userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
+
+        // switch (profile.data.role) {
+        //     case 'manager': {
+        //         userRole = 'manager';
+        //         break;
+        //     }
+        //     case 'user': {
+        //         userRole = 'user';
+        //         break;
+        //     }
+        //     case 'admin': {
+        //         userRole = 'admin';
+        //         break;
+        //     }
+        // }
     }
 
     return (
