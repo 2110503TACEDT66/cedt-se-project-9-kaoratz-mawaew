@@ -123,23 +123,23 @@ export function countCurrentReservations(reservationData: reserveItem[]): number
     const currentDate = new Date(); // Get current date
     const currentYear = currentDate.getFullYear(); // Get current year
   
-    const currentReservations = reservationData.filter(reservation => {
-      const resvDate = new Date(reservation.resvDate);
-      return resvDate.getFullYear() === currentYear;
-    });
+    // const currentReservations = reservationData.filter(reservation => {
+    //   const resvDate = new Date(reservation.resvDate);
+    //   return resvDate.getFullYear() === currentYear;
+    // });
   
-    return currentReservations.length;
+    // return currentReservations.length;
   }
   
   export function countReservationsThisYear(reservationData: reserveItem[]): number {
     const currentDate = new Date(); // Get current date
     const currentYear = currentDate.getFullYear(); // Get current year
+    console.log("This is" + JSON.stringify(currentYear));
+    // const reservationsThisYear = reservationData.filter(reservation => {
+    //   const resvDate = new Date(reservation.resvDate);
+    //   return resvDate.getFullYear() === currentYear;
+    // });
   
-    const reservationsThisYear = reservationData.filter(reservation => {
-      const resvDate = new Date(reservation.resvDate);
-      return resvDate.getFullYear() === currentYear;
-    });
-  
-    return reservationsThisYear.length;
+    // return reservationsThisYear.length;
   }
 
