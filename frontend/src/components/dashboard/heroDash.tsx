@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import getReservations from "@/libs/getReservations";
 import { authOptions } from "../auth";
 import UserHistory from "../userDashboard/userHistory";
-import Comment from "postcss/lib/comment";
+import allComments from "../userDashboard/allComments";
 import UserStatistics from "../userDashboard/userStatistics";
 import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
@@ -22,15 +22,18 @@ export default async function HeroDash() {
     let userName = null;
     let userUID = null;
     let restaurantJson = null;
+    let reviewsJson = null;
 
     if (session) {
         reservationJson = await getReservations(session.user.token);
         restaurantJson = await getRestaurants();
         const profile = await getUserProfile(session.user.token);
+        reviewsJson = await getUserReviews(profile.data._id);
         userName = profile.data.name;
         userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
         // userUID = await getUserReviews(profile.data._id);
         console.log(JSON.stringify(reservationJson));
+        console.log(JSON.stringify(reviewsJson));
         // switch (profile.data.role) {
         //     case 'manager': {
         //         userRole = 'manager';
@@ -96,6 +99,9 @@ export default async function HeroDash() {
                 (userRole == 'User') ? <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                     <h1 className="text-xl text-left font-bold">Comments</h1>
                     <hr className="border-zinc-900 grow" />
+                    <div>
+                    <allComments reviewsJson={reviewsJson} />
+                    </div>
                 </div> : null
             }
 
