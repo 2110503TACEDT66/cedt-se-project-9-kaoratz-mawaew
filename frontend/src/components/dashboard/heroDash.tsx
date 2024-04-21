@@ -9,11 +9,15 @@ import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
+import ManagerStatistics from "../managerDashboard/ManagerStatistic";
+import { profile } from "console";
+import { Link } from "next/link";
 
 
 export default async function HeroDash() {
 
     const session = await getServerSession(authOptions);
+    if (!session || !session.user.token) return null;
     let reservationJson = null;
     let userRole = null;
     let userName = null;
@@ -97,13 +101,50 @@ export default async function HeroDash() {
                     <h1 className="text-xl font-medium text-lef">Restaurant</h1>
                     <hr className="border-zinc-900 grow" />
                     <Link href={`/restaurant/create`}>
+
                         <button className="pt-2 pb-2 pl-4 pr-4 border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                             hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                             hover:-translate-x-1 hover:-translate-y-1 text-lg">
-                            New Restaurant
+                            setting
                         </button>
                     </Link>
+                </div>
+                {
+                (userRole == 'User') ?
+                    <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
+                        <h1 className="text-xl text-left font-bold">History</h1>
+                        <hr className="border-zinc-900 grow" />
+                    </div> : null
+
+            }
+
+            {
+                (userRole == 'User') ? <UserHistory reservation={reservationJson} /> : <ManagerStatistics reservation={reservationJson} />
+            }
+
+
+
+            {
+                (userRole == 'User') ? <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
+                    <h1 className="text-xl text-left font-bold">Comments</h1>
+                    <hr className="border-zinc-900 grow" />
                 </div> : null
+            }
+
+            {
+                (userRole !== 'User') ? (
+                    <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
+                        <h1 className="text-xl text-left font-bold">Restaurant</h1>
+                        <hr className="border-zinc-900 grow" />
+                        <Link href={`/restaurant/create`}>
+                            <button className="pt-2 pb-2 pl-4 pr-4 border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                                hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
+                                hover:-translate-x-1 hover:-translate-y-1 text-lg">
+                                New Restaurant
+                            </button>
+                        </Link>
+                    </div>
+                ) : null
             }
 
             {
@@ -122,24 +163,23 @@ export default async function HeroDash() {
 export function countCurrentReservations(reservationData: reserveItem[]): number {
     const currentDate = new Date(); // Get current date
     const currentYear = currentDate.getFullYear(); // Get current year
-  
-    // const currentReservations = reservationData.filter(reservation => {
-    //   const resvDate = new Date(reservation.resvDate);
-    //   return resvDate.getFullYear() === currentYear;
-    // });
-  
-    // return currentReservations.length;
-  }
-  
-  export function countReservationsThisYear(reservationData: reserveItem[]): number {
+
+    const currentReservations = reservationData.filter(reservation => {
+        const resvDate = new Date(reservation.resvDate);
+        return resvDate.getFullYear() === currentYear && reservation.completed; // Include only completed reservations
+    });
+
+    return currentReservations.length;
+}
+
+export function countReservationsThisYear(reservationData: reserveItem[]): number {
     const currentDate = new Date(); // Get current date
     const currentYear = currentDate.getFullYear(); // Get current year
-    console.log("This is" + JSON.stringify(currentYear));
-    // const reservationsThisYear = reservationData.filter(reservation => {
-    //   const resvDate = new Date(reservation.resvDate);
-    //   return resvDate.getFullYear() === currentYear;
-    // });
-  
-    // return reservationsThisYear.length;
-  }
 
+    const reservationsThisYear = reservationData.filter(reservation => {
+        const resvDate = new Date(reservation.resvDate);
+        return resvDate.getFullYear() === currentYear;
+    });
+
+    return reservationsThisYear.length;
+}

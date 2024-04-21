@@ -49,7 +49,6 @@ const ProfileSetting: NextPage = () => {
         router.push('/dashboard');
     }
 
-
     return (
         <div className="flex flex-col gap-[10%] items-start w-full pr-[17%] ml-[5%]">
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
