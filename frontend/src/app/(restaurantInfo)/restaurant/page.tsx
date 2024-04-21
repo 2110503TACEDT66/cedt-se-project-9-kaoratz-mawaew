@@ -1,39 +1,56 @@
-'use client';
+// 'use client'; //TODO: im gonna make it a server component
 
 import getRestaurants from '@/libs/getRestaurants';
 import RestaurantCatalog from '@/components/RestaurantCatalog';
 import { RightSideBar } from '@/components/RightSide';
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import getfilterRestaurant from '@/libs/getfilterRestaurant';
 import { RestaurantJson } from '../../../../interface';
 import MainPageMiddleSkeleton from '@/components/skeleton/mainPageMiddle';
 
-export default function restaurantsPage() {
+export default function restaurantsPage({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
 
-  const [tagParams, setTagParams] = useState<string[]>([]);
+  // const [tagParams, setTagParams] = useState<string[]>([]);
 
-  const restaurants: Promise<RestaurantJson> = getRestaurants();
+  // const restaurants: Promise<RestaurantJson> = getRestaurants();
 
-  const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);
+  // const [filteredRestaurants, setFilteredRestaurants] = useState<Promise<RestaurantJson>>(restaurants);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    setFilteredRestaurants(getfilterRestaurant(tagParams));
+  //   setFilteredRestaurants(getfilterRestaurant(tagParams));
 
-  }, [tagParams]);
+  // }, [tagParams]);
+
+  // console.log(searchParams);
+  //{ tags: 'Japanese,Italian' }
+
+  const filteredRestaurants = searchParams.tags?.toString().split(',') || [];
+
+  // const restaurants : Promise<RestaurantJson> = getfilterRestaurant(filteredRestaurants);
+
+  // console.log("promise!!!");
+
 
   return (
     <main className="flex w-[88%]">
       <div className='w-[83%] h-full'>
         <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
-        <Suspense fallback={
+        <Suspense key={searchParams.tags?.toString() || "main"} fallback={
           <MainPageMiddleSkeleton />
         }>
-          <RestaurantCatalog RestaurantsJson={filteredRestaurants} />
+          <RestaurantCatalog filter={filteredRestaurants} />
         </Suspense>
       </div>
 
-      <RightSideBar setTagParams={setTagParams} />
+      
+        
+      <RightSideBar />
+      
     </main>
   );
 }

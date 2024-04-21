@@ -15,6 +15,7 @@ import { RestaurantItem } from "../../../interface";
 import Image from "next/legacy/image";
 
 import Snackbar from "@mui/material/Snackbar";
+import { useRouter } from "next/navigation";
 
 export default function booking() {
 
@@ -25,6 +26,7 @@ export default function booking() {
         data: RestaurantItem
     }
 
+    const router = useRouter();
 
     const urlParams = useSearchParams()
     const rid = urlParams.get('id')
@@ -62,7 +64,7 @@ export default function booking() {
         <main className="flex flex-col w-[88%] pl-4">
 
             <div className='w-full flex flex-row mb-4 '>
-                <div className='w-full flex flex-col font-mono text-primary p-10'>
+                <div className='w-full flex flex-col font-mono text-primary p-10 gap-10'>
                     
                     <div className='flex flex-row justify-center items-center gap-5 mb-14'>
                         <h1 className="text-4xl font-bold text-primary text-nowrap">Reserve Table</h1>
@@ -108,11 +110,11 @@ export default function booking() {
                             </div>
                     }
 
-                    <div className="w-full flex flex-col justify-center items-start text-lg mb-11">
+                    <div className="w-full flex flex-col justify-center items-center text-lg mb-11">
                         <p className="text-2xl font-mono mb-2">Date & Time</p>
-                        <div className="text-4xl mb-4 inline-block border border-stone-800 p-3">
+                        {/* <div className="mb-4 w-full p-3 "> */}
                             <DateReserve onDateTimeChange={(value: Date) => { setBookDate(value) }} />
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>
 
@@ -133,9 +135,9 @@ export default function booking() {
                             const res = await makeBooking(rid, bookDate);
                             if(res == null) {
                                 setToastState(true);
-                            
-                            };
-                        
+                            } else{
+                                router.push("/myTable");
+                            }
                         }}>Reserve Now!</button>
                     :
                     <Link href="/login" className="w-full">

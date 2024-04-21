@@ -25,11 +25,11 @@ export default function MainPageMiddle() {
         <div className="flex flex-col w-full h-full pl-9 gap-9">
             <div className={`transition-transform delay-150 duration-500 ${imageClassNames[selectedImage]}`}>
                 <div className="w-[35%] h-full backdrop-blur relative flex flex-col items-start p-10">
-                    <div className="text-[60px] uppercase font-bold mt-9">
-                        Super Buffet
+                    <div className="text-[40px] uppercase font-bold mt-9">
+                        Discover your finest dining experience.
                     </div>
                     <div className="w-[80%]">
-                        Book with us today and savor the deliciousness all year long.
+                        Book with us today and savor the deliciousness all year long. <br/>Wtf? how is that possible.
                     </div>
                 </div>
                 <div className='flex flex-row'>
