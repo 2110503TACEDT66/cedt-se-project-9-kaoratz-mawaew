@@ -3,7 +3,7 @@ import ManagerStatistics from "./Statistic";
 import { reserveJson, UserItem,RestaurantItem } from "../../../interface";
 import RestaurantCatalog from "../RestaurantCatalog";
 import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
-import Card from "../Card";
+import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
 export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
@@ -42,13 +42,13 @@ export default async function Manager({profile, reservation}: {profile: UserItem
             </div>
 
             <div>
-            <div className="flex items-start justify-center">
+            <div className="flex items-start justify-center mt-14">
                 {restaurants.count > 0 ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-black">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
                     {restaurants.data.reverse().map(
                         (restaurantItem: RestaurantItem) => (
                         // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                        <Card key={restaurantItem._id} restaurantItem={restaurantItem} />
+                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} />
                         )
                         // </Link>
                     )}
