@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import TopBar from "@/components/TopBar";
 import { LeftSideBar } from "@/components/SideBar";
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../components/auth'
-import NextAuthProvider from '@/providers/NextAuthProvider'
+import { getServerSession } from "next-auth";
+import { authOptions } from "../components/auth";
+import NextAuthProvider from "@/providers/NextAuthProvider";
 import getUserProfile from "@/libs/getUserProfile";
 import { profile } from "console";
 import { UserItem } from "../../interface";
@@ -22,20 +22,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
   const isSessionValid = session && session.user.token;
   let userName = "whoami";
   let role = "";
 
-  
-  if(!isSessionValid) {
+  if (!isSessionValid) {
     userName = "guest";
     role = "";
   } else {
     const profile = await getUserProfile(session.user.token);
     userName = profile.data.name;
-    if(profile.data.role === "manager" || profile.data.role === "admin"){
+    if (profile.data.role === "manager" || profile.data.role === "admin") {
       role = `(${profile.data.role})`;
     }
   }
@@ -43,8 +42,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-
-        <TopBar userName={userName} role={role}/>
+        <TopBar userName={userName} role={role} />
         <div className="flex w-[100%] px-9">
           <NextAuthProvider session={session}>
             <LeftSideBar />
@@ -53,6 +51,5 @@ export default async function RootLayout({
         </div>
       </body>
     </html>
-
   );
 }
