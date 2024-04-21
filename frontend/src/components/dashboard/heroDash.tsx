@@ -26,7 +26,7 @@ export default async function HeroDash() {
     let userUID = null;
     let restaurantJson = null;
     let reviewsJson = null;
-    
+
     reservationJson = await getReservations(session.user.token);
     restaurantJson = await getRestaurants();
     const profile = await getUserProfile(session.user.token);
@@ -43,7 +43,7 @@ export default async function HeroDash() {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
             }
             {
-                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} />: null
+                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} /> : null
             }
         </div>
     )

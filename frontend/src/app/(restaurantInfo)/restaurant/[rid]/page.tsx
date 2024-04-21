@@ -9,11 +9,12 @@ import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import { PeakHourChart } from '@/components/dashboard/Chart';
-
+import PeakHourChart from '@/components/dashboard/Chart';
+import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
     const restaurantDetails = await getRestaurant(params.rid);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);
 
     const currentTime = new Date(); // Get current time
@@ -28,6 +29,85 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;
+
+    const chartdata = [
+        {
+            name: '6am',
+            'Number of reservations': 2488,
+        },
+        {
+            name: '7am',
+            'Number of reservations': 1445,
+        },
+        {
+            name: '8am',
+            'Number of reservations': 743,
+        },
+        {
+            name: '9am',
+            'Number of reservations': 281,
+        },
+        {
+            name: '10am',
+            'Number of reservations': 251,
+        },
+        {
+            name: '11am',
+            'Number of reservations': 232,
+        },
+        {
+            name: '12pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '1pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '2pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '3pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '4pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '5pm',
+            'Number of reservations': 500,
+        },
+        {
+            name: '6pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '7pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '8pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '9pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '10pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '11pm',
+            'Number of reservations': 98,
+        },
+        {
+            name: '12am',
+            'Number of reservations': 98,
+        },
+    ];
 
     return (
         <div className="w-[88%] h-full pl-9 font-mono flex flex-col gap-10">
@@ -52,20 +132,16 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                             height={0}
                             objectFit='cover'
                             layout='fill'
-                            style={{ borderRadius: '2px' ,border: '2px solid black'}}
+                            style={{ borderRadius: '2px', border: '2px solid black' }}
                         />
                     </div>
                 </div>
 
             </div>
-            
-            {/* <div className='flex flex-row justify-center items-center gap-5'>
-                <h1 className="text-4xl font-bold text-primary text-nowrap">Peak Hours</h1>
-                <hr className='border-black border-1 flex-grow ' />
-            </div>
-            <PeakHourChart />  */}
- 
-            
+            {
+                (restaurantSummaryReservations.data)? <PeakHourChart data={restaurantSummaryReservations.data.chartdata}/> : <p>No data</p>
+            }
+
 
             <div className='flex flex-col w-full'>
                 <Tag restaurantDetails={restaurantDetails.data} />
@@ -98,9 +174,9 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
             </div>
 
-        
-            
-        
+
+
+
         </div>
     );
 }

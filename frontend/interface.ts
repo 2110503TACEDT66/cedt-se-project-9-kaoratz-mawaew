@@ -106,3 +106,16 @@ export interface managerform {
   c_email: string;
   c_password: string;
 }
+
+export interface ChartDataItem {
+  name: string;
+  count: number;
+}
+
+export interface ReservationResponse {
+  success: boolean;
+  count: number;
+  data: {
+    chartdata: ChartDataItem[];
+  };
+}
