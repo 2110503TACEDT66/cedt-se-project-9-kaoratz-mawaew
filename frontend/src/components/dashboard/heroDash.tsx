@@ -27,33 +27,7 @@ export default async function HeroDash() {
     let restaurantJson = null;
     let reviewsJson = null;
 
-<<<<<<< HEAD
-    if (session) {
-        reservationJson = await getReservations(session.user.token);
-        restaurantJson = await getRestaurants();
-        const profile = await getUserProfile(session.user.token);
-        reviewsJson = await getUserReviews(profile.data._id);
-        userName = profile.data.name;
-        userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
-        // userUID = await getUserReviews(profile.data._id);
-        console.log(JSON.stringify(reservationJson));
-        console.log(JSON.stringify(reviewsJson));
-        // switch (profile.data.role) {
-        //     case 'manager': {
-        //         userRole = 'manager';
-        //         break;
-        //     }
-        //     case 'user': {
-        //         userRole = 'user';
-        //         break;
-        //     }
-        //     case 'admin': {
-        //         userRole = 'admin';
-        //         break;
-        //     }
-        // }
-    }
-=======
+
     
     reservationJson = await getReservations(session.user.token);
     restaurantJson = await getRestaurants();
@@ -63,7 +37,7 @@ export default async function HeroDash() {
     console.log(JSON.stringify(reservationJson));
         
     
->>>>>>> a4b93c918781a766c4052479d386e2e609b4d5e9
+
 
     return (
         <div className="mx-4 p-9 w-[88%] border-black border-2">
@@ -74,17 +48,7 @@ export default async function HeroDash() {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
             }
             {
-<<<<<<< HEAD
-                (userRole == 'User') ? <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                    <h1 className="text-xl text-left font-bold">Comments</h1>
-                    <hr className="border-zinc-900 grow" />
-                    <div>
-                    <allComments reviewsJson={reviewsJson} />
-                    </div>
-                </div> : null
-=======
-                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} />: null
->>>>>>> a4b93c918781a766c4052479d386e2e609b4d5e9
+                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} /> : null
             }
         </div>
     )
