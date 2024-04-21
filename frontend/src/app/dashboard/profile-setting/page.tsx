@@ -5,9 +5,14 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { NextPage } from "next";
 import { revalidateTag } from "next/cache";
-const ProfileSetting: NextPage = () => {
+
+import { useForm } from "react-hook-form";
+
+
+
+
+const ProfileSetting = () => {
 
     const [name, setName] = useState('');
     const [tel, setTel] = useState('');
