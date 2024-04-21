@@ -8,6 +8,7 @@ import UserStatistics from "../userDashboard/userStatistics";
 import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
+import { reserveItem, RestaurantItem } from "../../../interface";
 
 
 export default async function HeroDash() {
@@ -26,7 +27,7 @@ export default async function HeroDash() {
         userName = profile.data.name;
         userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
         // userUID = await getUserReviews(profile.data._id);
-
+        console.log(JSON.stringify(reservationJson));
         // switch (profile.data.role) {
         //     case 'manager': {
         //         userRole = 'manager';
@@ -68,8 +69,8 @@ export default async function HeroDash() {
                 </Link>
             </div>
 
-            <UserStatistics />
-            
+            <UserStatistics upComing={countCurrentReservations(reservationJson)} thisYear={countReservationsThisYear(reservationJson)} allTime={reservationJson.count} />
+
             {
                 (userRole == 'User') ?
                     <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
@@ -117,3 +118,28 @@ export default async function HeroDash() {
         </div>
     )
 }
+
+export function countCurrentReservations(reservationData: reserveItem[]): number {
+    const currentDate = new Date(); // Get current date
+    const currentYear = currentDate.getFullYear(); // Get current year
+  
+    const currentReservations = reservationData.filter(reservation => {
+      const resvDate = new Date(reservation.resvDate);
+      return resvDate.getFullYear() === currentYear;
+    });
+  
+    return currentReservations.length;
+  }
+  
+  export function countReservationsThisYear(reservationData: reserveItem[]): number {
+    const currentDate = new Date(); // Get current date
+    const currentYear = currentDate.getFullYear(); // Get current year
+  
+    const reservationsThisYear = reservationData.filter(reservation => {
+      const resvDate = new Date(reservation.resvDate);
+      return resvDate.getFullYear() === currentYear;
+    });
+  
+    return reservationsThisYear.length;
+  }
+

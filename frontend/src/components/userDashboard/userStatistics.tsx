@@ -1,4 +1,7 @@
-export default function userStatistics() {
+import { getServerSession } from "next-auth";
+import { authOptions } from '../../components/auth';
+
+export default function userStatistics({ upComing, thisYear, allTime }: { upComing: number, thisYear: number, allTime: number }) {
     return (
         <>
             {
@@ -10,7 +13,7 @@ export default function userStatistics() {
                             </div>
                             <div className="flex flex-row space-x-4">
                                 <div>
-                                    <p className="text-4xl">02</p>
+                                    <p className="text-4xl">{upComing}</p>
                                 </div>
                                 <div className="content-end">
                                     <p className="text-base">reservation</p>
@@ -26,7 +29,7 @@ export default function userStatistics() {
                             </div>
                             <div className="flex flex-row space-x-4">
                                 <div>
-                                    <p className="text-4xl">57</p>
+                                    <p className="text-4xl">{thisYear}</p>
                                 </div>
                                 <div className="content-end">
                                     <p className="text-base">reservation</p>
@@ -42,7 +45,7 @@ export default function userStatistics() {
                             </div>
                             <div className="flex flex-row space-x-4">
                                 <div>
-                                    <p className="text-4xl">90</p>
+                                    <p className="text-4xl">{allTime}</p>
                                 </div>
                                 <div className="content-end">
                                     <p className="text-base">reservation</p>
