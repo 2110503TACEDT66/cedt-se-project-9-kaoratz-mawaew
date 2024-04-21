@@ -11,6 +11,7 @@ import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
 import ManagerStatistics from "../managerDashboard/ManagerStatistic";
 import { profile } from "console";
+import Manager from "./Manager";
 
 
 export default async function HeroDash() {
@@ -29,6 +30,7 @@ export default async function HeroDash() {
         const profile = await getUserProfile(session.user.token);
         userName = profile.data.name;
         userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
+        userUID = profile.data._id;
         // userUID = await getUserReviews(profile.data._id);
         console.log(JSON.stringify(reservationJson));
         // switch (profile.data.role) {
@@ -45,6 +47,12 @@ export default async function HeroDash() {
         //         break;
         //     }
         // }
+    }
+
+    if (userRole == 'Manager') {
+        return (
+            <Manager name={userName} mid={userUID}/>
+        )
     }
 
     return (
