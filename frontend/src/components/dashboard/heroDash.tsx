@@ -3,8 +3,11 @@ import { getServerSession } from "next-auth";
 import getReservations from "@/libs/getReservations";
 import { authOptions } from "../auth";
 import UserHistory from "../userDashboard/userHistory";
+import Comment from "postcss/lib/comment";
+import UserStatistics from "../userDashboard/userStatistics";
 import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
+import getUserReviews from "@/libs/getUserReviews";
 
 
 export default async function HeroDash() {
@@ -13,6 +16,7 @@ export default async function HeroDash() {
     let reservationJson = null;
     let userRole = null;
     let userName = null;
+    let userUID = null;
     let restaurantJson = null;
 
     if (session) {
@@ -21,6 +25,7 @@ export default async function HeroDash() {
         const profile = await getUserProfile(session.user.token);
         userName = profile.data.name;
         userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
+        // userUID = await getUserReviews(profile.data._id);
 
         // switch (profile.data.role) {
         //     case 'manager': {
@@ -43,6 +48,11 @@ export default async function HeroDash() {
             <div className="text-3xl">
                 Dashboard (sprint 2)
             </div>
+
+            {/* {
+                (userRole == 'User') ? <Comment reviewsJson={userUID} /> : "Mgr/User dashboard headline"
+            } */}
+
             <div className="text-5xl font-medium">
                 Hello {userName} ({userRole})
             </div>
@@ -58,14 +68,16 @@ export default async function HeroDash() {
                 </Link>
             </div>
             {
-                (userRole == 'User') ? 
-                <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                    <h1 className="text-xl font-medium text-left">History</h1>
-                    <hr className="border-zinc-900 grow" />
-                </div> : "Mgr/Admin dashboard headline"
-            
+                (userRole == 'User') ?
+                    <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
+                        <h1 className="text-xl font-medium text-left">History</h1>
+                        <hr className="border-zinc-900 grow" />
+                    </div> : "Mgr/Admin dashboard headline"
+
             }
-            
+
+            <UserStatistics />
+
             {
                 (userRole == 'User') ? <UserHistory reservation={reservationJson} /> : "\nMgr/Admin dashboard component"
             }
@@ -77,7 +89,7 @@ export default async function HeroDash() {
                     <hr className="border-zinc-900 grow" />
                 </div> : null
             }
-            
+
             {
                 (userRole != 'User') ? <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                     <h1 className="text-xl font-medium text-lef">Restaurant</h1>
@@ -93,14 +105,14 @@ export default async function HeroDash() {
             }
 
             {
-                (userRole == 'Admin') ? 
-                <Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
-                    <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
-                        Add Manager
-                    </div>
-                </Link> : null
+                (userRole == 'Admin') ?
+                    <Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
+                        <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
+                            Add Manager
+                        </div>
+                    </Link> : null
             }
-            
+
         </div>
     )
 }
