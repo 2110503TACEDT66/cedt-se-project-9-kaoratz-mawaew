@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import getReservations from "@/libs/getReservations";
 import { authOptions } from "../auth";
 import UserHistory from "../userDashboard/userHistory";
-import Comment from "postcss/lib/comment";
+import allComments from "../userDashboard/allComments";
 import UserStatistics from "../userDashboard/userStatistics";
 import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
@@ -11,8 +11,15 @@ import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
 import ManagerStatistics from "../managerDashboard/Statistic";
 import { profile } from "console";
+
 import Manager from "../managerDashboard/Manager";
 import { UserItem } from "../../../interface";
+
+
+import UserDashboard from "./UserDashboard";
+import Admin from "./Admin";
+
+
 
 export default async function HeroDash() {
 
@@ -23,6 +30,8 @@ export default async function HeroDash() {
     let userName = null;
     let userUID = null;
     let restaurantJson = null;
+    let reviewsJson = null;
+
 
     
     reservationJson = await getReservations(session.user.token);
@@ -34,23 +43,25 @@ export default async function HeroDash() {
         
     
 
+
     if (userRole == 'Manager') {
         return (
             <Manager profile={profile.data} reservation={reservationJson}/>
         )
     }
 
+
     return (
         <div className="mx-4 p-9 w-[88%] border-black border-2">
-            {/* {
-                userRole == 'User' ? 
-            } */}
+            {
+                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
+            }
             {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
             }
-            {/* {
-                userRole == 'Admin' ? 
-            } */}
+            {
+                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} /> : null
+            }
         </div>
     )
 }
