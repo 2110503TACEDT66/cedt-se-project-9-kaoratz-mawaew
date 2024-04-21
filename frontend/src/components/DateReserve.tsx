@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { DateTimePicker, LocalizationProvider, StaticDateTimePicker } from "@mui/x-date-pickers"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
