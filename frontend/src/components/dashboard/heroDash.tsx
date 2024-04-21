@@ -41,12 +41,12 @@ export default async function HeroDash() {
                 Dashboard (sprint 2)
             </div>
             <div className="text-5xl font-medium">
-                Hello {userName}
+                Hello {userName} ({userRole})
             </div>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl font-medium text-left">{userRole} dashboard</h1>
                 <hr className="border-zinc-900 grow" />
-                <Link href={`/restaurant/`}>
+                <Link href={`/dashboard/profile-setting`}>
                     <button className="pt-2 pb-2 pl-4 pr-4 border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                         hover:-translate-x-1 hover:-translate-y-1 text-lg">
@@ -54,13 +54,17 @@ export default async function HeroDash() {
                     </button>
                 </Link>
             </div>
-            <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                <h1 className="text-xl font-medium text-left">History</h1>
-                <hr className="border-zinc-900 grow" />
-            </div>
-
             {
-                session ? <UserHistory reservation={reservationJson} /> : "No Session"
+                (userRole == 'User') ? 
+                <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
+                    <h1 className="text-xl font-medium text-left">History</h1>
+                    <hr className="border-zinc-900 grow" />
+                </div> : "Mgr/Admin dashboard headline"
+            
+            }
+            
+            {
+                (userRole == 'User') ? <UserHistory reservation={reservationJson} /> : "\nMgr/Admin dashboard component"
             }
 
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
@@ -68,17 +72,24 @@ export default async function HeroDash() {
                 <hr className="border-zinc-900 grow" />
             </div>
 
-            <Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
-                <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
-                    Add Manager
-                </div>
-            </Link>
-
-            <Link href="/restaurant/create" className="w-[20%] flex flex-row items-center justify-center" prefetch>
-                <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
-                    Create Restaurant
-                </div>
-            </Link>
+            {
+                (userRole == 'Admin') ? 
+                <Link href="/addmanager" className="w-[20%] flex flex-row items-center justify-center" prefetch>
+                    <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
+                        Add Manager
+                    </div>
+                </Link> : null
+            }
+            
+            {
+                (userRole != 'User') ? 
+                <Link href="/restaurant/create" className="w-[20%] flex flex-row items-center justify-center" prefetch>
+                    <div className="p-5 bg-black text-white text-[30px] w-full rounded-md text-center">
+                        Create Restaurant
+                    </div>
+                </Link> : null
+            }
+            
 
         </div>
     )

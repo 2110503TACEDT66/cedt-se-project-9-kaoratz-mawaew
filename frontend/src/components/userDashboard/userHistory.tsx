@@ -17,7 +17,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                     </tr>
                 </thead>
             </table>
-            <div className="w-full overflow-y-scroll h-[384px] no-scrollbar">
+            <div className="w-full overflow-y-scroll max-h-[384px] no-scrollbar">
             <table className="text-center text-sm w-full items-center ">
                 {/* <thead>
                     <tr>
@@ -73,7 +73,7 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                         No History
                     </td>
                     <td className="w-[10%] py-4">
-                        Review
+                        -
                     </td>
                 </tr>
             }
