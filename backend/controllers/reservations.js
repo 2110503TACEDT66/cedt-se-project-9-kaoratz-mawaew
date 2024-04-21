@@ -13,7 +13,7 @@ exports.getReservations = async (req, res, next) => {
         query = Reservation.find({ user: req.user.id }).populate({
             path: 'restaurant',
             select: 'name province tel'
-        });
+        }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
         //console.log("1");
     } else {
         //admin see all
@@ -22,13 +22,13 @@ exports.getReservations = async (req, res, next) => {
             query = Reservation.find({ hospital: req.params.restaurantId }).populate({
                 path: 'restaurant',
                 select: 'name province tel'
-            });
+            }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
             //console.log("2");
         } else {
             query = Reservation.find().populate({
                 path: 'restaurant',
                 select: 'name province tel'
-            });
+            }).sort({completed: 1, resvDate: 1, createdAt: 1, name: 1});
             //console.log("3");
         }
     }
@@ -90,7 +90,7 @@ exports.createReservation = async (req, res, next) => {
         req.body.restaurant = req.params.restaurantId;
         const restaurant = await Restaurant.findById(req.params.restaurantId);
         req.body.user = req.user.id;
-        const existedReservation = await Reservation.find({ user: req.user.id });
+        const existedReservation = await Reservation.find({ user: req.user.id, completed: false });
 
         if (existedReservation.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({

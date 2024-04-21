@@ -25,4 +25,12 @@ const ReservationSchema = new mongoose.Schema({
     }
 
 });
+
+ReservationSchema.pre('save' , function(next) {
+    if (this.resvDate < new Date()) {
+        this.completed = true;
+    }
+    next();
+});
+
 module.exports = mongoose.model('Reservation', ReservationSchema);
