@@ -14,7 +14,7 @@ exports.getReviews = async (req, res, next) => {
   removeFields.forEach((param) => delete reqQuery[param]);
 
   let queryStr = JSON.stringify(reqQuery);
-  // console.log(queryStr);
+  console.log(queryStr);
 
   queryStr = queryStr.replace(
     /\b(gt|gte|lt|lte|in)\b/g,
@@ -28,8 +28,12 @@ exports.getReviews = async (req, res, next) => {
 
     query = query.find({ tag: { $in: rating } }); // union approach
   }
+  else if(req.query.user){
+    const userId = req.query.user;
+    query = query.find({user: userId});
+  }
   //all see all
-  if (req.params.restaurantId) {
+  else if (req.params.restaurantId) {
     //console.log(req.params.restaurantId);
     query = Review.find({ restaurant: req.params.restaurantId })
       .populate({
@@ -55,9 +59,6 @@ exports.getReviews = async (req, res, next) => {
   }
 
   //handle dashboard
-  if (req.body.user) {
-    query = Review.find({ user: req.body.user });
-  }
 
   try {
     const review = await query;

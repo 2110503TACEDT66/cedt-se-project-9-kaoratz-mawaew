@@ -2,7 +2,7 @@ import getUserReviews from "@/libs/getUserReviews";
 import { ReviewItem, ReviewJson } from "../../../interface";
 import ReviewCard from "../ridpage/ReviewCard";
 
-export default async function comments(reviewsJson: Promise<ReviewJson>){
+export default async function allComments({reviewsJson} : {reviewsJson : ReviewJson}){
     const comments = await reviewsJson
     return(
         <>
@@ -10,7 +10,7 @@ export default async function comments(reviewsJson: Promise<ReviewJson>){
             comments.count > 0 ?
             (
                 [...comments.data].reverse().map((commentItems : ReviewItem)=>
-                <ReviewCard ReviewItem={commentItems}></ReviewCard>
+                <ReviewCard key={commentItems.id} ReviewItem={commentItems}></ReviewCard>
                 )
             ) : null
         }

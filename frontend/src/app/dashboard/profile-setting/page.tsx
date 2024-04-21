@@ -17,9 +17,11 @@ const ProfileSetting = async () => {
 
     if(!session || !session.user.token) return null;
 
+
     const profile = await getUserProfile(session.user.token);
     const profileData = profile.data as TUserCustomSchema;
     
+
 
     return (
         <ProfileForm userData={profileData} token={session.user.token}/>

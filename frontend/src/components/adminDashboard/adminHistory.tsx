@@ -2,7 +2,7 @@ import { reserveJson } from "../../../interface";
 import dayjs from "dayjs";
 import Link from "next/link";
 
-export default function UserHistory ({reservation} : {reservation : reserveJson}) {
+export default function AdminHistory ({reservation} : {reservation : reserveJson}) {
     const data = reservation.data;
     
     return (
@@ -11,8 +11,9 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                 <thead>
                     <tr>
                         <th className="w-[15%] text-lg py-4 font-semibold border-r-2 border-gray-900">Date of Reservation</th>
-                        <th className="w-[40%] text-lg py-4 font-semibold border-r-2 border-gray-900">Restaurant</th>
+                        <th className="w-[25%] text-lg py-4 font-semibold border-r-2 border-gray-900">Restaurant</th>
                         <th className="w-[15%] text-lg py-4 font-semibold border-r-2 border-gray-900">Date of Issue</th>
+                        <th className="w-[15%] text-lg py-4 font-semibold border-r-2 border-gray-900">User</th>
                         <th className="w-[10%] text-lg py-4 font-semibold border-r-2 border-gray-900">Status</th>
                         <th className="w-[10%] text-lg py-4 font-semibold text-center">Review</th>
                     </tr>
@@ -36,12 +37,15 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                         <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
                             {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
                         </td>
-                        <td className="w-[40%] py-4 border-r-2 border-gray-900">
+                        <td className="w-[25%] py-4 border-r-2 border-gray-900">
                             {res.restaurant.name}
                         </td>
                         <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
                             {dayjs(res.createdAt).format('DD/MM/YY HH:mm:ss')}
                         </td> 
+                        <td className="w-[15%] py-4 border-r-2 border-gray-900">
+                            {res.user.name}
+                        </td>
                         <td className="w-[10%] py-4 border-r-2 border-gray-900">
                             {res.completed? <p className="text-emerald-600">Completed</p> : <p className="text-red-600">Upcoming</p>}
                         </td>
@@ -64,7 +68,10 @@ export default function UserHistory ({reservation} : {reservation : reserveJson}
                     <td className="w-[15%] py-4 border-r-2 border-gray-900">
                         No History
                     </td>
-                    <td className="w-[40%] py-4 border-r-2 border-gray-900">
+                    <td className="w-[25%] py-4 border-r-2 border-gray-900">
+                        No History
+                    </td>
+                    <td className="w-[15%] py-4 border-r-2 border-gray-900">
                         No History
                     </td>
                     <td className="w-[15%] py-4 border-r-2 border-gray-900">
