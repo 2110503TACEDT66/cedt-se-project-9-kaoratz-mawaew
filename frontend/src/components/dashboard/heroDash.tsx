@@ -9,7 +9,7 @@ import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
-import ManagerStatistics from "../managerDashboard/Statistic";
+// import ManagerStatistics from "../managerDashboard/Statistic";
 import { profile } from "console";
 
 import Manager from "../managerDashboard/Manager";

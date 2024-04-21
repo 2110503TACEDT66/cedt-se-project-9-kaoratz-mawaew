@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ManagerStatistics from "../managerDashboard/ManagerStatistic";
+import ManagerStatistics from "../managerDashboard/Statistic";
 import { UserItem } from "../../../interface";
 import { reserveJson } from "../../../interface";
 import AdminHistory from "../adminDashboard/adminHistory";
@@ -16,7 +16,7 @@ export default function Admin({profile, reservation}: {profile: UserItem, reserv
                 <hr className="border-zinc-900 grow" />
             </div>
 
-            <ManagerStatistics reservation={reservation} />
+            {/* <ManagerStatistics reservation={reservation} /> */}
 
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">Restaurant</h1>
