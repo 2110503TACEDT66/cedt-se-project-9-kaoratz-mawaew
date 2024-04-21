@@ -29,86 +29,6 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;
-
-    const chartdata = [
-        {
-            name: '6am',
-            'Number of reservations': 2488,
-        },
-        {
-            name: '7am',
-            'Number of reservations': 1445,
-        },
-        {
-            name: '8am',
-            'Number of reservations': 743,
-        },
-        {
-            name: '9am',
-            'Number of reservations': 281,
-        },
-        {
-            name: '10am',
-            'Number of reservations': 251,
-        },
-        {
-            name: '11am',
-            'Number of reservations': 232,
-        },
-        {
-            name: '12pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '1pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '2pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '3pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '4pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '5pm',
-            'Number of reservations': 500,
-        },
-        {
-            name: '6pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '7pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '8pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '9pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '10pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '11pm',
-            'Number of reservations': 98,
-        },
-        {
-            name: '12am',
-            'Number of reservations': 98,
-        },
-    ];
-
     return (
         <div className="w-[88%] h-full pl-9 font-mono flex flex-col gap-10">
 
@@ -144,6 +64,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
 
             <div className='flex flex-col w-full'>
+                
                 <Tag restaurantDetails={restaurantDetails.data} />
 
                 <ReviewSection rid={restaurantDetails.data.id} />
@@ -171,12 +92,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                         hover:-translate-x-1 hover:-translate-y-1">Go Reserve</button>
                 </Link>
-
             </div>
-
-
-
-
         </div>
     );
 }

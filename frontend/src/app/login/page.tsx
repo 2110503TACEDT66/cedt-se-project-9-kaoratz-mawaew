@@ -4,10 +4,13 @@ import { signIn } from 'next-auth/react';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-
+import { useRouter } from 'next/navigation';
 import getUserProfile from '@/libs/getUserProfile';
 
 const Login: NextPage = () => {
+  
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -20,15 +23,15 @@ const Login: NextPage = () => {
     setRole(profile.data.role)
   }
   
-  if (session) {
-    useEffect(() => {
-      getProfile(session.user.token)
-    }, [])
-  }
+  // if (session) {
+  //   useEffect(() => {
+  //     getProfile(session.user.token)
+  //   }, [])
+  // }
 
-  if (role) {
-    login(role)
-  }
+  // if (role) {
+  //   login(role)
+  // }
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +45,8 @@ const Login: NextPage = () => {
       if (result?.error) {
         setError(result.error);
       } else {
-        window.location.href = '/login'; // Modify this URL as needed
+          router.push('/dashboard') 
+          router.refresh();
       }
     } catch (error) {
       // Handle error cases here1
@@ -103,12 +107,12 @@ const Login: NextPage = () => {
 
 export default Login;
 
-const login = (role: string) => {
-  if (role == 'manager' || role == 'admin') {
-    redirect('/dashboard')
-  }
+// const login = (role: string) => {
+//   if (role == 'manager' || role == 'admin') {
+//     redirect('/dashboard')
+//   }
 
-  if (role == 'user') {
-    redirect('/restaurant')
-  }
-}
+//   if (role == 'user') {
+//     redirect('/restaurant')
+//   }
+// }

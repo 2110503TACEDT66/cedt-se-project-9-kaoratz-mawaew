@@ -1,4 +1,4 @@
-import FormSection from "@/components/createRestaurant/FormSection";
+import FormSection from "@/components/managerDashboard/FormSection";
 
 export default function createRestaurantPage(){
 

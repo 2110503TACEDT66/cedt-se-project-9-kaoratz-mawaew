@@ -31,11 +31,11 @@ const connectDB = async () => {
 
     setInterval(async () => {
         try {
-            const result = await Reservation.updateMany({ resvDate: { $lt: new Date() }, completed: false }, { $set: { completed: true } });
+            const result = await Reservation.updateMany({ resvDate: { $lt: new Date() } }, { $set: { completed: true } });
         } catch (error) {
             console.log(randomSentence);
         }
-    }, 60000);
+    }, 1000);
 
   console.log(`MongoDB Connected: ${conn.connection.host}`);
 };

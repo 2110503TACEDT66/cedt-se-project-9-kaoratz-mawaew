@@ -1,13 +1,7 @@
 'use client'
 
 import { BarChart, Title, Card } from '@tremor/react';
-
-// mock data waiting for fetching from backend
-
-interface ChartDataItem {
-    name: string;
-    'Number of reservations': number;
-}
+import { ChartDataItem } from '../../../interface'
 
 // Define the type for the parameter
 type ChartData = ChartDataItem[];
