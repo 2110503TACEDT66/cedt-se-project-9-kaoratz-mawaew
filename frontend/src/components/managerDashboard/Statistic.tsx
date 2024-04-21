@@ -8,6 +8,10 @@ import getUserProfile from "@/libs/getUserProfile";
 import { useState } from "react";
 import { useEffect } from "react";
 
+const formatNumber = (number: number) => {
+    return number < 10 ? `0${number}` : number;
+};
+
 export default function Statistic({reservation} : {reservation: reserveJson}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
@@ -39,21 +43,21 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
                     <td className="pr-9 text-base border-r-2 border-black font-mono">
                         <p>Current reservation</p>
                         <div className="inline-flex items-center gap-4 mt-4">
-                            <h1 className="text-4xl font-bold">{current}</h1>
+                            <h1 className="text-4xl font-bold">{formatNumber(current)}</h1>
                             <p>reservation</p>
                         </div>
                     </td>
                     <td className="px-9 text-base border-r-2 border-black font-mono">
                         <p>In this year</p>
                         <div className="inline-flex items-center gap-4 mt-4">
-                            <h1 className="text-4xl font-bold">{reservedSinceLastYear}</h1>
+                            <h1 className="text-4xl font-bold">{formatNumber(reservedSinceLastYear)}</h1>
                             <p>reservation</p>
                         </div>
                     </td>
                     <td className="pl-9 text-base font-mono">
                         <p>For all time</p>
                         <div className="inline-flex items-center gap-4 mt-4">
-                            <h1 className="text-4xl font-bold">{alltime}</h1>
+                            <h1 className="text-4xl font-bold">{formatNumber(alltime)}</h1>
                             <p>reservation</p>
                         </div>
                     </td>
