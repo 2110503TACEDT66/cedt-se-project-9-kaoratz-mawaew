@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.14",
     "@mui/x-date-pickers": "^7.0.0",
     "@reduxjs/toolkit": "^2.2.2",
+    "@tremor/react": "^3.16.1",
     "@uploadthing/react": "^6.4.4",
     "boxicons": "^2.1.4",
     "dayjs": "^1.11.10",

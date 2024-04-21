@@ -9,6 +9,7 @@ import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
+import { PeakHourChart } from '@/components/dashboard/Chart';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -57,6 +58,15 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </div>
 
             </div>
+            
+            {/* <div className='flex flex-row justify-center items-center gap-5'>
+                <h1 className="text-4xl font-bold text-primary text-nowrap">Peak Hours</h1>
+                <hr className='border-black border-1 flex-grow ' />
+            </div>
+            <PeakHourChart />  */}
+ 
+            
+
             <div className='flex flex-col w-full'>
                 <Tag restaurantDetails={restaurantDetails.data} />
 
@@ -66,7 +76,6 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </>}>
                     <AllReviewCard reviewJson={reviews} />
                 </Suspense>
-
             </div>
 
             <div className="flex flex-row">
@@ -88,6 +97,10 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </Link>
 
             </div>
+
+        
+            
+        
         </div>
     );
 }
