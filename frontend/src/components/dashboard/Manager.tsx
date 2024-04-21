@@ -1,11 +1,13 @@
 import Link from "next/link";
-import Stat from "./Stat";
+import ManagerStatistics from "../managerDashboard/ManagerStatistic";
+import { UserItem } from "../../../interface";
+import { reserveJson } from "../../../interface";
 
-export default function Manager({name}: {name: string}) {
+export default function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
     return (
-        <div className="mx-4 p-9 w-[88%] border-black border-2">
+        <>
             <div className="text-5xl font-bold">
-                <h1>Hello {name}</h1>
+                <h1>Hello {profile.name}</h1>
             </div>
 
             <div className="w-full inline-flex items-center space-x-4 mt-7">
@@ -20,7 +22,7 @@ export default function Manager({name}: {name: string}) {
                 </Link>
             </div>
 
-            <Stat/>
+            <ManagerStatistics reservation={reservation} />
 
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">Restaurant</h1>
@@ -33,6 +35,6 @@ export default function Manager({name}: {name: string}) {
                     </button>
                 </Link>
             </div>
-        </div>
+        </>
     )
 }
