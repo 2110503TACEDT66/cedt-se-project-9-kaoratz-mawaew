@@ -27,7 +27,7 @@ export interface RestaurantItem {
 
 export interface reserveItem {
   _id: string;
-  user: string;
+  user: UserItem;
   id: string;
   restaurant: RestaurantItem;
   resvDate: string;
