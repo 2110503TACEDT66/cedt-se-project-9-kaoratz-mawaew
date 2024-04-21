@@ -5,16 +5,15 @@ import Link from "next/link";
 export default function UserHistory ({reservation} : {reservation : reserveJson}) {
     const data = reservation.data;
     return (
-        
-        <div className="w-full pl-[10%]">
+        <div className="w-full">
             <table className="text-center text-sm w-full items-center border-b-2 border-gray-900">
                 <thead>
                     <tr>
-                        <th className="w-[15%] py-4 font-semibold border-r-2 border-gray-900">Date of Reservation</th>
-                        <th className="w-[40%] py-4 font-semibold border-r-2 border-gray-900">Restaurant</th>
-                        <th className="w-[15%] py-4 font-semibold border-r-2 border-gray-900">Date of Issue</th>
-                        <th className="w-[10%] py-4 font-semibold border-r-2 border-gray-900">Status</th>
-                        <th className="w-[10%] py-4 font-semibold text-center">Review</th>
+                        <th className="w-[15%] text-lg py-4 font-semibold border-r-2 border-gray-900">Date of Reservation</th>
+                        <th className="w-[40%] text-lg py-4 font-semibold border-r-2 border-gray-900">Restaurant</th>
+                        <th className="w-[15%] text-lg py-4 font-semibold border-r-2 border-gray-900">Date of Issue</th>
+                        <th className="w-[10%] text-lg py-4 font-semibold border-r-2 border-gray-900">Status</th>
+                        <th className="w-[10%] text-lg py-4 font-semibold text-center">Review</th>
                     </tr>
                 </thead>
             </table>
