@@ -67,6 +67,9 @@ export default async function HeroDash() {
                     </button>
                 </Link>
             </div>
+
+            <UserStatistics />
+            
             {
                 (userRole == 'User') ?
                     <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
@@ -75,8 +78,6 @@ export default async function HeroDash() {
                     </div> : "Mgr/Admin dashboard headline"
 
             }
-
-            <UserStatistics />
 
             {
                 (userRole == 'User') ? <UserHistory reservation={reservationJson} /> : "\nMgr/Admin dashboard component"

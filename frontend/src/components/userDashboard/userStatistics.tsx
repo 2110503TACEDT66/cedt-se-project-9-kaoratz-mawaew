@@ -3,7 +3,7 @@ export default function userStatistics() {
         <>
             {
                 <div className="flex flex-row space-x-9">
-                    <div className="flex flex-row pl-9 border-r-4 border-indigo-500">
+                    <div className="flex flex-row pr-9 border-r-2 border-zinc-900">
                         <div className="flex flex-col space-y-4">
                             <div>
                                 <p className="text-base">Current reservation</p>
@@ -19,7 +19,7 @@ export default function userStatistics() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row">
+                    <div className="flex flex-row pr-9 border-r-2 border-zinc-900">
                         <div className="flex flex-col space-y-4">
                             <div>
                                 <p className="text-base">In this year</p>
