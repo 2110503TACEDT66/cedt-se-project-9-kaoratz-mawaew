@@ -12,6 +12,8 @@ import { reserveItem, RestaurantItem } from "../../../interface";
 import ManagerStatistics from "../managerDashboard/ManagerStatistic";
 import { profile } from "console";
 import Manager from "./Manager";
+import UserDashboard from "./UserDashboard";
+import Admin from "./Admin";
 
 
 export default async function HeroDash() {
@@ -36,15 +38,15 @@ export default async function HeroDash() {
 
     return (
         <div className="mx-4 p-9 w-[88%] border-black border-2">
-            {/* {
-                userRole == 'User' ? 
-            } */}
+            {
+                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
+            }
             {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
             }
-            {/* {
-                userRole == 'Admin' ? 
-            } */}
+            {
+                userRole == 'Admin' ? <Admin profile={profile.data} reservation={reservationJson} />: null
+            }
         </div>
     )
 }

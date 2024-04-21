@@ -7,10 +7,10 @@ export default function UserDashboard ({profile, reservation} : {profile: UserIt
     return (
         <div className="w-full flex flex-col justify-center gap-10 pr-[17%] ml-[5%]">
             <div className="text-5xl font-medium">
-                Fuck You, {profile.name}
+                Hello, {profile.name}
             </div>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                <h1 className="text-xl font-medium text-left">{profile.role} dashboard</h1>
+                <h1 className="text-xl font-medium text-left">Member Dashboard</h1>
                 <hr className="border-zinc-900 grow" />
                 <Link href={`/dashboard/profile-setting`}>
                     <button className="pt-2 pb-2 pl-4 pr-4 border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
@@ -22,7 +22,7 @@ export default function UserDashboard ({profile, reservation} : {profile: UserIt
             </div>
             <UserStatistics reservation={reservation}/>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
-                <h1 className="text-xl text-left font-bold">History</h1>
+                <h1 className="text-xl text-left font-medium">History</h1>
                 <hr className="border-zinc-900 grow" />
             </div>
             <UserHistory reservation={reservation} />
