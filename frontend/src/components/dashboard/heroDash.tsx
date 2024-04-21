@@ -82,11 +82,9 @@ export default async function HeroDash() {
                         <h1 className="text-xl text-left font-bold">History</h1>
                         <hr className="border-zinc-900 grow" />
                     </div> : null
-<<<<<<< HEAD
-=======
+
                 }
->>>>>>> 817f9b3e49bd2f41459fd72ac4848b23602a69d6
-            }
+
 
             {
                 (userRole == 'User') ? <UserHistory reservation={reservationJson} /> : <ManagerStatistics reservation={reservationJson} />
