@@ -11,7 +11,6 @@ import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
 import ManagerStatistics from "../managerDashboard/ManagerStatistic";
 import { profile } from "console";
-import { Link } from "next/link";
 
 
 export default async function HeroDash() {
@@ -115,7 +114,7 @@ export default async function HeroDash() {
                         <h1 className="text-xl text-left font-bold">History</h1>
                         <hr className="border-zinc-900 grow" />
                     </div> : null
-
+                }
             }
 
             {
