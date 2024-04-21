@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Reservation = require('../models/Reservation');
+const mongoose = require("mongoose");
+const Reservation = require("../models/Reservation");
 
 const positiveMessages = [
     "Believe in yourself and all that you are.",
@@ -37,8 +37,8 @@ const connectDB = async () => {
         }
     }, 60000);
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-}
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
+};
 
 function generateRandomMessage() {
     const randomIndex = Math.floor(Math.random() * positiveMessages.length);

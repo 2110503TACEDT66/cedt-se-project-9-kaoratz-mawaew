@@ -1,5 +1,5 @@
-import TopBar from '@/components/TopBar';
-import { render, screen } from '@testing-library/react'
+import TopBar from "@/components/TopBar";
+import { render, screen } from "@testing-library/react";
 
 const mock = {
   _id: "65e5e8435fdd0600a91e9f19",
@@ -8,22 +8,22 @@ const mock = {
   email: "Cynthia76@hotmail.com",
   role: "user",
   password: "$2a$10$bzcZ/QOeWnhCCNOSpEYSwuDrndLi6JRdR4obzwA0VmPcrxCtwKzhi",
-  createdAt: "2024-03-04T15: 26: 59.984+00:00"
-}
+  createdAt: "2024-03-04T15: 26: 59.984+00:00",
+};
 
-describe('TopBar', () => {
-  it('renders TopBar component', () => {
+describe("TopBar", () => {
+  it("renders TopBar component", () => {
     // Arrange
 
     // Act
     render(<TopBar userName={mock.name} />);
 
     // Assert
-    const topBarElement = screen.getByTestId('top-bar');
+    const topBarElement = screen.getByTestId("top-bar");
     expect(topBarElement).toBeInTheDocument();
   });
 
-  it('renders TopBar component with username', () => {
+  it("renders TopBar component with username", () => {
     // Arrange
 
     // Act
@@ -33,4 +33,4 @@ describe('TopBar', () => {
     const usernameElement = screen.getByText(mock.name);
     expect(usernameElement).toBeInTheDocument();
   });
-})
+});
