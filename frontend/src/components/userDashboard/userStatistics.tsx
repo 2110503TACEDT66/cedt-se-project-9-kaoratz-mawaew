@@ -1,60 +1,64 @@
+'use client'
+import dayjs from "dayjs";
+import { UserItem, reserveJson } from "../../../interface";
+import { getSession } from "next-auth/react";
+import { authOptions } from "../auth";
 import { getServerSession } from "next-auth";
-import { authOptions } from '../../components/auth';
+import getUserProfile from "@/libs/getUserProfile";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function userStatistics({ upComing, thisYear, allTime }: { upComing: number, thisYear: number, allTime: number }) {
-    return (
-        <>
-            {
-                <div className="flex flex-row space-x-9">
-                    <div className="flex flex-row pr-9 border-r-2 border-zinc-900">
-                        <div className="flex flex-col space-y-4">
-                            <div>
-                                <p className="text-base">Current reservation</p>
-                            </div>
-                            <div className="flex flex-row space-x-4">
-                                <div>
-                                    <p className="text-4xl">{upComing}</p>
-                                </div>
-                                <div className="content-end">
-                                    <p className="text-base">reservation</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+export default function UserStatistics({reservation} : {reservation: reserveJson}){
+    const data = reservation.data;
+    const [current, setCurrent] = useState(0);
+    const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
+    const alltime = reservation.count;
+    console.log(reservation.count);
+    useEffect(() => {
+        let count = 0;
+        let inyear = 0;
+        const currentyear = dayjs().year();
 
-                    <div className="flex flex-row pr-9 border-r-2 border-zinc-900">
-                        <div className="flex flex-col space-y-4">
-                            <div>
-                                <p className="text-base">In this year</p>
-                            </div>
-                            <div className="flex flex-row space-x-4">
-                                <div>
-                                    <p className="text-4xl">{thisYear}</p>
-                                </div>
-                                <div className="content-end">
-                                    <p className="text-base">reservation</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row">
-                        <div className="flex flex-col space-y-4">
-                            <div>
-                                <p className="text-base">for All time</p>
-                            </div>
-                            <div className="flex flex-row space-x-4">
-                                <div>
-                                    <p className="text-4xl">{allTime}</p>
-                                </div>
-                                <div className="content-end">
-                                    <p className="text-base">reservation</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        data.forEach((res) => {
+            if (!res.completed) {
+                count++;
             }
-        </>
+            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                console.log("Domo")
+                inyear++;
+            }
+        });
+        setCurrent(count);
+        setReservedSinceLastYear(inyear);
+    }, [data]);
+
+    return(
+        <table>
+            <tbody>
+                <tr>
+                    <td className="pr-9 text-base border-r-2 border-black">
+                        <p>Current reservation</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{current}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                    <td className="px-9 text-base border-r-2 border-black">
+                        <p>In this year</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{reservedSinceLastYear}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                    <td className="pl-9 text-base">
+                        <p>For all time</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{alltime}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     );
 }

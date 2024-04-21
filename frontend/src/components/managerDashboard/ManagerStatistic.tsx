@@ -17,13 +17,13 @@ export default function ManagerStatistics({reservation} : {reservation: reserveJ
     useEffect(() => {
         let count = 0;
         let inyear = 0;
-        const lastyear = dayjs().subtract(1, 'year');
+        const currentyear = dayjs().year();
 
         data.forEach((res) => {
             if (!res.completed) {
                 count++;
             }
-            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').isAfter(lastyear, 'day')){
+            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
                 console.log("Domo")
                 inyear++;
             }
