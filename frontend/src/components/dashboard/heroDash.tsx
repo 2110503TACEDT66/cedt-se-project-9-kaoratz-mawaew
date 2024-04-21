@@ -9,11 +9,16 @@ import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
-import ManagerStatistics from "../managerDashboard/ManagerStatistic";
+import ManagerStatistics from "../managerDashboard/Statistic";
 import { profile } from "console";
-import Manager from "./Manager";
+
+import Manager from "../managerDashboard/Manager";
+import { UserItem } from "../../../interface";
+
+
 import UserDashboard from "./UserDashboard";
 import Admin from "./Admin";
+
 
 
 export default async function HeroDash() {
@@ -37,6 +42,13 @@ export default async function HeroDash() {
     console.log(JSON.stringify(reservationJson));
         
     
+
+
+    if (userRole == 'Manager') {
+        return (
+            <Manager profile={profile.data} reservation={reservationJson}/>
+        )
+    }
 
 
     return (
