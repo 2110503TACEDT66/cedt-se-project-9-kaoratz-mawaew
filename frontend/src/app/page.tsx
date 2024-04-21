@@ -27,6 +27,6 @@ const login = (role: string) => {
   }
 
   if (role == 'user') {
-    redirect('/reserve')
+    redirect('/restaurant')
   }
 }
