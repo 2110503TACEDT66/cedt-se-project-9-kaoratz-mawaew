@@ -12,7 +12,7 @@ export default async function postReview(rid:string, rating:number, comment:stri
     })
 
     if(!response.ok){
-        throw new Error("Failed to fetch user")
+        throw new Error("Failed to fetch user\n or Manager cannot leave a review");
     }
     return await response.json()
 }
