@@ -6,6 +6,7 @@ const {
   createReservation,
   updateReservation,
   deleteReservation,
+  getSummaryReservation,
 } = require("../controllers/reservations");
 
 const paymentsRouter = require("./payments");
@@ -23,5 +24,8 @@ router
   .get(protect, authorize("admin", "user", "manager"), getReservation)
   .put(protect, authorize("user", "admin", "manager"), updateReservation)
   .delete(protect, authorize("user", "admin", "manager"), deleteReservation);
+router
+  .route("/summary/:id")
+  .get(getSummaryReservation);
 
 module.exports = router;
