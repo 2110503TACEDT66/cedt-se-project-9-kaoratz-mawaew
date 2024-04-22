@@ -32,9 +32,11 @@ export default async function HeroDash() {
     reservationJson = await getReservations(session.user.token);
     restaurantJson = await getRestaurants();
     const profile = await getUserProfile(session.user.token);
+    reviewsJson = await getUserReviews(profile.data._id);
     userName = profile.data.name;
     userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
     console.log(JSON.stringify(reservationJson));
+    console.log(JSON.stringify(reviewsJson));
         
     
 

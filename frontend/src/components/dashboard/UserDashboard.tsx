@@ -2,6 +2,7 @@ import { UserItem, reserveJson } from "../../../interface";
 import Link from "next/link";
 import UserStatistics from "../userDashboard/userStatistics";
 import UserHistory from "../userDashboard/userHistory";
+import AllComments from "../userDashboard/allComments";
 
 export default function UserDashboard ({profile, reservation} : {profile: UserItem, reservation: reserveJson}) {
     return (
