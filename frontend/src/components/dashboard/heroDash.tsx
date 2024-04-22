@@ -38,7 +38,7 @@ export default async function HeroDash() {
     console.log(JSON.stringify(reservationJson));
         
     return (
-        <div className="mx-4 p-9 w-[88%] border-black border-2">
+        <div className="pl-9 w-[100%] ">
             {
                 userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
             }
