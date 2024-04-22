@@ -27,7 +27,7 @@ export interface RestaurantItem {
 
 export interface reserveItem {
   _id: string;
-  user: string;
+  user: UserItem;
   id: string;
   restaurant: RestaurantItem;
   resvDate: string;
@@ -105,4 +105,17 @@ export interface managerform {
   password: string;
   c_email: string;
   c_password: string;
+}
+
+export interface ChartDataItem {
+  name: string;
+  count: number;
+}
+
+export interface ReservationResponse {
+  success: boolean;
+  count: number;
+  data: {
+    chartdata: ChartDataItem[];
+  };
 }

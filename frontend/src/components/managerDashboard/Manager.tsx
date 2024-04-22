@@ -1,11 +1,16 @@
 import Link from "next/link";
-import ManagerStatistics from "../managerDashboard/ManagerStatistic";
-import { UserItem } from "../../../interface";
-import { reserveJson } from "../../../interface";
-
-export default function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
+import ManagerStatistics from "./Statistic";
+import { reserveJson, UserItem,RestaurantItem } from "../../../interface";
+import RestaurantCatalog from "../RestaurantCatalog";
+import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
+import RestaurantCard from "./RestaurantCard";
+import RestaurantNotFound from "../RestaurantNotFound";
+import Statistics from "./Statistic";
+export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
+    const restaurants = await getRestaurantsForManager(profile._id)
+    
     return (
-        <>
+        <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">
                 <h1>Hello {profile.name}</h1>
             </div>
@@ -22,7 +27,7 @@ export default function Manager({profile, reservation}: {profile: UserItem, rese
                 </Link>
             </div>
 
-            <ManagerStatistics reservation={reservation} />
+            <Statistics reservation={reservation}/>
 
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">Restaurant</h1>
@@ -35,6 +40,24 @@ export default function Manager({profile, reservation}: {profile: UserItem, rese
                     </button>
                 </Link>
             </div>
-        </>
+
+            <div>
+            <div className="flex items-start justify-center mt-14">
+                {restaurants.count > 0 ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
+                    {restaurants.data.reverse().map(
+                        (restaurantItem: RestaurantItem) => (
+                        // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
+                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} />
+                        )
+                        // </Link>
+                    )}
+                    </div>
+                ) : (
+                    <RestaurantNotFound />
+                )}
+                </div>
+            </div>
+        </div>
     )
 }

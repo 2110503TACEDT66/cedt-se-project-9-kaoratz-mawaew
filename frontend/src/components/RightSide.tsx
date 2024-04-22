@@ -1,123 +1,119 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
-export function RightSideBar({ setTagParams }: { setTagParams: Function }) {
-  const [selectedCuisines, setSelectedCuisines] = useState<string[]>([]);
+export function RightSideBar() {
+    
+    const cuisineTypes = [
+        'Thai',
+        'Japanese',
+        'Chinese',
+        'Italian',
+        'American',
+        'Mexican',
+        'Indian',
+        'Korean',
+        'Vietnamese',
+        'French'
+    ];
 
-  // fix this & rerender
-  const handleCuisineClick = (cuisineType: string) => {
-    // Toggle selected cuisine
-    if (selectedCuisines.includes(cuisineType)) {
-      setSelectedCuisines(
-        selectedCuisines.filter((cuisine) => cuisine !== cuisineType)
-      );
-    } else {
-      setSelectedCuisines([...selectedCuisines, cuisineType]);
-    }
-  };
+    const router = useRouter();
+    const path = usePathname();
+    const sp = useSearchParams();
+    const tagParams = sp.get('tags');
+    const tagArray = tagParams?.split(',');
 
-  const cuisineTypes = [
-    "Thai",
-    "Japanese",
-    "Chinese",
-    "Italian",
-    "American",
-    "Mexican",
-    "Indian",
-    "Korean",
-    "Vietnamese",
-    "French",
-  ];
+    // tagArray?.forEach((cuisine) => {
+    //     if (!cuisineTypes.includes(cuisine)) {
+    //         console.log(    "Invalid cuisine type");
+    //         return;
+    //     }
+    // });
 
-  const preLogin = [
-    { href: "/", label: "Home" },
-    { href: "/restaurant", label: "Eatery" },
-    { href: "/api/auth/signin", label: "Login" },
-  ];
-  const postLogin = [
-    { href: "/", label: "Home" },
-    { href: "/reserve", label: "Reserve" },
-    { href: "/myTable", label: "My Table" },
-    { href: "/api/auth/signout", label: "Logout" },
-  ];
+    // using search params to store selected cuisines
+    const handleCuisineClick = (cuisineType: string) => {
+  
+        const newParams = new URLSearchParams(sp.toString());
+        let selectedTags = "";
 
-  useEffect(() => {
-    console.log("Selected Cuisines: " + selectedCuisines);
+        if (tagArray?.includes(cuisineType)) {
+            if (tagArray.length === 1) {
+                newParams.delete('tags');
+                router.push(path + '?' + newParams.toString());
+                return;
+            }
 
-    setTagParams(selectedCuisines);
-  }, [selectedCuisines]);
+            (tagArray.filter(cuisine => cuisine !== cuisineType)).forEach((cuisine) => {
+                selectedTags += cuisine + ',';
+            });
+        } else {
+            if (cuisineTypes.includes(cuisineType)) selectedTags = tagParams ? tagParams + ',' + cuisineType + ',' : cuisineType + ',';
+        }
 
-  return (
-    <div className="w-[17%] border-l-2 pl-5 border-l-gray-900">
-      <div className="w-[100%]">
-        <div className="inline-flex items-center space-x-4 w-full">
-          <h2 className="text-base text-zinc-900 font-bold">Category</h2>
-          <hr className="border-zinc-900 grow" />
-        </div>
-        <button className="mt-5">
-          {cuisineTypes.map((cuisineType) => (
-            <div
-              key={cuisineType}
-              className={`inline-flex items-center space-x-4 mt-4 w-full`}
-              onClick={(e) => {
-                handleCuisineClick(cuisineType);
+        selectedTags = selectedTags.slice(0, -1);
+        newParams.set('tags', selectedTags);
 
-                const circleElement = document.getElementById(
-                  `${cuisineType} circle`
-                )!;
-                if (circleElement) {
-                  const currentFilter = circleElement.style.filter;
-                  const currentScale = circleElement.style.transform;
-                  const currentBg = circleElement.style.backgroundColor;
+        router.push(path + '?' + newParams.toString());
+    };
 
-                  circleElement.style.filter =
-                    currentFilter === "blur(2px)" ? "blur(0px)" : "blur(2px)";
-                  circleElement.style.transform =
-                    currentScale === "scale(1.5)" ? "scale(1)" : "scale(1.5)";
-                  circleElement.style.backgroundColor =
-                    currentBg === "rgb(27, 27, 27)"
-                      ? "#FFFFFF"
-                      : "rgb(27, 27, 27)";
-                }
-              }}
-              onMouseEnter={() => {
-                const nameElement = document.getElementById(
-                  `${cuisineType} name`
-                )!;
-                const currentScale = nameElement.style.transform;
 
-                nameElement.style.fontWeight = "semi-bold";
-                nameElement.style.transform =
-                  currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
-              }}
-              onMouseLeave={() => {
-                const nameElement = document.getElementById(
-                  `${cuisineType} name`
-                )!;
-                const currentScale = nameElement.style.transform;
 
-                nameElement.style.fontWeight = "normal";
-                nameElement.style.transform =
-                  currentScale === "scale(1.2)" ? "scale(1)" : "scale(1.2)";
-              }}
-            >
-              <span
-                id={`${cuisineType} name`}
-                className="text-zinc-900 duration-300 ease-in-out"
-              >
-                {cuisineType}
-              </span>
-              <hr className="border-zinc-900 grow" />
-              <div
-                id={`${cuisineType} circle`}
-                className="border-2 border-black w-2.5 h-2.5 rounded-full transition duration-300 ease-in-out"
-              ></div>
+    // useEffect(() => {
+    //     console.log("Selected Cuisines: " + selectedCuisines);
+
+    //     setTagParams(selectedCuisines);
+    // }
+    // , [selectedCuisines]);
+
+    const selectedTags = sp.get('tags')?.split(',') || [];
+
+    return (
+        <div className="w-[17%] border-l-2 pl-5 border-l-gray-900">
+            <div className='w-[100%]'>
+                <div className='inline-flex items-center space-x-4 w-full'>
+                    <h2 className="text-base text-zinc-900 font-bold">Category</h2>
+                    <hr className="border-zinc-900 grow" />
+                </div>
+                <button className='mt-5'>
+                    {
+                        cuisineTypes.map((cuisineType) => {
+                            const isSelected = selectedTags.includes(cuisineType);
+
+                            return (
+                                <div
+                                    key={cuisineType}
+                                    className={`inline-flex items-center space-x-4 mt-4 w-full`}
+                                    onClick={(e) => {
+                                        handleCuisineClick(cuisineType);
+                                    }}
+                                // onMouseEnter={() => {
+                                //     const nameElement = document.getElementById(`${cuisineType} name`)!;
+                                //     const currentScale = nameElement.style.transform;
+
+                                //     // nameElement.style.fontWeight = "semi-bold";
+                                //     nameElement.style.transform = currentScale === "scale(1.1)" ? "scale(1)" : "scale(1.1)";
+                                // }}
+
+                                // onMouseLeave={() => {
+                                //     const nameElement = document.getElementById(`${cuisineType} name`)!;
+                                //     const currentScale = nameElement.style.transform;
+
+                                //     // nameElement.style.fontWeight = "normal";
+                                //     nameElement.style.transform = currentScale === "scale(1.1)" ? "scale(1)" : "scale(1.1)";
+                                // }}
+                                >
+                                    <span id={`${cuisineType} name`} className={`text-zinc-900 duration-100 ease-in-out ${isSelected ? 'font-semibold' : ''}`}>{cuisineType}</span>
+                                    <hr className="border-zinc-900 grow" />
+                                    <div id={`${cuisineType} circle`} className={isSelected ? " bg-[#1b1b1b] border-2 border-black w-2.5 h-2.5 rounded-full transition duration-100 ease-in-out blur-[2px]" : "bg-[#FFFFFF] border-2 border-black w-2.5 h-2.5 rounded-full transition duration-100 ease-in-out "}></div>
+                                </div>
+                            );
+                        })
+                    }
+                </button>
             </div>
-          ))}
-        </button>
-      </div>
-      <hr className="border-zinc-900 w-full mt-9" />
-    </div>
-  );
+            <hr className="border-zinc-900 w-full mt-9" />
+        </div>
+    );
 }

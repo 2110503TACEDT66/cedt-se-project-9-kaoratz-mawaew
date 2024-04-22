@@ -24,11 +24,14 @@ export default async function makeBooking (
             dayjs(bookDate).format("YYYY-MM-DD") + "T" + dayjs(bookDate).format("HH:mm:ss"), 
             session.user.token)
         // const reser = response.data._id
-        if(response == null) return null
+        
+        
+        revalidatePath('/myTable');
+        // redirect('/myTable');
+
+        return await response;
         
     }
     
 
-    revalidatePath('/myTable');
-    redirect('/myTable');
 }

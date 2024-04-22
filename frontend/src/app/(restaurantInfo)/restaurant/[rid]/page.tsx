@@ -9,11 +9,12 @@ import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import { PeakHourChart } from '@/components/dashboard/Chart';
-
+import PeakHourChart from '@/components/dashboard/Chart';
+import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
     const restaurantDetails = await getRestaurant(params.rid);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);
 
     const currentTime = new Date(); // Get current time
@@ -28,7 +29,6 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
 
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;
-
     return (
         <div className="w-[88%] h-full pl-9 font-mono flex flex-col gap-10">
 
@@ -52,22 +52,19 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                             height={0}
                             objectFit='cover'
                             layout='fill'
-                            style={{ borderRadius: '2px' ,border: '2px solid black'}}
+                            style={{ borderRadius: '2px', border: '2px solid black' }}
                         />
                     </div>
                 </div>
 
             </div>
-            
-            {/* <div className='flex flex-row justify-center items-center gap-5'>
-                <h1 className="text-4xl font-bold text-primary text-nowrap">Peak Hours</h1>
-                <hr className='border-black border-1 flex-grow ' />
-            </div>
-            <PeakHourChart />  */}
- 
-            
+            {
+                (restaurantSummaryReservations.data)? <PeakHourChart data={restaurantSummaryReservations.data.chartdata}/> : <p>No data</p>
+            }
+
 
             <div className='flex flex-col w-full'>
+                
                 <Tag restaurantDetails={restaurantDetails.data} />
 
                 <ReviewSection rid={restaurantDetails.data.id} />
@@ -95,12 +92,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                         hover:-translate-x-1 hover:-translate-y-1">Go Reserve</button>
                 </Link>
-
             </div>
-
-        
-            
-        
         </div>
     );
 }

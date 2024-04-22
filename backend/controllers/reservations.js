@@ -15,7 +15,10 @@ exports.getReservations = async (req, res, next) => {
         path: "restaurant",
         select: "name province tel",
       })
-      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
     //console.log("1");
   } else {
     //admin see all
@@ -26,7 +29,10 @@ exports.getReservations = async (req, res, next) => {
           path: "restaurant",
           select: "name province tel",
         })
-        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+          path: 'user',
+          select: 'name'
+        });
       //console.log("2");
     } else {
       query = Reservation.find()
@@ -34,7 +40,10 @@ exports.getReservations = async (req, res, next) => {
           path: "restaurant",
           select: "name province tel",
         })
-        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+          path: 'user',
+          select: 'name'
+        });
       //console.log("3");
     }
   }

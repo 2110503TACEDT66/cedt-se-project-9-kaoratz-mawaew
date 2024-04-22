@@ -9,12 +9,15 @@ import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
-import ManagerStatistics from "../managerDashboard/ManagerStatistic";
+// import ManagerStatistics from "../managerDashboard/Statistic";
 import { profile } from "console";
-import Manager from "./Manager";
+
+import Manager from "../managerDashboard/Manager";
+import { UserItem } from "../../../interface";
+
+
 import UserDashboard from "./UserDashboard";
 import Admin from "./Admin";
-
 
 export default async function HeroDash() {
 
@@ -27,8 +30,6 @@ export default async function HeroDash() {
     let restaurantJson = null;
     let reviewsJson = null;
 
-
-    
     reservationJson = await getReservations(session.user.token);
     restaurantJson = await getRestaurants();
     const profile = await getUserProfile(session.user.token);
@@ -38,11 +39,8 @@ export default async function HeroDash() {
     console.log(JSON.stringify(reservationJson));
     console.log(JSON.stringify(reviewsJson));
         
-    
-
-
     return (
-        <div className="mx-4 p-9 w-[88%] border-black border-2">
+        <div className="pl-9 w-[100%] ">
             {
                 userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
             }
