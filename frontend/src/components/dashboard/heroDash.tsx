@@ -33,14 +33,16 @@ export default async function HeroDash() {
     reservationJson = await getReservations(session.user.token);
     restaurantJson = await getRestaurants();
     const profile = await getUserProfile(session.user.token);
+    reviewsJson = await getUserReviews(profile.data._id);
     userName = profile.data.name;
     userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
     console.log(JSON.stringify(reservationJson));
+    console.log(JSON.stringify(reviewsJson));
         
     return (
-        <div className="mx-4 p-9 w-[88%] border-black border-2">
+        <div className="pl-9 w-[100%] ">
             {
-                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
+                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} reviews={reviewsJson}/>: null
             }
             {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
