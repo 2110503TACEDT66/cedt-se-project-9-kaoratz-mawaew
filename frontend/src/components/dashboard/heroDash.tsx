@@ -42,7 +42,7 @@ export default async function HeroDash() {
     return (
         <div className="pl-9 w-[100%] ">
             {
-                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} />: null
+                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} reviews={reviewsJson}/>: null
             }
             {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null

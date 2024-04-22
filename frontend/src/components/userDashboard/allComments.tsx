@@ -2,7 +2,7 @@ import getUserReviews from "@/libs/getUserReviews";
 import { ReviewItem, ReviewJson } from "../../../interface";
 import ReviewCard from "../ridpage/ReviewCard";
 
-export default async function allComments({reviewsJson} : {reviewsJson : ReviewJson}){
+export default async function AllComments({reviewsJson} : {reviewsJson : ReviewJson}){
     const comments = await reviewsJson
     return(
         <>

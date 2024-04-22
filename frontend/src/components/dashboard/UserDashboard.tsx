@@ -1,10 +1,10 @@
-import { UserItem, reserveJson } from "../../../interface";
+import { ReviewJson, UserItem, reserveJson } from "../../../interface";
 import Link from "next/link";
 import UserStatistics from "../userDashboard/userStatistics";
 import UserHistory from "../userDashboard/userHistory";
 import AllComments from "../userDashboard/allComments";
 
-export default function UserDashboard ({profile, reservation} : {profile: UserItem, reservation: reserveJson}) {
+export default function UserDashboard ({profile, reservation, reviews} : {profile: UserItem, reservation: reserveJson , reviews: ReviewJson}) {
     return (
         <div className="w-full flex flex-col justify-center gap-10 pr-[17%] ml-[5%]">
             <div className="text-5xl font-medium">
@@ -27,6 +27,10 @@ export default function UserDashboard ({profile, reservation} : {profile: UserIt
                 <hr className="border-zinc-900 grow" />
             </div>
             <UserHistory reservation={reservation} />
+            <div>
+                <h1 className="text-xl text-left font-medium">Comments</h1>
+            </div>
+            <AllComments reviewsJson={reviews}></AllComments>
         </div>
     );
 }
