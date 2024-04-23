@@ -8,25 +8,41 @@ const Reservation = require("../models/Reservation");
 exports.getReservations = async (req, res, next) => {
   let query;
 
-  if (req.user.role != "admin") {
+  if (req.user.role == "user") {
     //non admin can only see self appointment
     query = Reservation.find({ user: req.user.id })
       .populate({
         path: "restaurant",
         select: "name province tel",
       })
-      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
     //console.log("1");
+  } if (req.user.role == 'manager') {
+    query = Reservation.find({ manager: req.user.id })
+      .populate({
+        path: "restaurant",
+        select: "name province tel",
+      })
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
   } else {
     //admin see all
     if (req.params.restaurantId) {
       //console.log(req.params.restaurantId);
-      query = Reservation.find({ hospital: req.params.restaurantId })
+      query = Reservation.find({ restaurant: req.params.restaurantId })
         .populate({
           path: "restaurant",
           select: "name province tel",
         })
-        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+          path: 'user',
+          select: 'name'
+        });
       //console.log("2");
     } else {
       query = Reservation.find()
@@ -34,7 +50,10 @@ exports.getReservations = async (req, res, next) => {
           path: "restaurant",
           select: "name province tel",
         })
-        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 });
+        .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+          path: 'user',
+          select: 'name'
+        });
       //console.log("3");
     }
   }
@@ -405,6 +424,60 @@ exports.deleteReservation = async (req, res, next) => {
     res.status(500).json({
       success: false,
       msg: "Could not delete reservation",
+    });
+
+    console.log(err);
+  }
+};
+
+// @desc    Get one summary reservation
+// @route   GET /api/v1/reservations/:id/summary
+// @access  Public
+exports.getSummaryReservation = async (req, res, next) => {
+  let query;
+
+  try {
+    query = Reservation.find({ restaurant: req.params.id }, {
+      _id: 0, // Exclude the _id field
+      resvDate: 1, // Include the resvDate field
+    })
+      .populate({
+        path: "restaurant",
+        select: "resvDate",
+      })
+      .sort({ resvDate: 1, createdAt: 1 });
+
+    const reservations = await query;
+
+    if (!reservations || reservations.length === 0) {
+      return res.status(200).json({
+        success: false,
+        count: 0,
+        data: null,
+      });
+    }
+
+    const resvDates = reservations.map((reservation) => reservation.resvDate);
+    const chartdata = [];
+
+    // Initialize the chart data array with 24 hours
+    for (let hour = 0; hour < 24; hour++) {
+      const name = `${hour < 10 ? '0' : ''}${hour}:00`; // Format the hour as HH:00
+      const count = resvDates.filter(date => date.getHours() === hour).length; // Count reservations for the hour
+      chartdata.push({ name, count });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: reservations.length,
+      data: {
+        chartdata,
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      msg: "Cannot find reservations",
     });
 
     console.log(err);

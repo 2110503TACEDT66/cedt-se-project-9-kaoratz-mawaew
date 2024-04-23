@@ -12,10 +12,11 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     const session = await getServerSession(authOptions)
     
     const restaurant = await getRestaurant(params.rid)
-    let reservations
+
+    let reservation
 
     if (session) {
-        reservations = await getReservations(session.user.token)
+        reservation = await getReservations(session.user.token)
     }
 
     return (
@@ -31,7 +32,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
 
             <div className="mt-12">
-                <Statistic reservation={reservations}/>
+                <Statistic reservation={reservation} rid={params.rid}/>
             </div>
 
             <table className="w-full mt-[53px]">
@@ -81,7 +82,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                 <hr className="border-zinc-900 grow ml-7"/>
             </div>
             <div className="mt-9">
-                <RestaurantHistory reservation={reservations}/>
+                <RestaurantHistory reservation={reservation} rid={params.rid}/>
             </div>
         </div>
     )

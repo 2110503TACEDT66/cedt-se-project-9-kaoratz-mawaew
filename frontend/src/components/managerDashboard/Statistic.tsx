@@ -12,28 +12,35 @@ const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
 
-export default function Statistic({reservation} : {reservation: reserveJson}){
+export default function Statistic({reservation, rid} : {reservation: reserveJson, rid: string}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
-    const alltime = reservation.count;
-    console.log(reservation.count);
+    const [alltime, setAlltime] = useState(0);
+
+    console.log(data)
+
     useEffect(() => {
         let count = 0;
         let inyear = 0;
+        let alltime = 0;
         const currentyear = dayjs().year();
 
         data.forEach((res) => {
-            if (!res.completed) {
-                count++;
-            }
-            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                console.log("Domo")
-                inyear++;
+            if (res.restaurant._id == rid) {
+                alltime++;
+                if (!res.completed) {
+                    count++;
+                }
+                if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                    console.log("Domo")
+                    inyear++;
+                }
             }
         });
         setCurrent(count);
         setReservedSinceLastYear(inyear);
+        setAlltime(alltime);
     }, [data]);
 
     return(

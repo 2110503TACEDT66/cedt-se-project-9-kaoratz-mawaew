@@ -2,8 +2,9 @@ import { reserveJson } from "../../../interface";
 import dayjs from "dayjs";
 import Link from "next/link";
 
-export default function RestaurantHistory ({reservation} : {reservation : reserveJson}) {
+export default function RestaurantHistory ({reservation, rid} : {reservation : reserveJson, rid: string}) {
     const data = reservation.data;
+    console.log(data)
     
     return (
         <div className="w-full">
@@ -21,21 +22,28 @@ export default function RestaurantHistory ({reservation} : {reservation : reserv
             <table className="text-center text-sm w-full items-center ">
                 <tbody>                   
             {
-                data.length > 0 ? data.map((res) => 
-                    <tr>
-                        <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
-                            {dayjs(res.createdAt).format('DD/MM/YY HH:mm:ss')}
-                        </td>
-                        <td className="w-[40%] py-4 border-r-2 border-gray-900">
-                            {res.restaurant.name}
-                        </td>
-                        <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
-                            {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
-                        </td> 
-                        <td className="w-[10%] py-4 border-gray-900">
-                            {res.completed? <p className="text-emerald-600">Completed</p> : <p className="text-red-600">Upcoming</p>}
-                        </td>  
-                    </tr>) : 
+                data.length > 0 ? data.map((res) => {
+                    
+                    if (res.restaurant._id != rid) {
+                        return null;
+                    }
+                    
+                    return (
+                        <tr>
+                            <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
+                                {dayjs(res.createdAt).format('DD/MM/YY HH:mm:ss')}
+                            </td>
+                            <td className="w-[40%] py-4 border-r-2 border-gray-900">
+                                {res.restaurant.name}
+                            </td>
+                            <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
+                                {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
+                            </td> 
+                            <td className="w-[10%] py-4 border-gray-900">
+                                {res.completed? <p className="text-emerald-600">Completed</p> : <p className="text-red-600">Upcoming</p>}
+                            </td>  
+                        </tr>
+                        )}) : 
                 <tr>
                     <td className="w-[15%] py-4 border-r-2 border-gray-900">
                         No History

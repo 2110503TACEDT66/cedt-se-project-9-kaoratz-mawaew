@@ -9,7 +9,7 @@ export default async function Manager({profile, reservation}: {profile: UserItem
     const restaurants = await getRestaurantsForManager(profile._id)
 
     return (
-        <div>
+        <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">
                 <h1>Hello {profile.name}</h1>
             </div>
