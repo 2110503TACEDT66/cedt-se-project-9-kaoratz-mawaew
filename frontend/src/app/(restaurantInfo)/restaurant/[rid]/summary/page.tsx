@@ -2,10 +2,12 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/components/auth"
 import getRestaurant from "@/libs/getRestaurant"
 import getReservations from "@/libs/getReservations"
+import getRestaurantReservation from "@/libs/getRestaurantReservation"
 import Statistic from "@/components/managerDashboard/Statistic"
 import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/managerDashboard/RestaurantHistory"
+import RestaurantStatistics from "@/components/managerDashboard/RestaurantStatistic"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
@@ -16,7 +18,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     let reservation
 
     if (session) {
-        reservation = await getReservations(session.user.token)
+        reservation = await getRestaurantReservation();
     }
 
     return (
@@ -32,7 +34,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
 
             <div className="mt-12">
-                <Statistic reservation={reservation} rid={params.rid}/>
+                <RestaurantStatistics reservation={reservation} rid={params.rid}/>
             </div>
 
             <table className="w-full mt-[53px]">

@@ -34,7 +34,7 @@ export default function RestaurantHistory ({reservation, rid} : {reservation : r
                                 {dayjs(res.createdAt).format('DD/MM/YY HH:mm:ss')}
                             </td>
                             <td className="w-[40%] py-4 border-r-2 border-gray-900">
-                                {res.restaurant.name}
+                                {res.user.name}
                             </td>
                             <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
                                 {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}

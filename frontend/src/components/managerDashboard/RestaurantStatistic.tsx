@@ -1,33 +1,75 @@
+'use client'
 import dayjs from "dayjs";
-import { reserveJson } from "../../../interface";
+import { UserItem, reserveJson } from "../../../interface";
+import { getSession } from "next-auth/react";
+import { authOptions } from "../auth";
+import { getServerSession } from "next-auth";
+import getUserProfile from "@/libs/getUserProfile";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function RestaurantStatistics({reservation} : {reservation: reserveJson}){
+const formatNumber = (number: number) => {
+    return number < 10 ? `0${number}` : number;
+};
+
+export default function RestaurantStatistics({reservation, rid} : {reservation: reserveJson, rid: string}){
     const data = reservation.data;
+    const [current, setCurrent] = useState(0);
+    const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
+    const [alltime, setAlltime] = useState(0);
+
+    console.log(data)
+
+    useEffect(() => {
+        let count = 0;
+        let inyear = 0;
+        let alltime = 0;
+        const currentyear = dayjs().year();
+
+        data.forEach((res) => {
+            if (res.restaurant._id == rid) {
+                alltime++;
+                if (!res.completed) {
+                    count++;
+                }
+                if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                    console.log("Domo")
+                    inyear++;
+                }
+            }
+        });
+        setCurrent(count);
+        setReservedSinceLastYear(inyear);
+        setAlltime(alltime);
+    }, [data]);
+
     return(
-        <div className="w-full pl-[10%]">
-            <table className="text-left w-[80%] items-center border-2">
-                <thead>
-                    <tr>
-                        <th className="py-4 font-semibold">Current Reservation</th>
-                        <th className="pr-[10%] py-4 font-semibold">In this year</th>
-                        <th className="pr-[10%] py-4 font-semibold">For All time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="pr-[10%] py-4">
-                            No History
-                        </td>
-                        <td className="pr-[60%] py-4">
-                            No History
-                        </td>
-                        <td className="pr-[10%] py-4">
-                            No History
-                        </td>
-                    </tr>
-                
-                </tbody>
-                </table>
-            </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td className="pr-9 text-base border-r-2 border-black font-mono">
+                        <p>Current reservation</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{formatNumber(current)}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                    <td className="px-9 text-base border-r-2 border-black font-mono">
+                        <p>In this year</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{formatNumber(reservedSinceLastYear)}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                    <td className="pl-9 text-base font-mono">
+                        <p>For all time</p>
+                        <div className="inline-flex items-center gap-4 mt-4">
+                            <h1 className="text-4xl font-bold">{formatNumber(alltime)}</h1>
+                            <p>reservation</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     );
 }

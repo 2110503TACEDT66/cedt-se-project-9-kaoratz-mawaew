@@ -8,7 +8,7 @@ const Reservation = require("../models/Reservation");
 exports.getReservations = async (req, res, next) => {
   let query;
 
-  if (req.user.role == "user") {
+  if (req.user.role != "admin") {
     //non admin can only see self appointment
     query = Reservation.find({ user: req.user.id })
       .populate({
@@ -20,16 +20,6 @@ exports.getReservations = async (req, res, next) => {
         select: 'name'
       });
     //console.log("1");
-  } if (req.user.role == 'manager') {
-    query = Reservation.find({ manager: req.user.id })
-      .populate({
-        path: "restaurant",
-        select: "name province tel",
-      })
-      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
-        path: 'user',
-        select: 'name'
-      });
   } else {
     //admin see all
     if (req.params.restaurantId) {
@@ -483,3 +473,38 @@ exports.getSummaryReservation = async (req, res, next) => {
     console.log(err);
   }
 };
+
+// @desc    Get all reservations
+// @route   GET /api/v1/reservations/restaurantinfo
+// @access  Public
+exports.getRestaurantReservation = async (req,res,next) => {
+  let query;
+  
+    query = Reservation.find()
+      .populate({
+        path: "restaurant",
+        select: "name province tel",
+      })
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
+    //console.log("3");
+
+    try {
+      const reservation = await query;
+  
+      res.status(200).json({
+        success: true,
+        count: reservation.length,
+        data: reservation,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        msg: "Cannot find reservation",
+      });
+  
+      console.log(err);
+    }
+}

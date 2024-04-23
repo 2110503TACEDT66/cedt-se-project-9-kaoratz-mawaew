@@ -12,7 +12,7 @@ const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
 
-export default function Statistic({reservation, rid} : {reservation: reserveJson, rid: string}){
+export default function Statistic({reservation} : {reservation: reserveJson}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
@@ -27,16 +27,16 @@ export default function Statistic({reservation, rid} : {reservation: reserveJson
         const currentyear = dayjs().year();
 
         data.forEach((res) => {
-            if (res.restaurant._id == rid) {
-                alltime++;
-                if (!res.completed) {
-                    count++;
-                }
-                if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                    console.log("Domo")
-                    inyear++;
-                }
+            
+            alltime++;
+            if (!res.completed) {
+                count++;
             }
+            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                console.log("Domo")
+                inyear++;
+            }
+            
         });
         setCurrent(count);
         setReservedSinceLastYear(inyear);
