@@ -6,7 +6,7 @@ export default function AdminHistory ({reservation} : {reservation : reserveJson
     const data = reservation.data;
     
     return (
-        <div className="w-full mt-7">
+        <div className="w-full mt-7 p-10">
             <table className="text-center text-sm w-full items-center border-b-2 border-gray-900">
                 <thead>
                     <tr>
