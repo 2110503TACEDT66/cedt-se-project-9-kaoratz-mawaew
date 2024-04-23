@@ -4,7 +4,7 @@ export default function Tag({restaurantDetails}: {restaurantDetails: RestaurantI
     return (
         <div className="flex flex-col gap-5">
             <div className='flex flex-row justify-center items-center gap-5'>
-                <h1 className="text-4xl font-bold text-primary text-nowrap">Tag</h1>
+                <h1 className="text-2xl text-primary text-nowrap">Tag</h1>
                 <hr className='border-black border-1 flex-grow ' />
             </div>
             <div className='flex flex-row'>

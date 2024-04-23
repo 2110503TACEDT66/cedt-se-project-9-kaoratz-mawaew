@@ -1,16 +1,15 @@
 import Link from "next/link";
-import ManagerStatistics from "./Statistic";
-import { reserveJson, UserItem,RestaurantItem } from "../../../interface";
-import RestaurantCatalog from "../RestaurantCatalog";
+import { reserveJson, UserItem, RestaurantItem } from "../../../interface";
 import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
+
 export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
     const restaurants = await getRestaurantsForManager(profile._id)
-    
+
     return (
-        <div className="mx-4 p-9 w-[88%] border-black border-2">
+        <div>
             <div className="text-5xl font-bold">
                 <h1>Hello {profile.name}</h1>
             </div>
