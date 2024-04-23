@@ -63,7 +63,7 @@ export default async function Admin({profile, reservation}: {profile: UserItem, 
                 <hr className="border-zinc-900 grow" />
             </div>
 
-            <AdminHistory reservation={reservation} />
+            <AdminHistory profile={profile} reservation={reservation} />
         </>
     )
 }

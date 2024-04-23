@@ -37,7 +37,7 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
     }, [data]);
 
     return(
-        <table>
+        <table className="mt-7">
             <tbody>
                 <tr>
                     <td className="pr-9 text-base border-r-2 border-black font-mono">
