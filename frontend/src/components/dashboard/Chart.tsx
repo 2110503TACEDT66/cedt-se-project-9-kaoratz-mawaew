@@ -23,11 +23,12 @@ export default function PeakHourChart({ data }: { data: ChartData }) {
             showLegend={true}
             showGridLines={true}
             barCategoryGap={0.5}
-            noDataText='No data. Run your first test to get started!'
+            noDataText='No data.'
             showTooltip={true}
             animationDuration={1000}
             showYAxis={true}
             showXAxis={true}
+            maxValue={20}
         />
     );
 }
