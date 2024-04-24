@@ -61,6 +61,10 @@ const RestaurantSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    reservation: {
+      type: [mongoose.Schema.ObjectId],
+      ref: 'Reservation'
+    },
     manager: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
@@ -90,11 +94,11 @@ RestaurantSchema.pre(
 );
 
 //Reverse populate with virtuals
-RestaurantSchema.virtual("reservation", {
-  ref: "Reservation",
-  localField: "_id",
-  foreignField: "restaurant",
-  justOne: false,
-});
+// RestaurantSchema.virtual("reservation", {
+//   ref: "Reservation",
+//   localField: "_id",
+//   foreignField: "restaurant",
+//   justOne: false,
+// });
 
 module.exports = mongoose.model("Restaurant", RestaurantSchema);

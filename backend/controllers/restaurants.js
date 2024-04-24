@@ -82,7 +82,10 @@ exports.getRestaurants = async (req, res, next) => {
 // @access  Private
 exports.getRestaurant = async (req, res, next) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const restaurant = await Restaurant.findById(req.params.id).populate({
+      path: 'reservation',
+      select: 'resvDate user'
+    });
 
     if (!restaurant) {
       return res.status(400).json({

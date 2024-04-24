@@ -493,3 +493,38 @@ exports.getSummaryReservation = async (req, res, next) => {
     console.log(err);
   }
 };
+
+// @desc    Get all reservations
+// @route   GET /api/v1/reservations/restaurantinfo
+// @access  Public
+exports.getRestaurantReservation = async (req,res,next) => {
+  let query;
+  
+    query = Reservation.find()
+      .populate({
+        path: "restaurant",
+        select: "name province tel",
+      })
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
+    //console.log("3");
+
+    try {
+      const reservation = await query;
+  
+      res.status(200).json({
+        success: true,
+        count: reservation.length,
+        data: reservation,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        msg: "Cannot find reservation",
+      });
+  
+      console.log(err);
+    }
+}
