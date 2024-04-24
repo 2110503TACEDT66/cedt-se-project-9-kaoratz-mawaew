@@ -244,3 +244,34 @@ exports.deleteReview = async (req, res, next) => {
     console.log(err);
   }
 };
+
+exports.getDashboardReviews = async(req,res,next)=>{
+    if(req.user.role == "manager" || req.user.role == "admin"){
+      try {
+        // Find restaurants with the matching manager ID
+        const restaurants = await Restaurant.find({ manager: req.user.id });
+  
+        // Map over each restaurant to get its reviews
+        const reviewsPromises = restaurants.map(async (restaurant) => {
+          const reviews = await Review.find({ restaurant: restaurant._id });
+          return  reviews;
+        });
+  
+        // Wait for all reviews to be fetched for each restaurant
+        const allReviews = await Promise.all(reviewsPromises);
+        const reviewsData = allReviews.flat()
+  
+        res.status(200).json({
+          success: true,
+          count: reviewsData.length,
+          data: reviewsData
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({
+          success: false,
+          msg: 'Failed to fetch reviews'
+        });
+      }
+    }
+}

@@ -58,11 +58,14 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 </div>
 
             </div>
+
+            <div className='flex flex-row justify-center items-center gap-5'>
+                <h1 className="text-4xl font-bold text-primary text-nowrap">Chart</h1>
+                <hr className='border-black border-1 flex-grow ' />
+            </div>
             {
                 (restaurantSummaryReservations.data)? <PeakHourChart data={restaurantSummaryReservations.data.chartdata}/> : <p>No data</p>
             }
-
-
             <div className='flex flex-col w-full'>
                 
                 <Tag restaurantDetails={restaurantDetails.data} />
