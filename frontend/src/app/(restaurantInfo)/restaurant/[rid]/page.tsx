@@ -64,8 +64,17 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 <hr className='border-black border-1 flex-grow ' />
             </div>
             {
-                (restaurantSummaryReservations.data)? <PeakHourChart data={restaurantSummaryReservations.data.chartdata}/> : <p>No data</p>
+                (restaurantSummaryReservations.data)? <PeakHourChart data={restaurantSummaryReservations.data.chartdata}/> : 
+                (
+                    <PeakHourChart
+                        data={Array.from({ length: 24 }, (_, hour) => ({
+                            name: `${hour < 10 ? '0' : ''}${hour}:00`,
+                            count: 0
+                        }))}
+                    />
+                )
             }
+            
             <div className='flex flex-col w-full'>
                 
                 <Tag restaurantDetails={restaurantDetails.data} />
