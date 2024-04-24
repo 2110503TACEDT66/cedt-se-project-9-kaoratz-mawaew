@@ -1,6 +1,4 @@
 export default async function getRestaurantsForManager(mid: string) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants?manager=${mid}`);
   
     if (!response) {

@@ -85,7 +85,7 @@ export default function RestaurantCard({restaurantItem}: {restaurantItem: Restau
                     <hr className="border-zinc-900 grow" />
 
                     <div className="flex flex-row h-[15%] items-center justify-evenly">
-                        <Link href={`/summary/${restaurantItem.id}`}>
+                        <Link href={`restaurant/${restaurantItem.id}/summary`}>
                             <button
                             className="w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                                     hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
@@ -93,7 +93,7 @@ export default function RestaurantCard({restaurantItem}: {restaurantItem: Restau
                             Summary
                             </button>
                         </Link>
-                        <Link href={`restaurant/update/${restaurantItem.id}`}>
+                        <Link href={`restaurant/${restaurantItem.id}/update`}>
                             <button
                             className="w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                                     hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 

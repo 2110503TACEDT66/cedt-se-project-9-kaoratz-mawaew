@@ -16,14 +16,19 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
-    const alltime = reservation.count;
-    console.log(reservation.count);
+    const [alltime, setAlltime] = useState(0);
+
+    console.log(data)
+
     useEffect(() => {
         let count = 0;
         let inyear = 0;
+        let alltime = 0;
         const currentyear = dayjs().year();
 
         data.forEach((res) => {
+            
+            alltime++;
             if (!res.completed) {
                 count++;
             }
@@ -31,9 +36,11 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
                 console.log("Domo")
                 inyear++;
             }
+            
         });
         setCurrent(count);
         setReservedSinceLastYear(inyear);
+        setAlltime(alltime);
     }, [data]);
 
     return(
