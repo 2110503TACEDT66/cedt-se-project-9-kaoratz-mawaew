@@ -428,8 +428,8 @@ exports.getSummaryReservation = async (req, res, next) => {
 
   try {
     query = Reservation.find({ restaurant: req.params.id }, {
-      _id: 0, // Exclude the _id field
-      resvDate: 1, // Include the resvDate field
+      _id: 0,
+      resvDate: 1,
     })
       .populate({
         path: "restaurant",
@@ -450,11 +450,30 @@ exports.getSummaryReservation = async (req, res, next) => {
     const resvDates = reservations.map((reservation) => reservation.resvDate);
     const chartdata = [];
 
-    // Initialize the chart data array with 24 hours
     for (let hour = 0; hour < 24; hour++) {
-      const name = `${hour < 10 ? '0' : ''}${hour}:00`; // Format the hour as HH:00
-      const count = resvDates.filter(date => date.getHours() === hour).length; // Count reservations for the hour
+      const name = `${hour < 10 ? '0' : ''}${hour}:00`;
+      const count = resvDates.filter(date => date.getHours() === hour).length;
       chartdata.push({ name, count });
+    }
+
+    // Calculate historical averages for each hour
+    const hourlyAverages = Array.from({ length: 24 }, (_, hour) => {
+      const hourData = resvDates.filter(date => date.getHours() === hour);
+      const averageCount = hourData.length > 0 ? hourData.length / reservations.length : 0;
+      return { hour, averageCount };
+    });
+
+    // Calculate forecast for each hour using a moving average
+    const movingAverageWindow = 3; // Adjust the window size as needed
+    const hourlyForecasts = [];
+    for (let hour = 0; hour < 24; hour++) {
+      let totalReservations = 0;
+      for (let i = hour; i < hour + movingAverageWindow; i++) {
+        totalReservations += chartdata[i % 24].count; // Use modulo operator to handle wrapping around midnight
+      }
+      const movingAverage = totalReservations / movingAverageWindow;
+      const forecast = Math.round(movingAverage * (1 + hour / 24)); // Adjust forecast based on the hour
+      hourlyForecasts.push({ hour, forecast });
     }
 
     res.status(200).json({
@@ -462,6 +481,7 @@ exports.getSummaryReservation = async (req, res, next) => {
       count: reservations.length,
       data: {
         chartdata,
+        hourlyForecasts
       }
     });
   } catch (err) {
