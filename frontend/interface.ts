@@ -112,10 +112,16 @@ export interface ChartDataItem {
   count: number;
 }
 
+export interface ChartPredictDataItem {
+  hour: string;
+  forecast: number;
+}
+
 export interface ReservationResponse {
   success: boolean;
   count: number;
   data: {
     chartdata: ChartDataItem[];
+    hourlyForecasts: ChartPredictDataItem[];
   };
 }

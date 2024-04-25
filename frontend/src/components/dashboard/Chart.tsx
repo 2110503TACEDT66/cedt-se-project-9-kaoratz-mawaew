@@ -1,13 +1,6 @@
 'use client'
-
 import { BarChart, AreaChart, Card, Title } from '@tremor/react';
-import { ChartDataItem } from '../../../interface'
-
-// Define the type for the parameter
-interface ChartPredictDataItem {
-    hour: string;
-    forecast: number;
-}
+import { ChartDataItem, ChartPredictDataItem } from '../../../interface'
 
 type ChartData = ChartDataItem[];
 type ChartPredictData = ChartPredictDataItem[];
@@ -19,10 +12,12 @@ export default function PeakHourChart({ data, forecast }: { data: ChartData, for
     const chartData = data.map((item, index) => ({
         hour: index,
         actual: item.count,
-        forecast: forecast[index].forecast
+        forecast: forecast[index].forecast 
     }));
 
-    console.log(JSON.stringify(chartData));
+    // console.log("this is real data", JSON.stringify(data));
+    // console.log("this is forecast data", JSON.stringify(forecast));
+    // console.log("this is all for showing ", JSON.stringify(chartData));
 
     return (
         <Card>
