@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import getUserProfile from '@/libs/getUserProfile';
 
 const Login: NextPage = () => {
-  
+
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const Login: NextPage = () => {
     const profile = await getUserProfile(token);
     setRole(profile.data.role)
   }
-  
+
   // if (session) {
   //   useEffect(() => {
   //     getProfile(session.user.token)
@@ -37,16 +37,18 @@ const Login: NextPage = () => {
     e.preventDefault();
     try {
       const result = await signIn('credentials', {
-        redirect: false,
+        redirect: true,
+        callbackUrl: '/dashboard',
         email,
         password,
-      });
+      }
+      );
 
       if (result?.error) {
-        setError(result.error);
+        setError("Login failed, please try again.");
       } else {
-          router.push('/dashboard') 
-          router.refresh();
+        // router.push('/dashboard') 
+        // router.refresh();
       }
     } catch (error) {
       // Handle error cases here1
