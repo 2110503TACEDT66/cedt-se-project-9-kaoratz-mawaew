@@ -6,8 +6,12 @@ import getRestaurantReservation from "@/libs/getRestaurantReservation"
 import Statistic from "@/components/managerDashboard/Statistic"
 import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
-import RestaurantHistory from "@/components/managerDashboard/RestaurantHistory"
-import RestaurantStatistics from "@/components/managerDashboard/RestaurantStatistic"
+import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
+import RestaurantStatistics from "@/components/restaurantSummary/RestaurantStatistic"
+import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
+import getSummaryReservation from "@/libs/getSummaryReservation"
+
+import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
@@ -15,6 +19,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const restaurant = await getRestaurant(params.rid)
 
+    const review = await getReviews(params.rid);
     let reservation
 
     if (session) {
@@ -74,7 +79,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                                 </div>
 
                             </div>
-                        </td>
+                    </td>
                     </tr>
                 </tbody>
             </table>
@@ -85,6 +90,14 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
             <div className="mt-9">
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
+            </div>
+
+            <div className="w-full inline-flex items-center mt-16">
+                <h1 className="text-xl text-left font-medium">Comment</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
+            </div>
+            <div className="mt-9">
+                <AllCommentCard review={review}/>
             </div>
         </div>
     )
