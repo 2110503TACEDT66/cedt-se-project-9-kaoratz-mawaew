@@ -14,18 +14,20 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [role, setRole] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  // const [role, setRole] = useState('');
 
   const { data: session } = useSession();
 
-  const getProfile = async (token: string) => {
-    const profile = await getUserProfile(token);
-    setRole(profile.data.role)
-  }
+  // const getProfile = async (token: string) => {
+  //   const profile = await getUserProfile(token);
+  //   setRole(profile.data.role)
+  // }
 
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       const logginToast = toast.loading('Logging you in.', {
         style: {
@@ -89,15 +91,16 @@ const Login = () => {
             primary: '#383838',
             secondary: '#EDEDED',
           },
+          duration: 1000,
 
         });
       }
-
 
     } catch (error) {
       // Handle error cases here1
       setError('Login failed');
     }
+    setSubmitting(false);
   };
 
   return (
@@ -136,12 +139,14 @@ const Login = () => {
           />
         </div>
         <button
+          disabled={submitting}
           type="submit"
           className="w-full px-8 py-2 mt-4 inline-block border p-2 text-center border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
           hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
-          hover:-translate-x-1 hover:-translate-y-1 font-mono " style={{ fontSize: "20px" }}
+          hover:-translate-x-1 hover:-translate-y-1 font-mono disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:text-stone-800 disabled:hover:bg-stone-100 
+           disabled:hover:shadow-none" style={{ fontSize: "20px" }}
         >
-          Sign In
+          {submitting ? 'Logging in...' : 'Login'}
         </button>
         {error && (
           <p className="mt-3 text-xs text-center text-red-500">{error}</p>
