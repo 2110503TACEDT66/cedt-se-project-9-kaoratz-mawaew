@@ -8,6 +8,9 @@ import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/managerDashboard/RestaurantHistory"
 import RestaurantStatistics from "@/components/managerDashboard/RestaurantStatistic"
+import getSummaryReservation from "@/libs/getSummaryReservation"
+import RestaurantReview from "@/components/managerDashboard/RestaurantReview"
+import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
@@ -15,6 +18,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const restaurant = await getRestaurant(params.rid)
 
+    const review = await getReviews(params.rid);
     let reservation
 
     if (session) {
@@ -74,7 +78,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                                 </div>
 
                             </div>
-                        </td>
+                    </td>
                     </tr>
                 </tbody>
             </table>
@@ -85,6 +89,9 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
             <div className="mt-9">
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
+            </div>
+            <div className="mt-9">
+                <RestaurantReview review={review}/>
             </div>
         </div>
     )
