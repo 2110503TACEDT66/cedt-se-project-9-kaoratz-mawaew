@@ -47,7 +47,7 @@ export default async function Manager({profile, reservation}: {profile: UserItem
                     {restaurants.data.reverse().map(
                         (restaurantItem: RestaurantItem) => (
                         // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} />
+                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="manager"/>
                         )
                         // </Link>
                     )}
