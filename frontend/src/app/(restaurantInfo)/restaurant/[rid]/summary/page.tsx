@@ -9,8 +9,9 @@ import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
 import RestaurantStatistics from "@/components/restaurantSummary/RestaurantStatistic"
 import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
+import getSummaryReservation from "@/libs/getSummaryReservation"
 
-import { Rating } from "@mui/material"
+import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
@@ -18,6 +19,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const restaurant = await getRestaurant(params.rid)
 
+    const review = await getReviews(params.rid);
     let reservation
 
     if (session) {
@@ -77,7 +79,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                                 </div>
 
                             </div>
-                        </td>
+                    </td>
                     </tr>
                 </tbody>
             </table>
@@ -90,17 +92,13 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
             </div>
 
-            <div className="w-full inline-flex items-center mt-5">
-                <h1 className="text-xl text-left font-medium">Peak Hours</h1>
+            <div className="w-full inline-flex items-center mt-16">
+                <h1 className="text-xl text-left font-medium">Comment</h1>
                 <hr className="border-zinc-900 grow ml-7"/>
             </div>
-
-            <div className="w-full inline-flex items-center mt-12">
-                <h1 className="text-xl text-left font-medium">Comments</h1>
-                <hr className="border-zinc-900 grow ml-7"/>
+            <div className="mt-9">
+                <AllCommentCard review={review}/>
             </div>
-
-            <AllCommentCard/>
         </div>
     )
 }
