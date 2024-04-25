@@ -21,7 +21,7 @@ export interface RestaurantItem {
   imageUrl: string;
   map: string;
   tag: [string];
-  manager:string,
+  manager: UserItem,
   __v: number;
   id: string;
 }

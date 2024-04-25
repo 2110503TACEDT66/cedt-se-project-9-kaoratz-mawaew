@@ -70,11 +70,11 @@ export default async function RestaurantCard({restaurantItem,role}: {restaurantI
                         <div className="flex-row flex justify-between items-center mb-4">
                             <p className="text-base text-left mb-4">Address</p>
                             
-                            {/* {
+                            {
                                 role == "admin"?
-                                <p className="text-base text-right mb-4">{manager}</p>
+                                <p className="text-base text-rose-600 font-medium text-right mb-4">{restaurantItem.manager.name}</p>
                                 :null
-                            } */}
+                            }
                         </div>
 
                         <p className="text-sm text-left pb-4">
