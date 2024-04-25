@@ -155,35 +155,39 @@ exports.updateRestaurant = async (req, res, next) => {
         message: "You are not the manager of this restaurant",
       });
     }
-    if (
-      req.body.name &&
-      req.body.address &&
-      req.body.subdistrict &&
-      req.body.district &&
-      req.body.province
-    ) {
-      const { name, address, subdistrict, district, province } = req.body;
-      const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${
-        name +
-        `,${address}` +
-        `,${subdistrict}` +
-        `,${district}` +
-        `,${province}` +
-        ",Thailand"
-      }`;
-      const response = await fetch(mapUrl);
-      const data = await response.json();
-      if (data.length > 0) {
-        const { lat, lon } = data[0];
-        const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
-        req.body.map = mapLink;
-      } else {
-        res.status(404).json({
-          success: false,
-          message: "Location not found",
-        });
-      }
-    }
+    // if (
+    //   req.body.name &&
+    //   req.body.address &&
+    //   req.body.subdistrict &&
+    //   req.body.district &&
+    //   req.body.province
+    // ) {
+    //   const { name, address, subdistrict, district, province } = req.body;
+    //   // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${
+    //   //   name +
+    //   //   `,${address}` +
+    //   //   `,${subdistrict}` +
+    //   //   `,${district}` +
+    //   //   `,${province}` +
+    //   //   ",Thailand"
+    //   // }`;
+    //   // const response = await fetch(mapUrl);
+    //   // const data = await response.json();
+    //   // if (data.length > 0) {
+    //   //   const { lat, lon } = data[0];
+    //   //   const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+    //   //   req.body.map = mapLink;
+    //   // } else {
+    //   //   return res.status(404).json({
+    //   //     success: false,
+    //   //     message: "Location not found",
+    //   //   });
+    //   // }
+      
+    // }
+    const tags = req.body.tag.split(",");
+    req.body.tag = tags;
+
     await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,

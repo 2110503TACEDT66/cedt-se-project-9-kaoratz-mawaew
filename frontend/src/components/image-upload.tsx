@@ -7,22 +7,24 @@ import { Button, CircularProgress } from "@mui/material";
 
 const ImageUpload = ({
   setImageUrl,
+  imageUrl,
 }: {
   setImageUrl: (url: string) => void;
+  imageUrl: string | null;
 }) => {
-  const [uploadedImage, setUploadedImage] = useState<string>(""); // url
+  const [uploadedImage, setUploadedImage] = useState<string>(imageUrl || ""); // url
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (uploadedImage) {
-      setImageUrl(uploadedImage);
-      setIsLoading(true);
-    }
-  }, [uploadedImage]);
+  // useEffect(() => {
+  //   if (uploadedImage) {
+  //     setImageUrl(uploadedImage);
+  //     setIsLoading(true);
+  //   }
+  // }, [uploadedImage]);
 
   const handleImageLoad = () => {
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   return (
@@ -41,6 +43,7 @@ const ImageUpload = ({
                 alt="uploaded image"
                 layout="fill"
                 objectFit="cover"
+                
                 onLoad={handleImageLoad}
                 style={{ borderRadius: "5px" }}
               />
@@ -65,7 +68,9 @@ const ImageUpload = ({
           ut-allowed-content:ut-uploading:text-white"
           endpoint="restaurantUploader"
           onClientUploadComplete={(res: any[]) => {
+            setIsLoading(true);
             setUploadedImage(res.findLast((r) => r.url)?.url || "");
+            setImageUrl(res.findLast((r) => r.url)?.url || "");
           }}
           onUploadError={(error: Error) => {
             // Do something with the error.

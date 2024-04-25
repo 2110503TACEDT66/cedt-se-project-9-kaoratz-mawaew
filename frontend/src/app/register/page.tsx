@@ -1,11 +1,11 @@
 // pages/register/page.tsx
 "use client";
 import { useState } from 'react';
-import type { NextPage } from 'next';
+// import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import userRegister from '@/libs/userRegister';
 
-const Register: NextPage = () => {
+const Register = () => {
   const [name, setName] = useState('');
   const [telephone, setTelephone] = useState('');
   const [email, setEmail] = useState('');

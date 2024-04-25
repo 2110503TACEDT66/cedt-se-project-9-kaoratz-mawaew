@@ -1,13 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
-import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import getUserProfile from '@/libs/getUserProfile';
 
-const Login: NextPage = () => {
+const Login = () => {
 
   const router = useRouter();
 

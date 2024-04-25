@@ -1,6 +1,6 @@
 export default async function getRestaurant(id: string) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/restaurants/${id}`
+    `${process.env.BACKEND_URL}/api/v1/restaurants/${id}`, {next:{tags:["restaurant"]}}
   );
 
   if (!response) {
