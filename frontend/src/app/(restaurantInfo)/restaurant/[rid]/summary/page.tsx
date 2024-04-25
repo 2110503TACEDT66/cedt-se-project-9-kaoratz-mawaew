@@ -6,10 +6,11 @@ import getRestaurantReservation from "@/libs/getRestaurantReservation"
 import Statistic from "@/components/managerDashboard/Statistic"
 import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
-import RestaurantHistory from "@/components/managerDashboard/RestaurantHistory"
-import RestaurantStatistics from "@/components/managerDashboard/RestaurantStatistic"
+import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
+import RestaurantStatistics from "@/components/restaurantSummary/RestaurantStatistic"
+import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 import getSummaryReservation from "@/libs/getSummaryReservation"
-import RestaurantReview from "@/components/managerDashboard/RestaurantReview"
+
 import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
@@ -90,8 +91,13 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             <div className="mt-9">
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
             </div>
+
+            <div className="w-full inline-flex items-center mt-16">
+                <h1 className="text-xl text-left font-medium">Comment</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
+            </div>
             <div className="mt-9">
-                <RestaurantReview review={review}/>
+                <AllCommentCard review={review}/>
             </div>
         </div>
     )
