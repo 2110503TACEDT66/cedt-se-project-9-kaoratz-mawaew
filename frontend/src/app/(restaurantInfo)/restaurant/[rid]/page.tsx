@@ -9,7 +9,7 @@ import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import PeakHourChart from '@/components/dashboard/Chart';
+import PeakHourChart from '@/components/dashboard/ChartFetch';
 import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -26,6 +26,7 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     const [closeHour, closeMinute] = restaurantDetails.data.closetime.split(':').map(Number);
     openTime.setHours(openHour, openMinute, 0, 0);
     closeTime.setHours(closeHour, closeMinute, 0, 0);
+    // console.log(restaurantSummaryReservations.data.hourlyForecasts);
 
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;

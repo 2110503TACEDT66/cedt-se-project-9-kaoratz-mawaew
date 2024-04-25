@@ -21,7 +21,7 @@ export interface RestaurantItem {
   imageUrl: string;
   map: string;
   tag: [string];
-  manager:string,
+  manager: UserItem,
   __v: number;
   id: string;
 }
@@ -123,10 +123,16 @@ export interface ChartDataItem {
   count: number;
 }
 
+export interface ChartPredictDataItem {
+  hour: string;
+  forecast: number;
+}
+
 export interface ReservationResponse {
   success: boolean;
   count: number;
   data: {
     chartdata: ChartDataItem[];
+    hourlyForecasts: ChartPredictDataItem[];
   };
 }
