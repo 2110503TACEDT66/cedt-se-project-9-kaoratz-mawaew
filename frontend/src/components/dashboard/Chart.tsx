@@ -1,6 +1,8 @@
 'use client'
-import { BarChart, AreaChart, Card, Title } from '@tremor/react';
+import { BarChart, AreaChart, Card, Title  , EventProps } from '@tremor/react';
 import { ChartDataItem, ChartPredictDataItem } from '../../../interface'
+import { Interface } from 'readline';
+import { useState } from 'react';
 
 type ChartData = ChartDataItem[];
 type ChartPredictData = ChartPredictDataItem[];
@@ -8,37 +10,58 @@ type ChartPredictData = ChartPredictDataItem[];
 const dataFormatter = (number: number) =>
     Intl.NumberFormat('us').format(number).toString();
 
-export default function PeakHourChart({ data, forecast }: { data: ChartData, forecast: ChartPredictData }) {
-    const chartData = data.map((item, index) => ({
-        hour: index,
-        actual: item.count,
-        forecast: forecast[index].forecast 
-    }));
+interface ChartInput {
+    hour: number;
+    actual: number;
+    forecast: number;
+}
 
-    // console.log("this is real data", JSON.stringify(data));
-    // console.log("this is forecast data", JSON.stringify(forecast));
-    // console.log("this is all for showing ", JSON.stringify(chartData));
+export default function ChartComponent({ chartInput }: { chartInput: ChartInput[]}) {
 
+    const customTooltip = (props) => {
+        const { payload, active } = props;
+        if (!active || !payload) return null;
+        return (
+          <div className="w-56 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+            {payload.map((category, idx) => (
+              <div key={idx} className="flex flex-1 space-x-2.5">
+                <div
+                  className={`flex w-1 flex-col bg-${category.color}-500 rounded`}
+                />
+                <div className="space-y-1">
+                  <p className="text-tremor-content">{category.dataKey}</p>
+                  <p className="font-medium text-tremor-content-emphasis">
+                    {category.value} hours 
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+    }; 
+
+    const [value, setValue] = useState<EventProps>(null);
     return (
         <Card>
             <Title>Peak Hour Chart</Title>
             <AreaChart
-                data={chartData}
+                data={chartInput}
                 index="hour"
                 categories={['actual', 'forecast']}
-                colors={["indigo", "cyan"]}
+                colors={["gray", 'stone']}
                 valueFormatter={dataFormatter}
                 yAxisWidth={120}
-                // onValueChange={(v) => console.log(v)}
+                onValueChange={(v) => setValue(v)}
                 style={{ backgroundColor: '#B1B1B1' }}
-                showLegend={true}
-                showGridLines={true}
+                // showLegend={true}
+                // showGridLines={true}
                 // barCategoryGap={0.5}
                 noDataText='No data.'
                 showTooltip={true}
                 animationDuration={1000}
                 showYAxis={true}
-                showXAxis={true}
+                customTooltip={customTooltip}
+                // showXAxis={true}
             />
         </Card>
     );

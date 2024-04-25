@@ -9,7 +9,7 @@ import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import PeakHourChart from '@/components/dashboard/Chart';
+import PeakHourChart from '@/components/dashboard/ChartFetch';
 import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
