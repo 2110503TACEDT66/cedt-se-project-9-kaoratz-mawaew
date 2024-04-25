@@ -16,7 +16,7 @@ export async function LeftSideBar() {
     { href: "/", label: "Home" },
     { href: "/restaurant", label: "Reserve" },
     { href: "/myTable", label: "My Table" },
-    { href: "/api/auth/signout", label: "Logout" },
+    { href: "?logout=true", label: "Logout" },
   ];
 
   return (
