@@ -1,36 +1,42 @@
-'use client'
+// 'use client'
 import dayjs from "dayjs";
 import { UserItem, reserveJson } from "../../../interface";
 import { getSession } from "next-auth/react";
 import { authOptions } from "../auth";
 import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
-import { useState } from "react";
-import { useEffect } from "react";
+// import { useState } from "react";
+// import { useEffect } from "react";
 
-export default function UserStatistics({reservation} : {reservation: reserveJson}){
+export default function UserStatistics({reservation
+
+} : {reservation: reserveJson
+
+}){
+
     const data = reservation.data;
-    const [current, setCurrent] = useState(0);
-    const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
+    // const [current, setCurrent] = useState(0);
+    // const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
     const alltime = reservation.count;
     console.log(reservation.count);
-    useEffect(() => {
-        let count = 0;
+
+    // useEffect(() => {
+        let current = 0;
         let inyear = 0;
         const currentyear = dayjs().year();
 
         data.forEach((res) => {
             if (!res.completed) {
-                count++;
+                current++;
             }
             if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
                 console.log("Domo")
                 inyear++;
             }
         });
-        setCurrent(count);
-        setReservedSinceLastYear(inyear);
-    }, [data]);
+        // setCurrent(count);
+        // setReservedSinceLastYear(inyear);
+    // }, [data]);
 
     return(
         <table>
@@ -46,7 +52,7 @@ export default function UserStatistics({reservation} : {reservation: reserveJson
                     <td className="px-9 text-base border-r-2 border-black">
                         <p>In this year</p>
                         <div className="inline-flex items-center gap-4 mt-4">
-                            <h1 className="text-4xl font-bold">{reservedSinceLastYear}</h1>
+                            <h1 className="text-4xl font-bold">{inyear}</h1>
                             <p>reservation</p>
                         </div>
                     </td>

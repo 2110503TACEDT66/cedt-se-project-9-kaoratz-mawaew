@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import getUserProfile from '@/libs/getUserProfile';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Login = () => {
 
@@ -22,33 +23,77 @@ const Login = () => {
     setRole(profile.data.role)
   }
 
-  // if (session) {
-  //   useEffect(() => {
-  //     getProfile(session.user.token)
-  //   }, [])
-  // }
-
-  // if (role) {
-  //   login(role)
-  // }
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      const logginToast = toast.loading('Logging you in.', {
+        style: {
+          padding: '10px 40px',
+          color: '#EDEDED',
+          backgroundColor: '#1B1B1B',
+          borderRadius: '4px',
+
+        },
+        iconTheme: {
+          primary: '#1B1B1B',
+          secondary: '#EDEDED',
+        },
+
+      });
+
+
       const result = await signIn('credentials', {
-        redirect: true,
+        redirect: false,
         callbackUrl: '/dashboard',
         email,
         password,
       }
       );
 
-      if (result?.error) {
-        setError("Login failed, please try again.");
+      // make a delay here 2 sec
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      if (result?.ok) {
+        toast.dismiss(logginToast);
+        toast.success('Login success, redirecting...', {
+          style: {
+            padding: '10px 60px',
+            color: '#EDEDED',
+            backgroundColor: '#1B1B1B',
+            borderRadius: '4px',
+            maxWidth: 500
+          },
+          iconTheme: {
+            primary: '#383838',
+            secondary: '#EDEDED',
+          },
+          duration: 2000,
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        router.push('/dashboard')
+        router.refresh();
+        
       } else {
-        // router.push('/dashboard') 
-        // router.refresh();
+        toast.dismiss(logginToast);
+        const failToast = toast.error('Login failed', {
+          style: {
+            padding: '10px 60px',
+            color: '#EDEDED',
+            backgroundColor: '#1B1B1B',
+            borderRadius: '4px',
+          },
+          iconTheme: {
+            primary: '#383838',
+            secondary: '#EDEDED',
+          },
+
+        });
       }
+
+
     } catch (error) {
       // Handle error cases here1
       setError('Login failed');
@@ -57,8 +102,8 @@ const Login = () => {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center mt-300">
+      <Toaster />
       {/* <p className='text-4xl mb-16 ml-7 text-left font-bold'>hello</p> */}
-
       <form onSubmit={handleFormSubmit} className="w-full max-w-xs space-y-4">
         <div className="space-y-3">
           <label htmlFor="email" className="leading-7 text-gray-600 font-mono text-xl">

@@ -2,6 +2,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@tremor/react": "^3.16.1",
+    "react-hot-toast": "^2.4.1",
     "zod": "^3.22.5"
   }
 }

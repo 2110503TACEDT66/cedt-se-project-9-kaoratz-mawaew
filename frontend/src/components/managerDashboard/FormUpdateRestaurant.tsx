@@ -27,9 +27,6 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
     if (!session) return null;
 
     
-    const [location, setLocation] = useState<nominatimItem | string | null>(null);
-    const [imageUrl, setImageUrl] = useState<string>("");
-    console.log(restaurant)
     const { register, handleSubmit, formState: { errors }} = useForm<forminput>({
         defaultValues: {
             name: restaurant.data.name,
@@ -57,6 +54,9 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
         'Vietnamese',
         'French'
     ];
+    
+    const [location, setLocation] = useState<nominatimItem | string | null>(null);
+    const [imageUrl, setImageUrl] = useState<string>("");
     const [clickedChips, setClickedChips] = useState<Array<string>>( restaurant.data.tag || []);
 
     // fix this & rerender
