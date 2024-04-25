@@ -104,7 +104,7 @@ export default function FormSection() {
                             </div>
                             <div className="w-[45%] flex flex-col gap-[20%]">
 
-                                <ImageUpload setImageUrl={setImageUrl} />
+                                <ImageUpload setImageUrl={setImageUrl} imageUrl={null} />
 
                             </div>
 
