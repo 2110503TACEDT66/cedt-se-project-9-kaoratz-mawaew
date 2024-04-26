@@ -27,6 +27,7 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
     if (!session) return null;
 
     
+    
     const { register, handleSubmit, formState: { errors }} = useForm<forminput>({
         defaultValues: {
             name: restaurant.data.name,
