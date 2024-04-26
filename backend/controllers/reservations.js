@@ -24,7 +24,7 @@ exports.getReservations = async (req, res, next) => {
     //admin see all
     if (req.params.restaurantId) {
       //console.log(req.params.restaurantId);
-      query = Reservation.find({ hospital: req.params.restaurantId })
+      query = Reservation.find({ restaurant: req.params.restaurantId })
         .populate({
           path: "restaurant",
           select: "name province tel",
