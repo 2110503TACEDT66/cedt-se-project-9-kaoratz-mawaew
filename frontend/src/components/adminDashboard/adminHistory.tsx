@@ -1,12 +1,13 @@
 import { reserveJson } from "../../../interface";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { UserItem } from "../../../interface";
 
-export default function AdminHistory ({reservation} : {reservation : reserveJson}) {
+export default function AdminHistory ({profile, reservation} : {profile: UserItem ,reservation : reserveJson}) {
     const data = reservation.data;
     
     return (
-        <div className="w-full">
+        <div className="w-full mt-7 p-10">
             <table className="text-center text-sm w-full items-center border-b-2 border-gray-900">
                 <thead>
                     <tr>
@@ -50,7 +51,7 @@ export default function AdminHistory ({reservation} : {reservation : reserveJson
                             {res.completed? <p className="text-emerald-600">Completed</p> : <p className="text-red-600">Upcoming</p>}
                         </td>
                         {
-                            res.completed? <td className="w-[10%] py-4">
+                            res.completed && profile._id == res.user._id? <td className="w-[10%] py-4">
                             <Link href={`/restaurant/${res.restaurant._id}`}>
                                 <button className="w-[55px] h-[25px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 

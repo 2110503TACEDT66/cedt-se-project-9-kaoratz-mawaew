@@ -12,7 +12,7 @@ const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
 
-export default function Statistic({reservation} : {reservation: reserveJson}){
+export default function RestaurantStatistics({reservation, rid} : {reservation: reserveJson, rid: string}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
@@ -27,16 +27,16 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
         const currentyear = dayjs().year();
 
         data.forEach((res) => {
-            
-            alltime++;
-            if (!res.completed) {
-                count++;
+            if (res.restaurant._id == rid) {
+                alltime++;
+                if (!res.completed) {
+                    count++;
+                }
+                if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                    console.log("Domo")
+                    inyear++;
+                }
             }
-            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                console.log("Domo")
-                inyear++;
-            }
-            
         });
         setCurrent(count);
         setReservedSinceLastYear(inyear);
@@ -44,7 +44,7 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
     }, [data]);
 
     return(
-        <table className="mt-7">
+        <table>
             <tbody>
                 <tr>
                     <td className="pr-9 text-base border-r-2 border-black font-mono">

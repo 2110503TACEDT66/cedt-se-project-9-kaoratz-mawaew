@@ -21,6 +21,7 @@ export interface RestaurantItem {
   imageUrl: string;
   map: string;
   tag: [string];
+  manager: UserItem,
   __v: number;
   id: string;
 }
@@ -62,13 +63,23 @@ export interface ReviewJson {
 }
 
 export interface ReviewItem {
-  id: string;
-  rating: number;
-  comment: string;
-  user: UserItem;
-  name: string;
-  restaurant: RestaurantItem;
-  createdAt: string;
+  _id:string,
+  rating:number,
+  comment:string,
+  name:string,
+  user: {
+    _id: string,
+    name: string,
+  },
+  restaurant:{
+    _id:string,
+    name:string,
+    province:string,
+    tel:string,
+    id:string,
+  },
+  createAt: string,
+  __v: number,
 }
 
 export interface nominatimItem {
@@ -112,10 +123,16 @@ export interface ChartDataItem {
   count: number;
 }
 
+export interface ChartPredictDataItem {
+  hour: string;
+  forecast: number;
+}
+
 export interface ReservationResponse {
   success: boolean;
   count: number;
   data: {
     chartdata: ChartDataItem[];
+    hourlyForecasts: ChartPredictDataItem[];
   };
 }

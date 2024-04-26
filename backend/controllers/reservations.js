@@ -419,3 +419,112 @@ exports.deleteReservation = async (req, res, next) => {
     console.log(err);
   }
 };
+
+// @desc    Get one summary reservation
+// @route   GET /api/v1/reservations/:id/summary
+// @access  Public
+exports.getSummaryReservation = async (req, res, next) => {
+  let query;
+
+  try {
+    query = Reservation.find({ restaurant: req.params.id }, {
+      _id: 0,
+      resvDate: 1,
+    })
+      .populate({
+        path: "restaurant",
+        select: "resvDate",
+      })
+      .sort({ resvDate: 1, createdAt: 1 });
+
+    const reservations = await query;
+
+    if (!reservations || reservations.length === 0) {
+      return res.status(200).json({
+        success: false,
+        count: 0,
+        data: null,
+      });
+    }
+
+    const resvDates = reservations.map((reservation) => reservation.resvDate);
+    const chartdata = [];
+
+    for (let hour = 0; hour < 24; hour++) {
+      const name = `${hour < 10 ? '0' : ''}${hour}:00`;
+      const count = resvDates.filter(date => date.getHours() === hour).length;
+      chartdata.push({ name, count });
+    }
+
+    // Calculate historical averages for each hour
+    const hourlyAverages = Array.from({ length: 24 }, (_, hour) => {
+      const hourData = resvDates.filter(date => date.getHours() === hour);
+      const averageCount = hourData.length > 0 ? hourData.length / reservations.length : 0;
+      return { hour, averageCount };
+    });
+
+    // Calculate forecast for each hour using a moving average
+    const movingAverageWindow = 3; // Adjust the window size as needed
+    const hourlyForecasts = [];
+    for (let hour = 0; hour < 24; hour++) {
+      let totalReservations = 0;
+      for (let i = hour; i < hour + movingAverageWindow; i++) {
+        totalReservations += chartdata[i % 24].count; // Use modulo operator to handle wrapping around midnight
+      }
+      const movingAverage = totalReservations / movingAverageWindow;
+      const forecast = Math.round(movingAverage * (1 + hour / 24)); // Adjust forecast based on the hour
+      hourlyForecasts.push({ hour, forecast });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: reservations.length,
+      data: {
+        chartdata,
+        hourlyForecasts
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      msg: "Cannot find reservations",
+    });
+
+    console.log(err);
+  }
+};
+
+// @desc    Get all reservations
+// @route   GET /api/v1/reservations/restaurantinfo
+// @access  Public
+exports.getRestaurantReservation = async (req,res,next) => {
+  let query;
+  
+    query = Reservation.find()
+      .populate({
+        path: "restaurant",
+        select: "name province tel",
+      })
+      .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
+        path: 'user',
+        select: 'name'
+      });
+    //console.log("3");
+
+    try {
+      const reservation = await query;
+  
+      res.status(200).json({
+        success: true,
+        count: reservation.length,
+        data: reservation,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        msg: "Cannot find reservation",
+      });
+  
+      console.log(err);
+    }
+}

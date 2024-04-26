@@ -3,11 +3,16 @@ import ManagerStatistics from "../managerDashboard/Statistic";
 import { UserItem } from "../../../interface";
 import { reserveJson } from "../../../interface";
 import AdminHistory from "../adminDashboard/adminHistory";
+import getRestaurants from "@/libs/getRestaurants";
+import RestaurantCard from "../managerDashboard/RestaurantCard";
+import RestaurantNotFound from "../RestaurantNotFound";
+import { RestaurantItem } from "../../../interface";
 
-export default function Admin({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
+export default async function Admin({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
+    const restaurants = await getRestaurants()
     return (
         <>
-            <div className="text-5xl font-bold">
+            <div className="text-5xl font-semibold">
                 <h1>Hello {profile.name}</h1>
             </div>
 
@@ -37,12 +42,28 @@ export default function Admin({profile, reservation}: {profile: UserItem, reserv
                 </Link>
             </div>
 
+            <div className="w-full overflow-y-scroll max-h-[580px] flex items-start justify-center mt-14">
+                {restaurants.count > 0 ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
+                        {restaurants.data.reverse().map(
+                            (restaurantItem: RestaurantItem) => (
+                            // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
+                            <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="admin"/>
+                            )
+                            // </Link>
+                        )}
+                    </div>
+                ) : (
+                    <RestaurantNotFound />
+                )}
+            </div>
+
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">History</h1>
                 <hr className="border-zinc-900 grow" />
             </div>
 
-            <AdminHistory reservation={reservation} />
+            <AdminHistory profile={profile} reservation={reservation} />
         </>
     )
 }

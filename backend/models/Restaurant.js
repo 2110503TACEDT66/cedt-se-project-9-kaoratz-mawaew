@@ -61,6 +61,10 @@ const RestaurantSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    reservation: {
+      type: [mongoose.Schema.ObjectId],
+      ref: 'Reservation'
+    },
     manager: {
       type: mongoose.Schema.ObjectId,
       ref: "User",

@@ -1,14 +1,13 @@
 import Link from "next/link";
-import ManagerStatistics from "./Statistic";
-import { reserveJson, UserItem,RestaurantItem } from "../../../interface";
-import RestaurantCatalog from "../RestaurantCatalog";
+import { reserveJson, UserItem, RestaurantItem } from "../../../interface";
 import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
+
 export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
     const restaurants = await getRestaurantsForManager(profile._id)
-    
+
     return (
         <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">
@@ -48,7 +47,7 @@ export default async function Manager({profile, reservation}: {profile: UserItem
                     {restaurants.data.reverse().map(
                         (restaurantItem: RestaurantItem) => (
                         // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} />
+                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="manager"/>
                         )
                         // </Link>
                     )}
