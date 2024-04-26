@@ -10,7 +10,7 @@ import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
 import RestaurantStatistics from "@/components/restaurantSummary/RestaurantStatistic"
 import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 import getSummaryReservation from "@/libs/getSummaryReservation"
-
+import PeakHourChart from "@/components/dashboard/ChartFetch"
 import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
@@ -20,6 +20,9 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     const restaurant = await getRestaurant(params.rid)
 
     const review = await getReviews(params.rid);
+
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
+
     let reservation
 
     if (session) {
@@ -90,6 +93,17 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
             <div className="mt-9">
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
+            </div>
+
+            <div className="w-full inline-flex items-center mt-5">
+                <h1 className="text-xl text-left font-medium">Peak Hours</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
+            </div>
+            <div>
+                {
+                    (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
+
+                }
             </div>
 
             <div className="w-full inline-flex items-center mt-16">
