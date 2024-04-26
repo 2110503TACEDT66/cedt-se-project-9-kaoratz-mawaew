@@ -71,7 +71,7 @@ exports.getReviews = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      msg: "Cannot find review",
+      msg: "Server error",
     });
 
     console.log(err);

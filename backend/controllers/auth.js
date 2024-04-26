@@ -12,7 +12,7 @@ exports.register = async (req, res, next) => {
       role,
     });
 
-    sendTokenResponse(user, 200, res);
+    sendTokenResponse(user, 201, res);
   } catch (err) {
     res.status(400).json({
       success: false,
@@ -33,9 +33,9 @@ exports.login = async (req, res, next) => {
     }
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        msg: "Invalid credentials",
+        msg: "Invalid Credentials",
       });
     }
     const isMatch = await user.matchPassword(password);
@@ -49,7 +49,7 @@ exports.login = async (req, res, next) => {
 
     sendTokenResponse(user, 200, res);
   } catch (err) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       msg: "Cannot convert email or password to string",
     });
