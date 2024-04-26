@@ -29,7 +29,7 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
     
     const [location, setLocation] = useState(null);
     const [imageUrl, setImageUrl] = useState<string>("");
-    console.log(restaurant)
+    
     const { register, handleSubmit, formState: { errors }} = useForm<forminput>({
         defaultValues: {
             name: restaurant.data.name,
