@@ -73,7 +73,7 @@ const Login = () => {
           duration: 2000,
         });
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
 
         router.push('/dashboard')
         router.refresh();

@@ -12,6 +12,7 @@ import { UserItem } from "../../interface";
 import LogoutModal from "@/components/Modals/LogoutModal";
 import { Suspense } from "react";
 import LogoutModalSkeleton from "@/components/Modals/LogoutModalSkeleton";
+import ModalProvider from "@/providers/ModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,7 +51,7 @@ export default async function RootLayout({
           <NextAuthProvider session={session}>
             <LeftSideBar />
             {children}
-         
+            <ModalProvider />
           </NextAuthProvider>
         </div>
       </body>
