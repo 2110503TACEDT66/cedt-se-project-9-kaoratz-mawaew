@@ -98,7 +98,7 @@ export default async function RestaurantCard({restaurantItem,role}: {restaurantI
                     <div className="flex flex-row h-[15%] items-center justify-evenly">
                         <Link href={`restaurant/${restaurantItem.id}/summary`}>
                             <button
-                            className="w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                            className="w-[138px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                                     hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                                     hover:-translate-x-1 hover:-translate-y-1">
                             Summary
@@ -106,7 +106,7 @@ export default async function RestaurantCard({restaurantItem,role}: {restaurantI
                         </Link>
                         <Link href={`restaurant/${restaurantItem.id}/update`}>
                             <button
-                            className="w-[141px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                            className="w-[138px] h-[37px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                                     hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                                     hover:-translate-x-1 hover:-translate-y-1">
                             Edit
