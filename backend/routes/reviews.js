@@ -15,7 +15,8 @@ const router = express.Router({ mergeParams: true });
 const { protect, authorize } = require("../middleware/auth");
 router.use("/:reservationId/payments/", paymentsRouter);
 
-router.get("/dashboard", protect, getDashboardReviews);
+//router.get("/dashboard", protect, getDashboardReviews);
+router.route("/dashboard").get(protect, authorize("admin", "manager"), getDashboardReviews);
 router
   .route("/")
   .get(getReviews)

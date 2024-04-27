@@ -82,6 +82,12 @@ exports.getReservation = async (req, res, next) => {
         msg: `No reservation with the id of ${req.params.id}`,
       });
     }
+    if (reservation.user.toString() != req.user.id && req.user.role != 'admin') {
+      return res.status(403).json({
+        success: false,
+        msg: `User ${req.user.id} is not authorized to see this reservation`
+      })
+    }
 
     res.status(200).json({
       success: true,
@@ -202,7 +208,7 @@ exports.updateReservation = async (req, res, next) => {
       reservation.user.toString() !== req.user.id &&
       req.user.role !== "admin"
     ) {
-      return res.status(400).json({
+      return res.status(403).json({
         success: false,
         msg: `User ${req.user.id} is not authorized to update this reservation`,
       });
@@ -391,7 +397,7 @@ exports.deleteReservation = async (req, res, next) => {
       reservation.user.toString() !== req.user.id &&
       req.user.role !== "admin"
     ) {
-      return res.status(400).json({
+      return res.status(403).json({
         success: false,
         msg: `User ${req.user.id} is not authorized to delete this reservation`,
       });
@@ -427,7 +433,7 @@ exports.getSummaryReservation = async (req, res, next) => {
   let query;
 
   try {
-    query = Reservation.find({ restaurant: req.params.id }, {
+    query = Reservation.find({ restaurant: req.params.restaurantId }, {
       _id: 0,
       resvDate: 1,
     })
@@ -440,9 +446,10 @@ exports.getSummaryReservation = async (req, res, next) => {
     const reservations = await query;
 
     if (!reservations || reservations.length === 0) {
-      return res.status(200).json({
+      return res.status(404).json({
         success: false,
         count: 0,
+        msg: "Reservation/Restaurant not found",
         data: null,
       });
     }
@@ -487,7 +494,7 @@ exports.getSummaryReservation = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      msg: "Cannot find reservations",
+      msg: "Server error",
     });
 
     console.log(err);
@@ -522,7 +529,7 @@ exports.getRestaurantReservation = async (req,res,next) => {
     } catch (err) {
       res.status(500).json({
         success: false,
-        msg: "Cannot find reservation",
+        msg: "Server Error",
       });
   
       console.log(err);
