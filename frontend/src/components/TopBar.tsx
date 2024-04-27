@@ -10,7 +10,7 @@ export default function TopBar({
   role: string;
 }) {
   return (
-    <nav data-testid="top-bar" className="text-base flex flex-row p-9">
+    <nav data-testid="top-bar" className="text-base flex flex-row p-9 h-[10%]">
       <div className="w-[85%] mr-4 flex items-center bg-primary">
         <Marquee />
       </div>

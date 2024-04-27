@@ -91,7 +91,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  scrollbar-gutter: stable both-edges;
+  overflow-y: auto;
+  /* scrollbar-gutter: stable both-edges; */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
