@@ -76,7 +76,7 @@ export function RightSideBar() {
                     <h2 className="text-base text-zinc-900 font-bold">Category</h2>
                     <hr className="border-zinc-900 grow" />
                 </div>
-                <button className='mt-5'>
+                <button id='sidebar' className='mt-5'>
                     {
                         cuisineTypes.map((cuisineType) => {
                             const isSelected = selectedTags.includes(cuisineType);
@@ -84,6 +84,7 @@ export function RightSideBar() {
                             return (
                                 <div
                                     key={cuisineType}
+                                    id = {cuisineType}
                                     className={`inline-flex items-center space-x-4 mt-4 w-full`}
                                     onClick={(e) => {
                                         handleCuisineClick(cuisineType);
