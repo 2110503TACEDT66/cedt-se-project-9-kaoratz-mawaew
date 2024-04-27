@@ -445,15 +445,6 @@ exports.getSummaryReservation = async (req, res, next) => {
 
     const reservations = await query;
 
-    if (!reservations || reservations.length === 0) {
-      return res.status(404).json({
-        success: false,
-        count: 0,
-        msg: "Reservation/Restaurant not found",
-        data: null,
-      });
-    }
-
     const resvDates = reservations.map((reservation) => reservation.resvDate);
     const chartdata = [];
 

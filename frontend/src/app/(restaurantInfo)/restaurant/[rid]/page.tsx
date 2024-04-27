@@ -63,11 +63,10 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                     </div>
                 </div>
 
-            </div>
-
-            <div className='flex flex-row justify-center items-center gap-5'>
-                <h1 className="text-4xl font-bold text-primary text-nowrap">Chart</h1>
-                <hr className='border-black border-1 flex-grow ' />
+            </div> 
+            <div className="w-full inline-flex items-center mt-5">
+                <h1 className="text-xl text-left font-medium">Peak Hours</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
             </div>
             {
                 (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>

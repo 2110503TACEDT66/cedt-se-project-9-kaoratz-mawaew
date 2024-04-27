@@ -98,7 +98,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                 <RestaurantHistory reservation={reservation} rid={params.rid}/>
             </div>
 
-            <div className="w-full inline-flex items-center mt-5">
+            <div className="w-full inline-flex items-center mt-5 mb-5">
                 <h1 className="text-xl text-left font-medium">Peak Hours</h1>
                 <hr className="border-zinc-900 grow ml-7"/>
             </div>
