@@ -104,7 +104,7 @@ export default function FormSection() {
                             </div>
                             <div className="w-[45%] flex flex-col gap-[20%]">
 
-                                <ImageUpload setImageUrl={setImageUrl} />
+                                <ImageUpload setImageUrl={setImageUrl} imageUrl={null} />
 
                             </div>
 
@@ -160,7 +160,7 @@ export default function FormSection() {
                                     </div>
                                 </div>
                                 <div className="w-[45%] h-[42vh]">
-                                    <MapSection setLocation={setLocation} />
+                                    <MapSection setLocation={setLocation} restaurant={null}  />
                                 </div>
                             </div>
                                 <div className="flex flex-col w-[50%] space-y-2 ">

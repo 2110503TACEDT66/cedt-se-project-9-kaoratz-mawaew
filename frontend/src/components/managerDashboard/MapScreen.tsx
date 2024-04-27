@@ -1,18 +1,33 @@
+'use client'
+
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L, { LatLngTuple } from "leaflet";
 import { useEffect } from "react";
+import { RestaurantItem } from "../../../interface";
 export default function MapScreen({
-    selectedLocation
+    selectedLocation,
+    restaurant
 }:{
     selectedLocation: any
+    restaurant: RestaurantItem | null
 }) {
 
     const icon = L.icon({
         iconUrl: "/RedMapMarker.svg",
         iconSize: [40,40],
     });
-    const position: LatLngTuple = [13.7365936, 100.5330593]; // faculty of engineering chulalongkorn university
+
+    let position: LatLngTuple = [13.7365936, 100.5330593]; // faculty of engineering chulalongkorn university
+
+    if(restaurant?.map){
+
+        const map =  restaurant.map; 
+        const lat = map.split('/')[map.split('/').length-2];
+        const lon = map.split('/')[map.split('/').length-1];
+        position = [parseFloat(lat), parseFloat(lon)];
+
+    }
 
     
     const locationSelection : LatLngTuple = [selectedLocation?.lat, selectedLocation?.lon];

@@ -11,7 +11,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from "react-hook-form"
 
-import { RestaurantJson, RestaurantItem, forminput} from "../../../interface";
+import { RestaurantJson, RestaurantItem, forminput, nominatimItem} from "../../../interface";
 
 type RestaurantJsonHa = {
         success: boolean,
@@ -27,8 +27,6 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
     if (!session) return null;
 
     
-    const [location, setLocation] = useState(null);
-    const [imageUrl, setImageUrl] = useState<string>("");
     
     const { register, handleSubmit, formState: { errors }} = useForm<forminput>({
         defaultValues: {
@@ -57,7 +55,10 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
         'Vietnamese',
         'French'
     ];
-    const [clickedChips, setClickedChips] = useState<Array<string>>([]);
+    
+    const [location, setLocation] = useState<nominatimItem | string | null>(null);
+    const [imageUrl, setImageUrl] = useState<string>("");
+    const [clickedChips, setClickedChips] = useState<Array<string>>( restaurant.data.tag || []);
 
     // fix this & rerender
     const handleChipClick = (chipType: string) => {
@@ -76,7 +77,21 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
         const token = session?.user.token;
         //if (!location) return alert("Please select location");
         const tags = clickedChips.join(',');
-        const response = await FormUpdateAction( formData, token, location, tags, imageUrl, restaurant.data._id); // server action 
+        var finalLocation = location
+        var finalTags = tags
+        var finalImageUrl = imageUrl
+        
+        if(!location){
+            finalLocation = restaurant.data.map;
+        }
+        if(!tags){
+            finalTags = restaurant.data.tag.join(',');
+        }
+        if(!imageUrl){
+            finalImageUrl = restaurant.data.imageUrl;
+        }
+        
+        const response = await FormUpdateAction( formData, token, finalLocation, finalTags, finalImageUrl, restaurant.data._id); // server action 
     }
 
     return (
@@ -123,7 +138,7 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
                             </div>
                             <div className="w-[45%] flex flex-col gap-[20%]">
 
-                                <ImageUpload setImageUrl={setImageUrl} />
+                                <ImageUpload setImageUrl={setImageUrl} imageUrl={restaurant.data.imageUrl} />
 
                             </div>
 
@@ -179,7 +194,7 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
                                     </div>
                                 </div>
                                 <div className="w-[45%] h-[42vh]">
-                                    <MapSection setLocation={setLocation} />
+                                    <MapSection setLocation={setLocation} restaurant={restaurant.data} />
                                 </div>
                             </div>
                                 <div className="flex flex-col w-[50%] space-y-2 ">

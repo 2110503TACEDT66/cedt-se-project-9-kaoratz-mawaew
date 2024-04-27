@@ -9,6 +9,9 @@ export default async function getfilterRestaurant(tags: string[]) {
     console.log(url);
 
   const response = await fetch(url, {
+    next:{
+      tags: ["restaurant"]
+    },
     method: "GET",
     headers: {
       "Content-Type": "application/json",
