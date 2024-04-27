@@ -5,11 +5,12 @@ import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
 import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
+import PeakHourChart from '@/components/dashboard/ChartFetch';
+import RatingSection from '@/components/ridpage/RatingSection';
 import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import PeakHourChart from '@/components/dashboard/ChartFetch';
 import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
@@ -68,11 +69,14 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                 (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
 
             }
-            <div className='flex flex-col w-full'>
+            <div className='flex flex-col w-full gap-6'>
 
                 <Tag restaurantDetails={restaurantDetails.data} />
 
+                <RatingSection reviews={reviews}/>
+
                 <ReviewSection rid={restaurantDetails.data.id} />
+
                 <Suspense fallback={<>
                     Loading...
                 </>}>

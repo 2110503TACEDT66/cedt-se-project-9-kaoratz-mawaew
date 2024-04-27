@@ -27,10 +27,9 @@ exports.getReviews = async (req, res, next) => {
     const rating = req.query.tag.split(",");
 
     query = query.find({ tag: { $in: rating } }); // union approach
-  }
-  else if(req.query.user){
+  } else if (req.query.user) {
     const userId = req.query.user;
-    query = query.find({user: userId});
+    query = query.find({ user: userId });
   }
   //all see all
   else if (req.params.restaurantId) {
@@ -123,12 +122,16 @@ exports.getReview = async (req, res, next) => {
 // @route POST /api/v1/restaurants/:id
 // @access registered
 exports.createReview = async (req, res, next) => {
-    try {
-        req.body.restaurant = req.params.restaurantId;
-        const restaurant = await Restaurant.findById(req.params.restaurantId);
-        req.body.user = req.user.id;
-        req.body.name = req.user.name;
-        const existedReservation = await Reservation.find({ user: req.user.id, restaurant: restaurant, completed: true});
+  try {
+    req.body.restaurant = req.params.restaurantId;
+    const restaurant = await Restaurant.findById(req.params.restaurantId);
+    req.body.user = req.user.id;
+    req.body.name = req.user.name;
+    const existedReservation = await Reservation.find({
+      user: req.user.id,
+      restaurant: restaurant,
+      completed: true,
+    });
 
     if (existedReservation.length < 1 && req.user.role !== "admin") {
       return res.status(400).json({
@@ -245,33 +248,33 @@ exports.deleteReview = async (req, res, next) => {
   }
 };
 
-exports.getDashboardReviews = async(req,res,next)=>{
-    if(req.user.role == "manager" || req.user.role == "admin"){
-      try {
-        // Find restaurants with the matching manager ID
-        const restaurants = await Restaurant.find({ manager: req.user.id });
-  
-        // Map over each restaurant to get its reviews
-        const reviewsPromises = restaurants.map(async (restaurant) => {
-          const reviews = await Review.find({ restaurant: restaurant._id });
-          return  reviews;
-        });
-  
-        // Wait for all reviews to be fetched for each restaurant
-        const allReviews = await Promise.all(reviewsPromises);
-        const reviewsData = allReviews.flat()
-  
-        res.status(200).json({
-          success: true,
-          count: reviewsData.length,
-          data: reviewsData
-        });
-      } catch (err) {
-        console.error(err);
-        res.status(500).json({
-          success: false,
-          msg: 'Failed to fetch reviews'
-        });
-      }
+exports.getDashboardReviews = async (req, res, next) => {
+  if (req.user.role == "manager" || req.user.role == "admin") {
+    try {
+      // Find restaurants with the matching manager ID
+      const restaurants = await Restaurant.find({ manager: req.user.id });
+
+      // Map over each restaurant to get its reviews
+      const reviewsPromises = restaurants.map(async (restaurant) => {
+        const reviews = await Review.find({ restaurant: restaurant._id });
+        return reviews;
+      });
+
+      // Wait for all reviews to be fetched for each restaurant
+      const allReviews = await Promise.all(reviewsPromises);
+      const reviewsData = allReviews.flat();
+
+      res.status(200).json({
+        success: true,
+        count: reviewsData.length,
+        data: reviewsData,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        success: false,
+        msg: "Failed to fetch reviews",
+      });
     }
-}
+  }
+};
