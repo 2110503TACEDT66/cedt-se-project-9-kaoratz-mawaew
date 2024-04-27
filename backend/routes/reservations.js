@@ -21,14 +21,14 @@ router
   .route("/")
   .get(protect, authorize("admin", "user", "manager"), getReservations)
   .post(protect, authorize("user", "admin", "manager"), createReservation);
-router.route("/restaurantinfo").get(getRestaurantReservation);
+router.route("/restaurantinfo").get(protect, authorize("admin", "manager"), getRestaurantReservation);
 router
   .route("/:id")
   .get(protect, authorize("admin", "user", "manager"), getReservation)
   .put(protect, authorize("user", "admin", "manager"), updateReservation)
   .delete(protect, authorize("user", "admin", "manager"), deleteReservation);
 router
-  .route("/:id/summary")
-  .get(getSummaryReservation);
+  .route("/:restaurantId/summary")
+  .get(protect, authorize("admin", "manager"), getSummaryReservation);
 
 module.exports = router;

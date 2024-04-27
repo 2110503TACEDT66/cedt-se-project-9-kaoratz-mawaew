@@ -18,15 +18,7 @@ exports.getRestaurants = async (req, res, next) => {
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
-  query = Restaurant.find(JSON.parse(queryStr)).populate([
-    {
-    path: 'reservation',
-    select: 'resvDate user',
-  },{
-    path: 'manager',
-    select: 'name',
-  },
-]);
+  query = Restaurant.find(JSON.parse(queryStr)).populate("reservation");
 
   if (req.query.tag) {
     const tags = req.query.tag.split(",");
@@ -76,7 +68,7 @@ exports.getRestaurants = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Oh somthing went wrong! to getRestaurants.",
     });
@@ -98,7 +90,7 @@ exports.getRestaurant = async (req, res, next) => {
   ]);
 
     if (!restaurant) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: `No restaurant with the id of ${req.params.id}`,
       });
@@ -109,7 +101,7 @@ exports.getRestaurant = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Oh somthing went wrong! to getRestaurant.",
     });
@@ -139,7 +131,7 @@ exports.createRestaurant = async (req, res, next) => {
     });
   } catch (err) {
     console.log(err.stack);
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Oh somthing went wrong! to createRestaurant.",
     });
@@ -252,7 +244,7 @@ exports.filterRestaurant = async (req, res) => {
   const { tags } = req.query.tag;
 
   if (!tags) {
-    return res.status(400).json({ error: "Tags parameter is required" });
+    return res.status(404).json({ error: "Tags parameter is required" });
   }
   try {
     const tagsArray = tags.split(",");

@@ -4,8 +4,10 @@ import { RestaurantItem } from "../../../interface"
 import Image from "next/image"
 import dayjs from "dayjs";
 import Link from "next/link";
-export default function RestaurantCard({restaurantItem}: {restaurantItem: RestaurantItem}) {
-
+import { useSession } from "next-auth/react"
+import getUserProfile from "@/libs/getUserProfile";
+export default async function RestaurantCard({restaurantItem,role}: {restaurantItem: RestaurantItem,role:string}) {
+    // const manager = await getUserProfile(restaurantItem.manager)
     const [openHour, openMinute] = restaurantItem.opentime.split(":").map(Number);
     const [closeHour, closeMinute] = restaurantItem.closetime
       .split(":")
@@ -17,7 +19,7 @@ export default function RestaurantCard({restaurantItem}: {restaurantItem: Restau
   
     // Get current time using dayjs
     const currentTime = dayjs();
-  
+    
     // Compare current time with openTime and closeTime
     let flag;
     if (openTime < closeTime) {
@@ -65,7 +67,16 @@ export default function RestaurantCard({restaurantItem}: {restaurantItem: Restau
                             {restaurantItem.opentime} - {restaurantItem.closetime}
                             </p>
                         </div>
-                        <p className="text-base text-left mb-4">Address</p>
+                        <div className="flex-row flex justify-between items-center mb-4">
+                            <p className="text-base text-left mb-4">Address</p>
+                            
+                            {
+                                role == "admin"?
+                                <p className="text-base text-rose-600 font-medium text-right mb-4">{restaurantItem.manager.name}</p>
+                                :null
+                            }
+                        </div>
+
                         <p className="text-sm text-left pb-4">
                             {restaurantItem.address}, {restaurantItem.subdistrict},{" "}
                             {restaurantItem.district}, {restaurantItem.province},{" "}

@@ -9,14 +9,19 @@ import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
 import RestaurantStatistics from "@/components/restaurantSummary/RestaurantStatistic"
 import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
-
-import { Rating } from "@mui/material"
+import getSummaryReservation from "@/libs/getSummaryReservation"
+import PeakHourChart from "@/components/dashboard/ChartFetch"
+import getReviews from "@/libs/getReviews"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const session = await getServerSession(authOptions)
     
     const restaurant = await getRestaurant(params.rid)
+
+    const review = await getReviews(params.rid);
+
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
 
     let reservation
 
@@ -77,7 +82,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                                 </div>
 
                             </div>
-                        </td>
+                    </td>
                     </tr>
                 </tbody>
             </table>
@@ -94,13 +99,20 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                 <h1 className="text-xl text-left font-medium">Peak Hours</h1>
                 <hr className="border-zinc-900 grow ml-7"/>
             </div>
+            <div>
+                {
+                    (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
 
-            <div className="w-full inline-flex items-center mt-12">
-                <h1 className="text-xl text-left font-medium">Comments</h1>
-                <hr className="border-zinc-900 grow ml-7"/>
+                }
             </div>
 
-            <AllCommentCard/>
+            <div className="w-full inline-flex items-center mt-16">
+                <h1 className="text-xl text-left font-medium">Comment</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
+            </div>
+            <div className="mt-9">
+                <AllCommentCard review={review}/>
+            </div>
         </div>
     )
 }

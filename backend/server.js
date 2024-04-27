@@ -8,6 +8,8 @@ const { xss } = require("express-xss-sanitizer");
 const ratelimit = require("express-rate-limit");
 const hpp = require("hpp");
 const cors = require("cors");
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 
 //Load env vars
 dotenv.config({ path: "config/config.env" });
@@ -43,6 +45,24 @@ app.use("/api/v1/reservations", reservation);
 app.use("/api/v1/payments", payments);
 app.use("/api/v1/reviews", reviews);
 
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Library API',
+      version: '1.0.0',
+      description: 'Restaurant Reservation API'
+    },
+    servers: [
+      {
+        url: `${process.env.HOST}:${process.env.PORT}/api/v1`
+      }
+    ]
+    
+  },apis:['./routes/*.js'],
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 // Discord bot API
 // const botClient = require('./bot/index');
 
@@ -56,6 +76,8 @@ const server = app.listen(
     "on " + process.env.HOST + ":" + PORT
   )
 );
+
+
 
 //handle unhandled promise rejection
 process.on("unhandledRejection", (err, promise) => {

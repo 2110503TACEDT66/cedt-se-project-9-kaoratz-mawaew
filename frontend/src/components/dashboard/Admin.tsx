@@ -45,13 +45,13 @@ export default async function Admin({profile, reservation}: {profile: UserItem, 
             <div className="w-full overflow-y-scroll max-h-[580px] flex items-start justify-center mt-14">
                 {restaurants.count > 0 ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
-                    {restaurants.data.reverse().map(
-                        (restaurantItem: RestaurantItem) => (
-                        // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} />
-                        )
-                        // </Link>
-                    )}
+                        {restaurants.data.reverse().map(
+                            (restaurantItem: RestaurantItem) => (
+                            // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
+                            <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="admin"/>
+                            )
+                            // </Link>
+                        )}
                     </div>
                 ) : (
                     <RestaurantNotFound />
