@@ -22,8 +22,8 @@ export default async function userRegister(
   );
   console.log(response);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch user");
-  }
+  // if (!response.ok) {
+  //   // throw new Error("Failed to fetch user");
+  // }
   return await response.json();
 }

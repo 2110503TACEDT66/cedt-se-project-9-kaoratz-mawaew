@@ -73,7 +73,7 @@ export default function MapSearchSection({
                     resultData.map((item : nominatimItem) => {
                         return (
                             <div key={item.osm_id} className="flex flex-row items-center font-mono gap-2"
-                            onClick={(_)=>setSelectedLocation(item)}>
+                            onClick={()=>setSelectedLocation(item)}>
                                 <div className="text-lg text-black"> {
                                     item.display_name
                                 }</div>

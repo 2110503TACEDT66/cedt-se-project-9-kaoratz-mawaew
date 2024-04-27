@@ -37,8 +37,8 @@ export default function restaurantsPage({
 
 
   return (
-    <main className="flex w-[88%]">
-      <div className='w-[83%] h-full'>
+    <main className="flex h-full w-[88%]">
+      <div className='w-[83%] h-[88vh] overflow-y-scroll'>
         <p className='text-4xl mb-16 ml-7 text-left font-bold text-black'>Dining Experience</p>
         <Suspense key={searchParams.tags?.toString() || "main"} fallback={
           <MainPageMiddleSkeleton />

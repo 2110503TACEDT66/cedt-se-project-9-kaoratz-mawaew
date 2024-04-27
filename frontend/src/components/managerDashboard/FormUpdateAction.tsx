@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { nominatimItem } from "../../../interface";
 import { forminput } from "../../../interface";
@@ -8,7 +8,7 @@ import { forminput } from "../../../interface";
 export async function FormUpdateAction(
     formData: forminput,
     token: string,
-    location: nominatimItem | null,
+    location: nominatimItem | string | null,
     tags : string,
     imageUrl: string,
     rid: string
@@ -16,7 +16,9 @@ export async function FormUpdateAction(
 
     let mapLink = null;
 
-    if (location) {
+    if (typeof location === "string") {
+        mapLink = location;
+    } else {
         const lat = location?.lat;
         const lon = location?.lon;
         mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`
@@ -41,7 +43,7 @@ export async function FormUpdateAction(
     if (!response) {
         throw new Error("Failed to update restaurant")
     }
-    
-    revalidatePath("/restaurant") 
-    redirect("/restaurant")
+    revalidateTag("restaurant") 
+    // revalidatePath("/restaurant") 
+    redirect("/dashboard")
 }

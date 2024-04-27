@@ -10,6 +10,7 @@ export default async function getRestaurantReservation(token: string) {
             authorization: `Bearer ${token}`,
         },
       }
+
     );
   
     if (!response.ok) {

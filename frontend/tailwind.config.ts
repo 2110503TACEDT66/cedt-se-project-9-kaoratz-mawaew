@@ -14,6 +14,25 @@ export default withUt({
     transparent: 'transparent',
     current: 'currentColor',
     extend: {
+      animation: {
+        modalin: 'fade-in 0.1s ease-in-out',
+      },
+
+      keyframes: {
+        "fade-in": {
+          "0%": {
+              opacity: '0',
+              transform : 'translateY(10px)',
+              scale : '0.95'
+          },
+          "100%": {
+              opacity: '1',
+              transform: 'translateY(0)',
+              scale : '1'
+          },
+      },
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -50,6 +69,8 @@ export default withUt({
             inverted: colors.white,
           },
         },
+       
+        
         // 'dark-tremor': {
         //   brand: {
         //     faint: '#0B1229',

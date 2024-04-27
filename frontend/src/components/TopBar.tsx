@@ -10,11 +10,11 @@ export default function TopBar({
   role: string;
 }) {
   return (
-    <nav data-testid="top-bar" className="text-base flex flex-row z-30 p-9">
-      <div className="w-[85%] mr-4 flex items-center bg-stone-800">
+    <nav data-testid="top-bar" className="text-base flex flex-row p-9 h-[10%]">
+      <div className="w-[85%] mr-4 flex items-center bg-primary">
         <Marquee />
       </div>
-      <div className="w-[15%] flex items-center z-40 bg-stone-800">
+      <div className="w-[15%] flex items-center z-20 bg-primary">
         <Link href="/dashboard">
           <p className="pl-2 pr-2 pt-1 pb-1 text-stone-100">
             <span className="hidden sm:inline">{`${userName} ${role}`}</span>

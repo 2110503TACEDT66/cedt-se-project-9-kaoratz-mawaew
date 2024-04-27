@@ -1,9 +1,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/components/auth"
 import getRestaurant from "@/libs/getRestaurant"
-import getReservations from "@/libs/getReservations"
 import getRestaurantReservation from "@/libs/getRestaurantReservation"
-import Statistic from "@/components/managerDashboard/Statistic"
 import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
@@ -12,28 +10,33 @@ import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 import getSummaryReservation from "@/libs/getSummaryReservation"
 import PeakHourChart from "@/components/dashboard/ChartFetch"
 import getReviews from "@/libs/getReviews"
+import { ReviewItem } from "../../../../../../interface"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const session = await getServerSession(authOptions)
     if(!session || !session.user.token) return null;
     const restaurant = await getRestaurant(params.rid)
-
     const review = await getReviews(params.rid);
+    const reservation = await getRestaurantReservation(session.user.token)
 
     const restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
-
-    let reservation
-
-    if (session) {
-        reservation = await getRestaurantReservation(session.user.token);
+    const reviewJson = await getReviews(params.rid);
+    let reviewTotal = 0;
+    const reviewData = reviewJson.data;
+    let averageRating = "0.0";
+    if(reviewJson.count != 0){
+        reviewData.map((review: ReviewItem) => {
+            reviewTotal += review.rating;
+        });
+        averageRating = (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1);
     }
 
     return (
         <div className="w-full ml-4 border-black border-2 p-9 font-mono">
             <div className="items-center inline-flex">
                 <h1 className="text-5xl">{restaurant.data.name}</h1>
-                <div className="border-black border-2 px-4 py-2 ml-6">4.8</div>
+                <div className="border-black border-2 px-4 py-2 ml-6">{averageRating}</div>
             </div>
 
             <div className="w-full inline-flex items-center mt-7">
@@ -101,7 +104,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
             <div>
                 {
-                    (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
+                    (restaurantSummaryReservations && restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
 
                 }
             </div>
