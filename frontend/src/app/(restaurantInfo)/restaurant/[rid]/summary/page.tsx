@@ -16,17 +16,17 @@ import getReviews from "@/libs/getReviews"
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
     const session = await getServerSession(authOptions)
-    
+    if(!session || !session.user.token) return null;
     const restaurant = await getRestaurant(params.rid)
 
     const review = await getReviews(params.rid);
 
-    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
 
     let reservation
 
     if (session) {
-        reservation = await getRestaurantReservation();
+        reservation = await getRestaurantReservation(session.user.token);
     }
 
     return (
