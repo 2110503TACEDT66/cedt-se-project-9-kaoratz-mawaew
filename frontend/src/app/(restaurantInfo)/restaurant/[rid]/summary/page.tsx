@@ -1,9 +1,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/components/auth"
 import getRestaurant from "@/libs/getRestaurant"
-import getReservations from "@/libs/getReservations"
 import getRestaurantReservation from "@/libs/getRestaurantReservation"
-import Statistic from "@/components/managerDashboard/Statistic"
 import Tag from "@/components/ridpage/Tag"
 import Map from "@/components/ridpage/Map"
 import RestaurantHistory from "@/components/restaurantSummary/RestaurantHistory"
@@ -21,12 +19,13 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
 
     const review = await getReviews(params.rid);
 
-    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
+    let restaurantSummaryReservations
 
     let reservation
 
     if (session) {
-        reservation = await getRestaurantReservation();
+        reservation = await getRestaurantReservation(session.user.token);
+        restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
     }
 
     return (
@@ -101,7 +100,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
             </div>
             <div>
                 {
-                    (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
+                    (restaurantSummaryReservations && restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
 
                 }
             </div>
