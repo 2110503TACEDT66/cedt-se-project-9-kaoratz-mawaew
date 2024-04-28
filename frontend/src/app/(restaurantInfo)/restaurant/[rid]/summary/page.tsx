@@ -20,7 +20,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     const review = await getReviews(params.rid);
     const reservation = await getRestaurantReservation(session.user.token)
 
-    const restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviewJson = await getReviews(params.rid);
     let reviewTotal = 0;
     const reviewData = reviewJson.data;
@@ -29,6 +29,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
         reviewData.map((review: ReviewItem) => {
             reviewTotal += review.rating;
         });
+
         averageRating = (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1);
     }
 

@@ -8,13 +8,14 @@ import getUserReviews from "@/libs/getUserReviews";
 import { Suspense } from "react";
 import HistorySkeleton from "../userDashboard/historySkeleton";
 import StatSkeleton from "../userDashboard/StatSkeleton";
+import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 
 export default async function UserDashboard({ profile, token }: { profile: UserItem, token: string }) {
 
     const reservation = getReservations(token);
-    const reviews = getUserReviews(profile._id);
+    const reviews: ReviewJson = await getUserReviews(profile._id);
 
-
+    console.log(JSON.stringify(reviews));
     return (
         <div className="w-full h-full flex flex-col justify-center gap-10">
             <div className="text-5xl font-medium">
@@ -44,9 +45,9 @@ export default async function UserDashboard({ profile, token }: { profile: UserI
             <div>
                 <h1 className="text-xl text-left font-medium">Comments</h1>
             </div>
-            <Suspense fallback={<div>Loading...</div>}>
-                <AllComments reviewPromise={reviews}></AllComments>
-            </Suspense>
+            <div className="mt-9">
+                <AllCommentCard review={reviews}/>
+            </div>
         </div>
     );
 }
