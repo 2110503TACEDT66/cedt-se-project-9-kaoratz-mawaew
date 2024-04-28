@@ -5,13 +5,13 @@ import moment from 'moment';
 
 export default async function CommentCard({ review }: { review: ReviewItem }) {
     const restaurant = await getRestaurant(String(review.restaurant))
-    const dateObject = moment(review.createAt);
+    const dateObject = moment(review.createdAt);
     const formattedDate = dateObject.format('DD MMM YYYY');
     
     console.log(dateObject)
     return (
         <div className="p-3 border-black border-2 space-y-2 w-full">
-            <h1 className="text-xl font-bold">{restaurant.data.name}</h1>
+            <h1 className="text-xl font-bold">{restaurant.name}</h1>
             <Rating className="mt-1" name="stars" value={review.rating} readOnly size="small" style={{ color: 'black' }} />
             <div className="flex flex-row items-center content-center">
                 <p className="text-base text-primary mr-4">{`${formattedDate}`}</p>

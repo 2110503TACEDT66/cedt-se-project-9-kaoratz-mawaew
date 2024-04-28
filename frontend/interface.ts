@@ -78,7 +78,7 @@ export interface ReviewItem {
     tel:string,
     id:string,
   },
-  createAt: string,
+  createdAt: string,
   __v: number,
 }
 

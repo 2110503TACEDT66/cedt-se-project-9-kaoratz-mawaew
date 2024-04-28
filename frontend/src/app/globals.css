@@ -130,7 +130,7 @@ a {
 }
 
 #all-review-card::-webkit-scrollbar-track {
-  background: #ededed;
+  background: transparent;
   border-radius: 9px;
   box-shadow: inset 0 0 5px gray;
   border: 4px solid #ededed;
@@ -139,7 +139,7 @@ a {
 #all-review-card::-webkit-scrollbar-thumb {
   background: linear-gradient(90deg, gray, black);
   border-radius: 9px;
-  border: 4px solid #ededed;
+  border: 4px solid #F6F6F9;
 }
 
 @layer utilities {
