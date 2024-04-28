@@ -33,7 +33,6 @@ export default async function UserStatistics({ reservePromise
             current++;
         }
         if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear) {
-            console.log("Domo")
             inyear++;
         }
     });

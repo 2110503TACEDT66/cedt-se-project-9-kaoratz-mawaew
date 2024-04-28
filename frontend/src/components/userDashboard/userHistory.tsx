@@ -38,7 +38,7 @@ export default async function UserHistory({ reservePromise
                     <tbody>
                         {
                             data.length > 0 ? data.map((res) =>
-                                <tr>
+                                <tr key={res._id}>
                                     <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
                                         {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
                                     </td>

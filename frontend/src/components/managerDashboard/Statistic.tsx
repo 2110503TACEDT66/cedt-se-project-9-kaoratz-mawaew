@@ -34,7 +34,6 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
                 count++;
             }
             if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                console.log("Domo")
                 inyear++;
             }
             
