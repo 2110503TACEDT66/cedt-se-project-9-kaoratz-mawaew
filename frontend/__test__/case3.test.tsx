@@ -93,7 +93,7 @@ const userItemMock: UserItem = {
       tel:"string",
       id:"string",
     },
-    createAt: "string",
+    createdAt: "string",
     __v: 1,
   }
 
@@ -105,10 +105,9 @@ const userItemMock: UserItem = {
 
   console.log(managerMock);
 
-describe('Correct Dashboard', () => {
 
   it('user can access user dashboard', async() =>{
-    render(<UserDashboard profile={userMock} reservation={reservationMock} reviews={reviewsJsonMock}></UserDashboard>);
+    render(<UserDashboard profile={userMock} token="MockTOken"></UserDashboard>);
     const greetingText = `Hello ${userMock.name}`;
     await waitFor(()=>{
       expect(screen.getByText(greetingText)).toBeInTheDocument();
@@ -131,4 +130,3 @@ describe('Correct Dashboard', () => {
             expect(screen.getByTestId('notManager')).toBeInTheDocument();
         });
     });
-});
