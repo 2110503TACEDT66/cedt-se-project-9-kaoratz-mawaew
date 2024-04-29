@@ -13,7 +13,7 @@ import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 export default async function UserDashboard({ profile, token }: { profile: UserItem, token: string }) {
 
     const reservation = getReservations(token);
-    const reviews = getUserReviews(profile._id);
+    const reviews = await getUserReviews(profile._id);
 
     console.log(JSON.stringify(reviews));
     return (
@@ -46,8 +46,8 @@ export default async function UserDashboard({ profile, token }: { profile: UserI
                 <h1 className="text-xl text-left font-medium">Comments</h1>
             </div>
             <Suspense fallback={<div>Loading...</div>}>
-                <div className="mt-9">
-                    <AllCommentCard reviewPromise={reviews} />
+                <div className="mt-5 mb-10">
+                    <AllCommentCard review={reviews} role={profile.role} />
                 </div>
             </Suspense>
         </div>

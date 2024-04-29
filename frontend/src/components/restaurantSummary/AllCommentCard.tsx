@@ -1,8 +1,8 @@
 import CommentCard from "./CommentCard"
 import { ReviewJson } from "../../../interface"
-export default async function AllCommentCard({ reviewPromise }: { reviewPromise: Promise<ReviewJson> }) {    
-
-    const review : ReviewJson = await reviewPromise;
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth"
+export default async function AllCommentCard({ review, role }: { review: ReviewJson, role: string }) {    
 
     return review.count ?
         (
@@ -17,7 +17,9 @@ export default async function AllCommentCard({ reviewPromise }: { reviewPromise:
         ) :
         (
             <div className="flex justify-center border-black border-2 p-4">
-                <p className="text-3xl">No comment on this restaurant</p>
+                {
+                    role == "user"? <p className="text-3xl">No comment</p> :<p className="text-3xl">No comment on this restaurant</p>
+                }
             </div>
         )
 }
