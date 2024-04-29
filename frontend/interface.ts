@@ -26,6 +26,15 @@ export interface RestaurantItem {
   id: string;
 }
 
+export interface RestaurantItemForManager {
+  _id: string;
+  name: string;
+  province: string;
+  tel: string;
+  manager: string;
+  id: string;
+}
+
 export interface reserveItem {
   _id: string;
   user: UserItem;
@@ -36,10 +45,26 @@ export interface reserveItem {
   completed: Boolean;
 }
 
+export interface reserveItemForManager {
+  _id: string;
+  user: UserItem;
+  restaurant: RestaurantItemForManager;
+  resvDate: string;
+  createdAt: string;
+  completed: Boolean;
+  __v: number;
+}
+
 export interface reserveJson {
   success: boolean;
   count: number;
   data: reserveItem[];
+}
+
+export interface reserveJsonForManager {
+  success: boolean;
+  count: number;
+  data: reserveItemForManager[];
 }
 
 export interface RestaurantJson {

@@ -501,7 +501,7 @@ exports.getRestaurantReservation = async (req,res,next) => {
     query = Reservation.find()
       .populate({
         path: "restaurant",
-        select: "name province tel",
+        select: "name province tel manager",
       })
       .sort({ completed: 1, resvDate: 1, createdAt: 1, name: 1 }).populate({
         path: 'user',

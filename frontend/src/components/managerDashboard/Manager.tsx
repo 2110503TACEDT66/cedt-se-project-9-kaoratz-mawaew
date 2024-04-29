@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { reserveJson, UserItem, RestaurantItem } from "../../../interface";
 import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
+import getRestaurantReservation from "@/libs/getRestaurantReservation";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import React from "react";
+import session from "redux-persist/lib/storage/session";
 
 export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
 
@@ -14,6 +16,9 @@ export default async function Manager({profile, reservation}: {profile: UserItem
         <h1 data-TestId='notManager'>can not access</h1>
     );
     const restaurants = await getRestaurantsForManager(profile._id)
+    const session = await getServerSession(authOptions)
+    if(!session || !session.user.token) return null;
+    const reservations = await getRestaurantReservation(session.user.token)
     return (
         <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">
@@ -32,7 +37,7 @@ export default async function Manager({profile, reservation}: {profile: UserItem
                 </Link>
             </div>
 
-            <Statistics reservation={reservation}/>
+            <Statistics reservation={reservations} mid={profile._id}/>
 
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">Restaurant</h1>
