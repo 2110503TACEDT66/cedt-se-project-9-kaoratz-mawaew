@@ -1,7 +1,6 @@
 // pages/register/page.tsx
 "use client";
 import { useState } from 'react';
-// import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import userRegister from '@/libs/userRegister';
 import toast, { Toaster } from 'react-hot-toast';
@@ -194,7 +193,6 @@ const Register = () => {
           <button
             type="submit"
             className="w-full px-8 py-2 inline-block text-center bg-stone-100 text-stone-800 border border-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-500 hover:bg-stone-800 hover:text-stone-100"
-          //onClick={handleRegister}
           >
             Register
           </button>

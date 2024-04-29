@@ -1,4 +1,3 @@
-import getReviews from "@/libs/getReviews"
 import { ReviewJson } from "../../../interface"
 import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
@@ -24,10 +23,6 @@ export default async function RatingSection({
   
   const averageRating = reviewJson.count !== 0 ? (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1) : 0.0.toFixed(1);
 
-
-
-
-  // console.log(reviewsStat, averageRating);
   return (
     <>
       <div className="flex flex-col justify-center gap-2 items-center md:flex-row justify-self-center self-start ">

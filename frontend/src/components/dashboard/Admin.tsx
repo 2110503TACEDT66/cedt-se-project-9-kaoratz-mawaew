@@ -9,7 +9,8 @@ import RestaurantNotFound from "../RestaurantNotFound";
 import { RestaurantItem } from "../../../interface";
 
 export default async function Admin({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
-    const restaurants = await getRestaurants()
+    const restaurants = await getRestaurants();
+
     return (
         <>
             <div className="text-5xl font-semibold">
@@ -47,10 +48,8 @@ export default async function Admin({profile, reservation}: {profile: UserItem, 
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
                         {restaurants.data.reverse().map(
                             (restaurantItem: RestaurantItem) => (
-                            // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                            <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="admin"/>
+                                <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="admin"/>
                             )
-                            // </Link>
                         )}
                     </div>
                 ) : (

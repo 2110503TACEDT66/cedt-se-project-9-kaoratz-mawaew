@@ -7,11 +7,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../components/auth";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 import getUserProfile from "@/libs/getUserProfile";
-import { profile } from "console";
-import { UserItem } from "../../interface";
-import LogoutModal from "@/components/Modals/LogoutModal";
-import { Suspense } from "react";
-import LogoutModalSkeleton from "@/components/Modals/LogoutModalSkeleton";
 import ModalProvider from "@/providers/ModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
