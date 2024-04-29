@@ -52,7 +52,6 @@ export default function booking() {
 
         if (rid) {
             getRestaurantFunction(rid);
-            console.log(restaurantData);
         }
 
     }, []);
@@ -112,9 +111,7 @@ export default function booking() {
 
                     <div className="w-full flex flex-col justify-center items-center text-lg mb-11">
                         <p className="text-2xl font-mono mb-2">Date & Time</p>
-                        {/* <div className="mb-4 w-full p-3 "> */}
-                            <DateReserve onDateTimeChange={(value: Date) => { setBookDate(value) }} />
-                        {/* </div> */}
+                        <DateReserve onDateTimeChange={(value: Date) => { setBookDate(value) }} />
                     </div>
                 </div>
 
@@ -152,8 +149,6 @@ export default function booking() {
                     autoHideDuration={3000}
                     onClose={handleClose}
                     message="Failed to Post Reservation"
-                    
-                    // action={}
                 />
             </div>
         </main>

@@ -5,7 +5,6 @@ import { managerform } from "../../../interface";
 export async function RegisterAction(
     formData:managerform
 ){
-    console.log(formData)
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
@@ -19,12 +18,8 @@ export async function RegisterAction(
             role:'manager',
         })
     })
-    // console.log(response)
     if (!response.ok) {
-        console.log("no")
         throw new Error("Failed to post manager")
-    }else{
-        console.log("yes")
     }
     revalidatePath("/dashboard") 
     redirect("/dashboard")

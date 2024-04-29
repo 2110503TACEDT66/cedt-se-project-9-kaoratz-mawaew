@@ -1,6 +1,4 @@
-const User = require("../models/User");
 const Restaurant = require("../models/Restaurant");
-const Reservation = require("../models/Reservation");
 
 // @desc Get all restaurant
 // @route   GET /api/v1/restaurant
@@ -19,13 +17,7 @@ exports.getRestaurants = async (req, res, next) => {
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
-  query = Restaurant.find(JSON.parse(queryStr)).populate({
-    path: 'reservation',
-    select: 'resvDate user'
-  }).populate({
-    path: 'manager',
-    select: 'name tel email role'
-  });
+  query = Restaurant.find(JSON.parse(queryStr)).populate("reservation");
 
   if (req.query.tag) {
     const tags = req.query.tag.split(",");
@@ -99,10 +91,12 @@ exports.getRestaurants = async (req, res, next) => {
 // @access  Private
 exports.getRestaurant = async (req, res, next) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id).populate({
-      path: 'reservation',
-      select: 'resvDate user'
-    });
+    const restaurant = await Restaurant.findById(req.params.id).populate([
+    {
+      path: 'manager',
+      select: 'name',
+    },
+  ]);
 
     if (!restaurant) {
       return res.status(404).json({
@@ -177,36 +171,6 @@ exports.updateRestaurant = async (req, res, next) => {
         message: "You are not the manager of this restaurant",
       });
     }
-    // if (
-    //   req.body.name &&
-    //   req.body.address &&
-    //   req.body.subdistrict &&
-    //   req.body.district &&
-    //   req.body.province
-    // ) {
-    //   const { name, address, subdistrict, district, province } = req.body;
-    //   // const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${
-    //   //   name +
-    //   //   `,${address}` +
-    //   //   `,${subdistrict}` +
-    //   //   `,${district}` +
-    //   //   `,${province}` +
-    //   //   ",Thailand"
-    //   // }`;
-    //   // const response = await fetch(mapUrl);
-    //   // const data = await response.json();
-    //   // if (data.length > 0) {
-    //   //   const { lat, lon } = data[0];
-    //   //   const mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
-    //   //   req.body.map = mapLink;
-    //   // } else {
-    //   //   return res.status(404).json({
-    //   //     success: false,
-    //   //     message: "Location not found",
-    //   //   });
-    //   // }
-      
-    // }
     if (req.body.tag) {
       const tags = req.body.tag.split(",");
       req.body.tag = tags;

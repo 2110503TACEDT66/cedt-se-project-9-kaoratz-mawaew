@@ -16,7 +16,7 @@ describe("TopBar", () => {
     // Arrange
 
     // Act
-    render(<TopBar userName={mock.name} />);
+    render(<TopBar userName={mock.name} role={mock.role}/>);
 
     // Assert
     const topBarElement = screen.getByTestId("top-bar");
@@ -27,7 +27,7 @@ describe("TopBar", () => {
     // Arrange
 
     // Act
-    render(<TopBar userName={mock.name} />);
+    render(<TopBar userName={mock.name} role={mock.role}/>);
 
     // Assert
     const usernameElement = screen.getByText(mock.name);

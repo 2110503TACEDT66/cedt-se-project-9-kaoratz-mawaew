@@ -1,8 +1,7 @@
-import { ReviewJson, UserItem, reserveJson } from "../../../interface";
+import { UserItem } from "../../../interface";
 import Link from "next/link";
 import UserStatistics from "../userDashboard/userStatistics";
 import UserHistory from "../userDashboard/userHistory";
-import AllComments from "../userDashboard/allComments";
 import getReservations from "@/libs/getReservations";
 import getUserReviews from "@/libs/getUserReviews";
 import { Suspense } from "react";
@@ -13,9 +12,8 @@ import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 export default async function UserDashboard({ profile, token }: { profile: UserItem, token: string }) {
 
     const reservation = getReservations(token);
-    const reviews = getUserReviews(profile._id);
+    const reviews = await getUserReviews(profile._id);
 
-    console.log(JSON.stringify(reviews));
     return (
         <div className="w-full h-full flex flex-col justify-center gap-10">
             <div className="text-5xl font-medium">
@@ -46,8 +44,8 @@ export default async function UserDashboard({ profile, token }: { profile: UserI
                 <h1 className="text-xl text-left font-medium">Comments</h1>
             </div>
             <Suspense fallback={<div>Loading...</div>}>
-                <div className="mt-9">
-                    <AllCommentCard reviewPromise={reviews} />
+                <div className="mt-5 mb-10">
+                    <AllCommentCard review={reviews} role={profile.role} />
                 </div>
             </Suspense>
         </div>

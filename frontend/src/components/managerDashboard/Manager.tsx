@@ -1,13 +1,19 @@
 import Link from "next/link";
-import { reserveJson, UserItem, RestaurantItem } from "../../../interface";
+import { UserItem, RestaurantItem } from "../../../interface";
 import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
+import getRestaurantReservation from "@/libs/getRestaurantReservation";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
+import React from "react";
 
-export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
+export default async function Manager({profile, token}: {profile: UserItem, token: string}) {
+
+    if(!profile ||profile.role !== 'manager') return (
+        <h1 data-TestId='notManager'>can not access</h1>
+    );
     const restaurants = await getRestaurantsForManager(profile._id)
-
+    const reservations = await getRestaurantReservation(token)
     return (
         <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">
@@ -26,7 +32,7 @@ export default async function Manager({profile, reservation}: {profile: UserItem
                 </Link>
             </div>
 
-            <Statistics reservation={reservation}/>
+            <Statistics reservation={reservations} mid={profile._id}/>
 
             <div className="w-full inline-flex items-center space-x-4 mt-12">
                 <h1 className="text-xl text-left font-bold">Restaurant</h1>
@@ -46,10 +52,8 @@ export default async function Manager({profile, reservation}: {profile: UserItem
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 text-black">
                     {restaurants.data.reverse().map(
                         (restaurantItem: RestaurantItem) => (
-                        // <Link href={`/restaurant/${restaurantItem.id}`} className="mb-9" key={restaurantItem._id}>
-                        <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="manager"/>
+                            <RestaurantCard key={restaurantItem._id} restaurantItem={restaurantItem} role="manager"/>
                         )
-                        // </Link>
                     )}
                     </div>
                 ) : (

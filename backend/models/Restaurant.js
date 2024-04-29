@@ -94,12 +94,4 @@ RestaurantSchema.pre(
   }
 );
 
-//Reverse populate with virtuals
-// RestaurantSchema.virtual("reservation", {
-//   ref: "Reservation",
-//   localField: "_id",
-//   foreignField: "restaurant",
-//   justOne: false,
-// });
-
 module.exports = mongoose.model("Restaurant", RestaurantSchema);

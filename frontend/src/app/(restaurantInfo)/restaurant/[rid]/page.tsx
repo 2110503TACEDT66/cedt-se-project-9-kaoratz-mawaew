@@ -12,11 +12,17 @@ import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
 import getSummaryReservation from '@/libs/getSummaryReservation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/components/auth';
+
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
+<<<<<<< HEAD
+    const session = await getServerSession(authOptions);
+    if(!session || !session.user.token){
+        return null;
+    }
+=======
 
+>>>>>>> 0fd698831d325510f641194b71c8cb4fc6cb3d92
     const restaurantDetails = await getRestaurant(params.rid);
     const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);
@@ -30,7 +36,6 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
     const [closeHour, closeMinute] = restaurantDetails.data.closetime.split(':').map(Number);
     openTime.setHours(openHour, openMinute, 0, 0);
     closeTime.setHours(closeHour, closeMinute, 0, 0);
-    // console.log(restaurantSummaryReservations.data.hourlyForecasts);
 
     // Compare current time with open and close times
     const flag = currentTime >= openTime && currentTime <= closeTime;

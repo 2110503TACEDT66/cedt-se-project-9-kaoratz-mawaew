@@ -1,6 +1,3 @@
-import { CircularProgress } from "@mui/material";
-
-
 export default function HistorySkeleton() {
     return (
         <div className="w-full">
@@ -17,15 +14,6 @@ export default function HistorySkeleton() {
             </table>
             <div className="w-full overflow-y-scroll max-h-[384px] no-scrollbar">
                 <table className="text-center text-sm w-full items-center ">
-                    {/* <thead>
-            <tr>
-                <th className="w-[15%] py-4 font-semibold">Date of Reservation</th>
-                <th className="w-[40%] py-4 font-semibold">Restaurant</th>
-                <th className="w-[15%] py-4 font-semibold">Date of Issue</th>
-                <th className="w-[10%] py-4 font-semibold">Status</th>
-                <th className="w-[10%] py-4 font-semibold text-center">Review</th>
-            </tr>
-        </thead> */}
                     <tbody>
                         <tr>
                             <td className="w-[15%] py-4 border-r-2 border-gray-900">

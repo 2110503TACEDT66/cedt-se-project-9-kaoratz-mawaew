@@ -1,64 +1,89 @@
-beforeEach(() => {
-    // User login
-    cy.visit("/login");
-    cy.get('input[type="email"]').type(Cypress.env('managerEmail'));
-    cy.get('input[type="password"]').type(Cypress.env('managerPassword'));
-    cy.get('button[type="submit"]').click();
-  
-    // Navigate to create restaurant page
-    cy.wait(1000);
-    cy.visit('/restaurant/create');
-    cy.wait(1000);
-    cy.url().should('include', '/restaurant/create');
-});
-  
-describe('FormSection Component', () => {
-    it('Successfully creates a restaurant', () => {
-        // Fill in form fields
-        cy.get('#name').type('Sample Restaurant');
-        cy.get('#opentime').type('10:00 AM');
-        cy.get('#closetime').type('8:00 PM');
-        cy.get('#address').type('123 Test St');
-        cy.get('#subdistrict').type('Test Subdistrict');
-        cy.get('#region').type('Test Region');
-        cy.get('#district').type('Test District');
-        cy.get('#province').type('Test Province');
-        cy.get('#postalcode').type('12345');
-        cy.get('#tel').type('123-456-7890');
-      
-        // Select tags
-        cy.get('.MuiChip-label').contains('Thai').click();
-        cy.get('.MuiChip-label').contains('Japanese').click();
-      
-        // Submit the form
-        cy.get('#publish').click();
-        cy.contains('This field is required').should('not.exist');
-        cy.wait(1000);
-        cy.url().should('include', '/restaurant');
-    });
-  
-    it('Displays error messages for incomplete form submission', () => {
-        // Leave a required field empty
-        cy.get('#opentime').type('10:00 AM'); // Only fill one of the required fields
-      
-        // Submit the form
-        cy.get('#publish').click();
-      
-        // Verify that error messages are displayed for the missing fields
-        cy.contains('This field is required').should('exist');
+describe('Review Section', () => {
+    it('should display an alert if user is not logged in', () => {
+        cy.visit('/restaurant/662a06d40bd437f0efda6efd');   
+        cy.get('span#rating').children().eq(6).click();
+        cy.get('input#reviewInput').type('Great restaurant!');
+        cy.get('button#sendReview').click();
+        cy.on('window:alert', (text) => {
+            expect(text).to.equal('Please log in to post review');
+        });
     });
 
-    it('Navigates back without data loss', () => {
-        // Fill in some form fields
-        cy.get('#name').type('Sample Restaurant');
-        cy.get('#opentime').type('10:00 AM');
-      
-        // Click on the back button
-        cy.get('div#backButton').click();
+    it('should display an alert if rating and comment is missing', () => {
+        cy.visit("/login");
+        cy.get('input[type="email"]').type(Cypress.env('userEmail'));
+        cy.get('input[type="password"]').type(Cypress.env('userPassword'));
+        cy.get('button[type="submit"]').click();
 
+        // Navigate to create dashboard page
         cy.wait(1000);
-      
-        // Verify that the user is navigated back to the previous page
-        cy.url().should('include', '/dashboard'); // Assuming the back button goes to the dashboard
-    });      
+        cy.url().should('include', '/dashboard');
+        cy.get('#662f2f603ea198b363379af5').click();
+        cy.wait(1000);
+        cy.url().should('include', '/restaurant/662a06d40bd437f0efda6efd');
+
+        cy.get('button#sendReview').click();
+        cy.on('window:alert', (text) => {
+            expect(text).to.equal('Please fill in all fields');
+        });
+    });
+
+    it('should display an alert if rating is missing', () => {
+        cy.visit("/login");
+        cy.get('input[type="email"]').type(Cypress.env('userEmail'));
+        cy.get('input[type="password"]').type(Cypress.env('userPassword'));
+        cy.get('button[type="submit"]').click();
+
+        // Navigate to create dashboard page
+        cy.wait(1000);
+        cy.url().should('include', '/dashboard');
+        cy.get('#662f2f603ea198b363379af5').click();
+        cy.wait(1000);
+        cy.url().should('include', '/restaurant/662a06d40bd437f0efda6efd');
+
+        cy.get('span#rating').children().eq(6).click();
+        cy.get('button#sendReview').click();
+        cy.on('window:alert', (text) => {
+            expect(text).to.equal('Please fill in all fields');
+        });
+    });
+
+    it('should display an alert if comment is missing', () => {
+        cy.visit("/login");
+        cy.get('input[type="email"]').type(Cypress.env('userEmail'));
+        cy.get('input[type="password"]').type(Cypress.env('userPassword'));
+        cy.get('button[type="submit"]').click();
+
+        // Navigate to create dashboard page
+        cy.wait(1000);
+        cy.url().should('include', '/dashboard');
+        cy.get('#662f2f603ea198b363379af5').click();
+        cy.wait(1000);
+        cy.url().should('include', '/restaurant/662a06d40bd437f0efda6efd');
+
+        cy.get('input#reviewInput').type('Great restaurant!');
+        cy.get('button#sendReview').click();
+        cy.on('window:alert', (text) => {
+            expect(text).to.equal('Please fill in all fields');
+        });
+    });
+
+
+    it('comment success', () => {
+        cy.visit("/login");
+        cy.get('input[type="email"]').type(Cypress.env('userEmail'));
+        cy.get('input[type="password"]').type(Cypress.env('userPassword'));
+        cy.get('button[type="submit"]').click();
+
+        // Navigate to create dashboard page
+        cy.wait(1000);
+        cy.url().should('include', '/dashboard');
+        cy.get('#662f2f603ea198b363379af5').click();
+        cy.wait(1000);
+        cy.url().should('include', '/restaurant/662a06d40bd437f0efda6efd');
+        
+        cy.get('span#rating').children().eq(6).click();
+        cy.get('input#reviewInput').type('Great restaurant!');
+        cy.get('button#sendReview').click();
+    });
 });

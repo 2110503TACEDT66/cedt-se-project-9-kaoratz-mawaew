@@ -2,7 +2,6 @@ import { authOptions } from "@/components/auth";
 import FormSection from "@/components/managerDashboard/FormSection";
 import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
-import { UserItem } from "../../../../../interface";
 import { redirect } from "next/navigation";
 
 export default async function createRestaurantPage(){
