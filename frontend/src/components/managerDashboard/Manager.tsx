@@ -4,10 +4,16 @@ import getRestaurantsForManager from "@/libs/getRestaurantsForManager";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantNotFound from "../RestaurantNotFound";
 import Statistics from "./Statistic";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth";
+import React from "react";
 
 export default async function Manager({profile, reservation}: {profile: UserItem, reservation: reserveJson}) {
-    const restaurants = await getRestaurantsForManager(profile._id)
 
+    if(!profile ||profile.role !== 'manager') return (
+        <h1 data-TestId='notManager'>can not access</h1>
+    );
+    const restaurants = await getRestaurantsForManager(profile._id)
     return (
         <div className="w-full p-9 border-2 border-black">
             <div className="text-5xl font-bold">

@@ -10,7 +10,7 @@ export default async function AllComments({reviewsJson} : {reviewsJson : ReviewJ
             comments.count > 0 ?
             (
                 [...comments.data].reverse().map((commentItems : ReviewItem)=>
-                <ReviewCard key={commentItems.id} ReviewItem={commentItems}></ReviewCard>
+                <ReviewCard key={commentItems._id} ReviewItem={commentItems}></ReviewCard>
                 )
             ) : null
         }
