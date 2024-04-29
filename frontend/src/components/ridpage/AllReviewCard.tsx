@@ -16,7 +16,10 @@ export default async function AllReviewCard({reviewJson}:{reviewJson:Promise<Rev
         </div>
     ):(
         <div className="mt-4 mb-24">
-            No comment
+            <div className="flex justify-center p-4">
+                <p className="text-3xl text-gray-600">No comment on this restaurant</p>
+            </div>
+            
         </div>
     )
 }

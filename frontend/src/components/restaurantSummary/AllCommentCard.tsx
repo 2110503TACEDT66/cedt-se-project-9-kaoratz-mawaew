@@ -1,8 +1,6 @@
 import CommentCard from "./CommentCard"
 import { ReviewJson } from "../../../interface"
-export default function AllCommentCard({ review }: { review: ReviewJson }) {
-    console.log("It has count: " + review.count)
-    
+export default function AllCommentCard({ review }: { review: ReviewJson }) {    
     return review.count ?
         (
             <div className="mt-10 gap-4 grid grid-cols-3 max-h-[240px] overflow-y-scroll no-scrollbar">
