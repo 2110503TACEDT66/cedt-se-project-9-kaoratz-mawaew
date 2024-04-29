@@ -14,40 +14,6 @@ beforeEach(() => {
 });
 
 describe('filter test', () => {
-  // it('shows error on invalid credentials', () => {
-  //   cy.visit('/login');
-
-  //   cy.get('input[type="email"]').type('invalid-email@example.com');
-  //   cy.get('input[type="password"]').type('invalid-password');
-  //   cy.get('button[type="submit"]').click();
-
-  //   cy.contains('Login failed');
-  // });
-
-  // it('login as user', () => {
-  //   cy.visit("/login")
-  //   cy.get('input[type="email"]').type(Cypress.env('userEmail'));
-  //   cy.get('input[type="password"]').type(Cypress.env('userPassword'));
-  //   cy.get('button[type="submit"]').click();
-
-  //   cy.url().should('include', '/dashboard');
-  // });
-
-  // it('visit restaurant page', () => {
-  //   cy.visit('/restaurant');
-  //   cy.contains('Dining Experience').should('be.visible');
-  // });
-
-  // it('check number of tag', () => {
-  //   // Go to Restaurant page
-  //   cy.visit('/restaurant');
-
-  //   cy.get('button#sidebar').as('filter');
-
-  //   cy.get('@filter').children();
-  //   cy.get('@filter').children().should('have.length', 10);
-  // });
-
   it('check single tag click', () => {
     // Thai
     cy.get('@filter').children().first().click();
