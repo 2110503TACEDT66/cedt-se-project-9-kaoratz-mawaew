@@ -1,11 +1,6 @@
 'use client'
-import { BarChart, AreaChart, Card, Title  , EventProps } from '@tremor/react';
-import { ChartDataItem, ChartPredictDataItem } from '../../../interface'
-import { Interface } from 'readline';
+import { AreaChart, Card, Title  , EventProps } from '@tremor/react';
 import { useState } from 'react';
-
-type ChartData = ChartDataItem[];
-type ChartPredictData = ChartPredictDataItem[];
 
 const dataFormatter = (number: number) =>
     Intl.NumberFormat('us').format(number).toString();
@@ -53,15 +48,11 @@ export default function ChartComponent({ chartInput }: { chartInput: ChartInput[
                 yAxisWidth={120}
                 onValueChange={(v) => setValue(v)}
                 style={{ backgroundColor: '#B1B1B1' }}
-                // showLegend={true}
-                // showGridLines={true}
-                // barCategoryGap={0.5}
                 noDataText='No data.'
                 showTooltip={true}
                 animationDuration={1000}
                 showYAxis={true}
                 customTooltip={customTooltip}
-                // showXAxis={true}
             />
         </Card>
     );

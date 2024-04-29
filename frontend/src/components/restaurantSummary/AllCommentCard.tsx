@@ -1,7 +1,5 @@
 import CommentCard from "./CommentCard"
 import { ReviewJson } from "../../../interface"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../auth"
 export default async function AllCommentCard({ review, role }: { review: ReviewJson, role: string }) {    
 
     return review.count ?

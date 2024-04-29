@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const Restaurant = require("../models/Restaurant");
 const Reservation = require("../models/Reservation");
 const Review = require("../models/Review");
@@ -14,14 +13,12 @@ exports.getReviews = async (req, res, next) => {
   removeFields.forEach((param) => delete reqQuery[param]);
 
   let queryStr = JSON.stringify(reqQuery);
-  console.log(queryStr);
 
   queryStr = queryStr.replace(
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
   query = Review.find(JSON.parse(queryStr));
-  //console.log(query);
 
   if (req.query.rating) {
     const rating = req.query.tag.split(",");
@@ -33,7 +30,6 @@ exports.getReviews = async (req, res, next) => {
   }
   //all see all
   else if (req.params.restaurantId) {
-    //console.log(req.params.restaurantId);
     query = Review.find({ restaurant: req.params.restaurantId })
       .populate({
         path: "restaurant",
@@ -43,7 +39,6 @@ exports.getReviews = async (req, res, next) => {
         path: "user",
         select: "name",
       });
-    //console.log("2");
   } else {
     query = Review.find()
       .populate({
@@ -54,7 +49,6 @@ exports.getReviews = async (req, res, next) => {
         path: "user",
         select: "name",
       });
-    //console.log("3");
   }
 
   //handle dashboard

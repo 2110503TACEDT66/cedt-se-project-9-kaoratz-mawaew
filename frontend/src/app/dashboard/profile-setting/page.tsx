@@ -1,11 +1,7 @@
 
 import getUserProfile from "@/libs/getUserProfile";
-import updateUser from "@/libs/updateUser";
-import Link from "next/link";
 
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { TUserCustomSchema, userCustomizeSchema } from "@/utils/types";
+import { TUserCustomSchema } from "@/utils/types";
 import ProfileForm from "@/components/dashboard/ProfileForm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/components/auth";

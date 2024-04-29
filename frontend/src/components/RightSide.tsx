@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -24,13 +23,6 @@ export function RightSideBar() {
     const sp = useSearchParams();
     const tagParams = sp.get('tags');
     const tagArray = tagParams?.split(',');
-
-    // tagArray?.forEach((cuisine) => {
-    //     if (!cuisineTypes.includes(cuisine)) {
-    //         console.log(    "Invalid cuisine type");
-    //         return;
-    //     }
-    // });
 
     // using search params to store selected cuisines
     const handleCuisineClick = (cuisineType: string) => {
@@ -58,15 +50,6 @@ export function RightSideBar() {
         router.push(path + '?' + newParams.toString());
     };
 
-
-
-    // useEffect(() => {
-    //     console.log("Selected Cuisines: " + selectedCuisines);
-
-    //     setTagParams(selectedCuisines);
-    // }
-    // , [selectedCuisines]);
-
     const selectedTags = sp.get('tags')?.split(',') || [];
 
     return (
@@ -89,21 +72,6 @@ export function RightSideBar() {
                                     onClick={(e) => {
                                         handleCuisineClick(cuisineType);
                                     }}
-                                // onMouseEnter={() => {
-                                //     const nameElement = document.getElementById(`${cuisineType} name`)!;
-                                //     const currentScale = nameElement.style.transform;
-
-                                //     // nameElement.style.fontWeight = "semi-bold";
-                                //     nameElement.style.transform = currentScale === "scale(1.1)" ? "scale(1)" : "scale(1.1)";
-                                // }}
-
-                                // onMouseLeave={() => {
-                                //     const nameElement = document.getElementById(`${cuisineType} name`)!;
-                                //     const currentScale = nameElement.style.transform;
-
-                                //     // nameElement.style.fontWeight = "normal";
-                                //     nameElement.style.transform = currentScale === "scale(1.1)" ? "scale(1)" : "scale(1.1)";
-                                // }}
                                 >
                                     <span id={`${cuisineType} name`} className={`text-zinc-900 duration-100 ease-in-out ${isSelected ? 'font-semibold' : ''}`}>{cuisineType}</span>
                                     <hr className="border-zinc-900 grow" />

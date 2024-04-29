@@ -5,12 +5,10 @@ import { authOptions } from "../auth";
 import dayjs from "dayjs";
 import Link from "next/link";
 import LinkButton from "@/app/myTable/LinkButton";
-import { Button } from "@mui/material";
 
 export default async function TableCatalog() {
 
     const session = await getServerSession(authOptions);
-    const currentTime = dayjs();
 
     if (!session || !session.user.token) return null
     const reserved = await getReservations(session.user.token);

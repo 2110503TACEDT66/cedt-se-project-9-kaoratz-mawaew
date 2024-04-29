@@ -29,12 +29,6 @@ export default function MapSearchSection({
 }){
 
     const NOMINATIM = "https://nominatim.openstreetmap.org/search";
-    
-    const params = {
-        q: "searchText",
-        format: "json",
-        limit: 10,
-    };
 
     const [searchText, setSearchText] = useState<string>("");
     const [resultData, setResultData] = useState([]);
@@ -46,7 +40,6 @@ export default function MapSearchSection({
         fetch(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setResultData(data);
             });
         },1000)

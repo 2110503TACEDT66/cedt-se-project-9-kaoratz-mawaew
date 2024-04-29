@@ -1,8 +1,7 @@
-import { ReviewJson, UserItem, reserveJson } from "../../../interface";
+import { UserItem } from "../../../interface";
 import Link from "next/link";
 import UserStatistics from "../userDashboard/userStatistics";
 import UserHistory from "../userDashboard/userHistory";
-import AllComments from "../userDashboard/allComments";
 import getReservations from "@/libs/getReservations";
 import getUserReviews from "@/libs/getUserReviews";
 import { Suspense } from "react";
@@ -15,7 +14,6 @@ export default async function UserDashboard({ profile, token }: { profile: UserI
     const reservation = getReservations(token);
     const reviews = await getUserReviews(profile._id);
 
-    console.log(JSON.stringify(reviews));
     return (
         <div className="w-full h-full flex flex-col justify-center gap-10">
             <div className="text-5xl font-medium">

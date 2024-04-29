@@ -1,12 +1,5 @@
-// 'use client'
 import dayjs from "dayjs";
-import { UserItem, reserveJson } from "../../../interface";
-import { getSession } from "next-auth/react";
-import { authOptions } from "../auth";
-import { getServerSession } from "next-auth";
-import getUserProfile from "@/libs/getUserProfile";
-// import { useState } from "react";
-// import { useEffect } from "react";
+import { reserveJson } from "../../../interface";
 
 export default async function UserStatistics({ reservePromise
 
@@ -18,12 +11,9 @@ export default async function UserStatistics({ reservePromise
     const reservation = await reservePromise;
 
     const data = reservation.data;
-    // const [current, setCurrent] = useState(0);
-    // const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
-    const alltime = reservation.count;
-    console.log(reservation.count);
 
-    // useEffect(() => {
+    const alltime = reservation.count;
+
     let current = 0;
     let inyear = 0;
     const currentyear = dayjs().year();
@@ -36,9 +26,7 @@ export default async function UserStatistics({ reservePromise
             inyear++;
         }
     });
-    // setCurrent(count);
-    // setReservedSinceLastYear(inyear);
-    // }, [data]);
+    
     const formatNumber = (number: number) => {
         return number < 10 ? `0${number}` : number;
     };

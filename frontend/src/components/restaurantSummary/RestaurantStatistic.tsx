@@ -1,10 +1,6 @@
 'use client'
 import dayjs from "dayjs";
-import { UserItem, reserveJson } from "../../../interface";
-import { getSession } from "next-auth/react";
-import { authOptions } from "../auth";
-import { getServerSession } from "next-auth";
-import getUserProfile from "@/libs/getUserProfile";
+import { reserveJson } from "../../../interface";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -17,8 +13,6 @@ export default function RestaurantStatistics({reservation, rid} : {reservation: 
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
     const [alltime, setAlltime] = useState(0);
-
-    console.log(data)
 
     useEffect(() => {
         let count = 0;

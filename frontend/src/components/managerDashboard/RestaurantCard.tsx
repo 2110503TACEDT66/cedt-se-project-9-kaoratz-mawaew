@@ -4,10 +4,7 @@ import { RestaurantItem } from "../../../interface"
 import Image from "next/image"
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useSession } from "next-auth/react"
-import getUserProfile from "@/libs/getUserProfile";
 export default async function RestaurantCard({restaurantItem,role}: {restaurantItem: RestaurantItem,role:string}) {
-    // const manager = await getUserProfile(restaurantItem.manager)
     const [openHour, openMinute] = restaurantItem.opentime.split(":").map(Number);
     const [closeHour, closeMinute] = restaurantItem.closetime
       .split(":")

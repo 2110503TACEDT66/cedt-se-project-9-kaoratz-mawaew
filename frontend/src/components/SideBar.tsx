@@ -8,18 +8,6 @@ export function LeftSideBar() {
   const { openModal } = useModal();
 
   const { data: session } = useSession();
-  // const preLoginLinks = [
-  //   { href: "/", label: "Home" },
-  //   { href: "/restaurant", label: "Eatery" },
-  //   { href: "/login", label: "Login" },
-  //   { href: "/register", label: "Register" }, // Added "Register" menu
-  // ];
-  // const postLoginLinks = [
-  //   { href: "/", label: "Home" },
-  //   { href: "/restaurant", label: "Reserve" },
-  //   { href: "/myTable", label: "My Table" },
-  //   { href: "?logout=true", label: "Logout" },
-  // ];
 
   return (
     <div className="w-[12%] border-r-2 pr-5 border-r-gray-900">
