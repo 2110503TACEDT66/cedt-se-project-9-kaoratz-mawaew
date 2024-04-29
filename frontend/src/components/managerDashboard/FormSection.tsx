@@ -105,7 +105,7 @@ export default function FormSection() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-[45%] flex flex-col gap-[20%]">
+                            <div id="imageUploadContainer" className="w-[45%] flex flex-col gap-[20%]">
                                 <ImageUpload setImageUrl={setImageUrl} imageUrl={null} />
                             </div>
 
@@ -220,7 +220,7 @@ export default function FormSection() {
                     </div>
                     <div className="flex justify-center space-x-16 w-[95%]">
 
-                        <div className="text-center text-2xl font-mono mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 w-2/6"
+                        <div id="backButton" className="text-center text-2xl font-mono mt-4 px-4 py-2 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 w-2/6"
                             onClick={(e) => {
                                 e.stopPropagation()
                                 router.back()

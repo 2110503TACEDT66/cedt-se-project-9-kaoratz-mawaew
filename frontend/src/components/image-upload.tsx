@@ -28,7 +28,7 @@ const ImageUpload = ({
   };
 
   return (
-    <div id="imageUploadContainer" className="w-full h-full">
+    <div className="w-full h-full">
       {uploadedImage ? (
         <>
           <div className="w-full h-full flex flex-col items-center">
