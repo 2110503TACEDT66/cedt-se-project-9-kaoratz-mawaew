@@ -91,13 +91,15 @@ export default function FormSection() {
                                             variant="outlined" 
                                             error={errors.opentime?true:false}
                                             helperText={ errors.opentime&& "*This field is required"  } 
-                                            {...register("opentime", { required: true})}/>
+                                            {...register("opentime", { required: true,minLength:5,maxLength:5})}
+                                            placeholder="HH:MM"/>
                                         <p className="text-2xl font-mono"> - </p>
                                         <TextField className="w-[50%]" 
                                             error={errors.closetime?true:false}
                                             helperText={ errors.closetime&& "*This field is required"  }
-                                            {...register("closetime", { required: true})}
+                                            {...register("closetime", { required: true,minLength:5,maxLength:5})}
                                             variant="outlined" 
+                                            placeholder="HH:MM"
                                          />
                                     </div>
                                 </div>
