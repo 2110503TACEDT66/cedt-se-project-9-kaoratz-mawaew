@@ -98,10 +98,6 @@ exports.getReview = async (req, res, next) => {
         .json({
           success: false,
           msg: `No review with the id of ${req.params.id}`,
-        })
-        .populate({
-          path: "user",
-          select: "name",
         });
     }
 
