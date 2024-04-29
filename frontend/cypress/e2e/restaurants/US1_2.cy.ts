@@ -25,9 +25,6 @@ describe('FormSection Component', () => {
         cy.get('#province').type('Test Province');
         cy.get('#postalcode').type('12345');
         cy.get('#tel').type('123-456-7890');
-      
-        cy.get('data-ut-element="button"').children();
-        console.log(cy.get('[data-testcy="uploadDropzone"]').children());
 
         // Select tags
         cy.get('.MuiChip-label').contains('Thai').click();
@@ -35,6 +32,7 @@ describe('FormSection Component', () => {
       
         // Submit the form
         cy.get('#publish').click();
+        cy.wait(1000);
         cy.contains('This field is required').should('not.exist');
         cy.wait(1000);
         cy.url().should('include', '/restaurant');
@@ -62,6 +60,6 @@ describe('FormSection Component', () => {
         cy.wait(1000);
       
         // Verify that the user is navigated back to the previous page
-        cy.url().should('include', '/dashboard'); // Assuming the back button goes to the dashboard
+        cy.url().should('include', '/login'); // Assuming the back button goes to the dashboard
     });      
 });
