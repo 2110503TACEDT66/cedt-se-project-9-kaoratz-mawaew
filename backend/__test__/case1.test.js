@@ -53,19 +53,7 @@ describe('createRestaurant', () => {
     jest.clearAllMocks();
   });
   it('should create a restaurant with null map value for invalid input', async () => {
-    req.body = {
-      "name": "noMap",
-      "address": "1",
-      "subdistrict": "1",
-      "province": "1",
-      "postalCode": "33120",
-      "region": "mid",
-      "tel": "123456789",
-      "openTime": "12:00",
-      "closeTime": "20:00",
-      "imageUrl": "www.google.com",
-      "manager": "managerId"
-  };
+    req.body = JSON.stringify(noMapRestaurant);
 
     await createRestaurant(req, res, next);
 
@@ -78,20 +66,7 @@ describe('createRestaurant', () => {
   });
 
   it('should create a restaurant with lat lon map value for valid input', async () => {
-    req.body = {
-      name: "Map",
-      address: "1",
-      subdistrict: "1",
-      province: "1",
-      postalCode: "33120",
-      region: "mid",
-      tel: "123456789",
-      openTime: "12:00",
-      closeTime: "20:00",
-      imageUrl: "www.google.com",
-      map: "https://www.openstreetmap.org/?mlat=13.72625785&amp;mlon=100.53715645#map=18/13.72625785/100.53715645",
-      manager: "managerId"
-    }
+    req.body = JSON.stringify(mappedRestaurant)
     
 
     await createRestaurant(req, res, next);
