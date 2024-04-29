@@ -1,4 +1,5 @@
 import { RestaurantItem } from "../../../interface";
+import React from "react";
 
 export default function Map({restaurant} : {restaurant: RestaurantItem}) {
 
@@ -17,7 +18,7 @@ export default function Map({restaurant} : {restaurant: RestaurantItem}) {
     return (
         <div className="w-full h-full">
             {
-                restaurant.map? <iframe id="map" src={mapLink} className="w-full h-full">
+                restaurant.map? <iframe data-TestId="map" id="map" src={mapLink} className="w-full h-full">
             </iframe> : <h1 className="text-lg text-center text-rose-600 font-bold">Map Not Found</h1>
             }
             
