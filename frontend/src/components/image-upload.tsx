@@ -28,7 +28,7 @@ const ImageUpload = ({
   };
 
   return (
-    <div className="w-full h-full">
+    <div id="imageUploadContainer" className="w-full h-full">
       {uploadedImage ? (
         <>
           <div className="w-full h-full flex flex-col items-center">
@@ -51,6 +51,7 @@ const ImageUpload = ({
           </div>
           <div className="flex justify-center mt-5">
             <Button
+              id="uploadButton"
               variant="outlined"
               color="error"
               onClick={(e) => {
