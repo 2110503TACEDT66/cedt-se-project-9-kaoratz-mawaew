@@ -13,7 +13,7 @@ import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 export default async function UserDashboard({ profile, token }: { profile: UserItem, token: string }) {
 
     const reservation = getReservations(token);
-    const reviews: ReviewJson = await getUserReviews(profile._id);
+    const reviews = getUserReviews(profile._id);
 
     console.log(JSON.stringify(reviews));
     return (
@@ -32,22 +32,24 @@ export default async function UserDashboard({ profile, token }: { profile: UserI
                     </button>
                 </Link>
             </div>
-            <Suspense fallback={<StatSkeleton/>}>
+            <Suspense fallback={<StatSkeleton />}>
                 <UserStatistics reservePromise={reservation} />
             </Suspense>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl text-left font-medium">History</h1>
                 <hr className="border-zinc-900 grow" />
             </div>
-            <Suspense fallback={<HistorySkeleton/>}>
+            <Suspense fallback={<HistorySkeleton />}>
                 <UserHistory reservePromise={reservation} />
             </Suspense>
             <div>
                 <h1 className="text-xl text-left font-medium">Comments</h1>
             </div>
-            <div className="mt-9">
-                <AllCommentCard review={reviews}/>
-            </div>
+            <Suspense fallback={<div>Loading...</div>}>
+                <div className="mt-9">
+                    <AllCommentCard reviewPromise={reviews} />
+                </div>
+            </Suspense>
         </div>
     );
 }

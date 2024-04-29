@@ -1,6 +1,9 @@
 import CommentCard from "./CommentCard"
 import { ReviewJson } from "../../../interface"
-export default function AllCommentCard({ review }: { review: ReviewJson }) {    
+export default async function AllCommentCard({ reviewPromise }: { reviewPromise: Promise<ReviewJson> }) {    
+
+    const review : ReviewJson = await reviewPromise;
+
     return review.count ?
         (
             <div className="mt-10 gap-4 grid grid-cols-3 max-h-[240px] overflow-y-scroll no-scrollbar">
