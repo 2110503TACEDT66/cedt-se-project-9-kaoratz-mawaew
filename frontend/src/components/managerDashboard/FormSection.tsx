@@ -88,20 +88,20 @@ export default function FormSection() {
                                     <p className="text-2xl font-mono">Operation hour</p>
                                     <div className="flex items-center space-x-6">
 
-                                        <TextField className="w-[55%]"
-                                            id="opentime"
-                                            variant="outlined"
-                                            error={errors.opentime ? true : false}
-                                            helperText={errors.opentime && "*This field is required"}
-                                            {...register("opentime", { required: true })} />
+                                        <TextField className="w-[55%]" 
+                                            variant="outlined" 
+                                            error={errors.opentime?true:false}
+                                            helperText={ errors.opentime&& "*This field is required"  } 
+                                            {...register("opentime", { required: true,minLength:5,maxLength:5})}
+                                            placeholder="HH:MM"/>
                                         <p className="text-2xl font-mono"> - </p>
-                                        <TextField className="w-[50%]"
-                                            id="closetime"
-                                            error={errors.closetime ? true : false}
-                                            helperText={errors.closetime && "*This field is required"}
-                                            {...register("closetime", { required: true })}
-                                            variant="outlined"
-                                        />
+                                        <TextField className="w-[50%]" 
+                                            error={errors.closetime?true:false}
+                                            helperText={ errors.closetime&& "*This field is required"  }
+                                            {...register("closetime", { required: true,minLength:5,maxLength:5})}
+                                            variant="outlined" 
+                                            placeholder="HH:MM"
+                                         />
                                     </div>
                                 </div>
                             </div>
