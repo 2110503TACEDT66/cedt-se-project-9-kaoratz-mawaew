@@ -42,6 +42,7 @@ export default function MapSearchSection({
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
+        console.log(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`),
         fetch(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`)
             .then((response) => response.json())
             .then((data) => {
@@ -73,7 +74,7 @@ export default function MapSearchSection({
                     resultData.map((item : nominatimItem) => {
                         return (
                             <div key={item.osm_id} className="flex flex-row items-center font-mono gap-2"
-                            onClick={(_)=>setSelectedLocation(item)}>
+                            onClick={()=>setSelectedLocation(item)}>
                                 <div className="text-lg text-black"> {
                                     item.display_name
                                 }</div>

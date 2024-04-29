@@ -3,10 +3,21 @@ import Link from "next/link";
 import UserStatistics from "../userDashboard/userStatistics";
 import UserHistory from "../userDashboard/userHistory";
 import AllComments from "../userDashboard/allComments";
+import getReservations from "@/libs/getReservations";
+import getUserReviews from "@/libs/getUserReviews";
+import { Suspense } from "react";
+import HistorySkeleton from "../userDashboard/historySkeleton";
+import StatSkeleton from "../userDashboard/StatSkeleton";
+import AllCommentCard from "@/components/restaurantSummary/AllCommentCard"
 
-export default function UserDashboard ({profile, reservation, reviews} : {profile: UserItem, reservation: reserveJson , reviews: ReviewJson}) {
+export default async function UserDashboard({ profile, token }: { profile: UserItem, token: string }) {
+
+    const reservation = getReservations(token);
+    const reviews = await getUserReviews(profile._id);
+
+    console.log(JSON.stringify(reviews));
     return (
-        <div className="w-full flex flex-col justify-center gap-10 pr-[17%] ml-[5%]">
+        <div className="w-full h-full flex flex-col justify-center gap-10">
             <div className="text-5xl font-medium">
                 Hello, {profile.name}
             </div>
@@ -21,16 +32,24 @@ export default function UserDashboard ({profile, reservation, reviews} : {profil
                     </button>
                 </Link>
             </div>
-            <UserStatistics reservation={reservation}/>
+            <Suspense fallback={<StatSkeleton />}>
+                <UserStatistics reservePromise={reservation} />
+            </Suspense>
             <div className="w-full inline-flex items-center space-x-4 gap-[2%]">
                 <h1 className="text-xl text-left font-medium">History</h1>
                 <hr className="border-zinc-900 grow" />
             </div>
-            <UserHistory reservation={reservation} />
+            <Suspense fallback={<HistorySkeleton />}>
+                <UserHistory reservePromise={reservation} />
+            </Suspense>
             <div>
                 <h1 className="text-xl text-left font-medium">Comments</h1>
             </div>
-            <AllComments reviewsJson={reviews}></AllComments>
+            <Suspense fallback={<div>Loading...</div>}>
+                <div className="mt-5 mb-10">
+                    <AllCommentCard review={reviews} role={profile.role} />
+                </div>
+            </Suspense>
         </div>
     );
 }

@@ -5,14 +5,18 @@ import RestaurantTime from '@/components/ridpage/RestaurantTime';
 import Address from '@/components/ridpage/Address';
 import Tag from '@/components/ridpage/Tag';
 import AllReviewCard from '@/components/ridpage/AllReviewCard';
+import PeakHourChart from '@/components/dashboard/ChartFetch';
+import RatingSection from '@/components/ridpage/RatingSection';
 import getReviews from '@/libs/getReviews';
 import ReviewSection from './ReviewSection';
 import { Suspense } from 'react';
 import Image from "next/legacy/image";
-import PeakHourChart from '@/components/dashboard/ChartFetch';
 import getSummaryReservation from '@/libs/getSummaryReservation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/components/auth';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
+
     const restaurantDetails = await getRestaurant(params.rid);
     const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);
@@ -58,21 +62,23 @@ export default async function GetOne({ params }: { params: { rid: string } }) {
                     </div>
                 </div>
 
-            </div>
-
-            <div className='flex flex-row justify-center items-center gap-5'>
-                <h1 className="text-4xl font-bold text-primary text-nowrap">Chart</h1>
-                <hr className='border-black border-1 flex-grow ' />
+            </div> 
+            <div className="w-full inline-flex items-center mt-5">
+                <h1 className="text-xl text-left font-medium">Peak Hours</h1>
+                <hr className="border-zinc-900 grow ml-7"/>
             </div>
             {
                 (restaurantSummaryReservations.data) ? <PeakHourChart data={restaurantSummaryReservations.data.chartdata} forecast={restaurantSummaryReservations.data.hourlyForecasts} /> : <p>No data</p>
 
             }
-            <div className='flex flex-col w-full'>
+            <div className='flex flex-col w-full gap-6'>
 
                 <Tag restaurantDetails={restaurantDetails.data} />
 
+                <RatingSection reviews={reviews}/>
+
                 <ReviewSection rid={restaurantDetails.data.id} />
+
                 <Suspense fallback={<>
                     Loading...
                 </>}>

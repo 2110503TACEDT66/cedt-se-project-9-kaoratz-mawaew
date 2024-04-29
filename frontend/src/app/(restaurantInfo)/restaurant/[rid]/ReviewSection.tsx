@@ -15,13 +15,13 @@ export default function ReviewSection({rid} : {rid: string}){
                 <Box sx={{
                     borderRadius: '8px', 
                 }}>
-                    <Rating className='' size="large" onChange={(e, newValue) => {setRating(newValue)}} value={rating} defaultValue={0} style={{color: 'black'}}/>
+                    <Rating id='rating' size="large" onChange={(e, newValue) => {setRating(newValue)}} value={rating} defaultValue={0} style={{color: 'black'}}/>
                 </Box>
                 
                 <br/>
-                <div className='flex flex-row justify-center items-center border-black border-2 w-1/2 rounded-sm bg-[#f5f5f5] '>
-                    <input className='focus:outline-none w-[90%] h-20 bg-[#f5f5f5]  pl-4 pt-2 resize-none' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Add a comment...'></input>
-                    <button className='w-[10%]' onClick={(e) => {
+                <div className='flex flex-row justify-center items-center border-black border-2 w-1/2 rounded-sm gap-4 '>
+                    <input id='reviewInput' className='focus:outline-none w-[90%] h-20  pl-4 pt-2 resize-none bg-transparent' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Add a comment...'></input>
+                    <button id="sendReview" className='w-[10%]' onClick={(e) => {
                         if(!session || !session.user.token){
                             alert('Please log in to post review')
                         }

@@ -29,6 +29,6 @@ router
   .delete(protect, authorize("user", "admin", "manager"), deleteReservation);
 router
   .route("/:restaurantId/summary")
-  .get(protect, authorize("admin", "manager"), getSummaryReservation);
+  .get(getSummaryReservation);
 
 module.exports = router;

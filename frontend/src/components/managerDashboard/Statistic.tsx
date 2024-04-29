@@ -18,8 +18,9 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
     const [alltime, setAlltime] = useState(0);
 
-    console.log(data)
+    // console.log(data)
 
+    
     useEffect(() => {
         let count = 0;
         let inyear = 0;
@@ -33,7 +34,6 @@ export default function Statistic({reservation} : {reservation: reserveJson}){
                 count++;
             }
             if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                console.log("Domo")
                 inyear++;
             }
             

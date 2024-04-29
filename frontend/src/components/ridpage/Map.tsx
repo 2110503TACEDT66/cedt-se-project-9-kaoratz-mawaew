@@ -17,7 +17,7 @@ export default function Map({restaurant} : {restaurant: RestaurantItem}) {
     return (
         <div className="w-full h-full">
             {
-                restaurant.map? <iframe src={mapLink} className="w-full h-full">
+                restaurant.map? <iframe id="map" src={mapLink} className="w-full h-full">
             </iframe> : <h1 className="text-lg text-center text-rose-600 font-bold">Map Not Found</h1>
             }
             

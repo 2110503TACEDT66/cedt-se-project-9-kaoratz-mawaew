@@ -24,24 +24,20 @@ export default async function HeroDash() {
     if (!session || !session.user.token) return null;
     let reservationJson = null;
     let userRole = null;
-    let userName = null;
-    let userUID = null;
-    let restaurantJson = null;
-    let reviewsJson = null;
+    // let restaurantJson = null;
+    // let reviewsJson = null;
 
-    reservationJson = await getReservations(session.user.token);
-    restaurantJson = await getRestaurants();
     const profile = await getUserProfile(session.user.token);
-    reviewsJson = await getUserReviews(profile.data._id);
-    userName = profile.data.name;
+    reservationJson = await getReservations(session.user.token);
+    // restaurantJson = await getRestaurants();
+    // reviewsJson = await getUserReviews(profile.data._id);
     userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
-    console.log(JSON.stringify(reservationJson));
-    console.log(JSON.stringify(reviewsJson));
+    console.log("redirect!!!");
         
     return (
         <div className="pl-9 w-[100%] ">
             {
-                userRole == 'User' ? <UserDashboard profile={profile.data} reservation={reservationJson} reviews={reviewsJson}/>: null
+                userRole == 'User' ? <UserDashboard profile={profile.data} token={session.user.token} />: null
             }
             {
                 userRole == 'Manager' ? <Manager profile={profile.data} reservation={reservationJson} /> : null
