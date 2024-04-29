@@ -26,6 +26,9 @@ describe('FormSection Component', () => {
         cy.get('#postalcode').type('12345');
         cy.get('#tel').type('123-456-7890');
       
+        cy.get('data-ut-element="button"').children();
+        console.log(cy.get('[data-testcy="uploadDropzone"]').children());
+
         // Select tags
         cy.get('.MuiChip-label').contains('Thai').click();
         cy.get('.MuiChip-label').contains('Japanese').click();
