@@ -33,7 +33,6 @@ export default function RestaurantStatistics({reservation, rid} : {reservation: 
                     count++;
                 }
                 if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                    console.log("Domo")
                     inyear++;
                 }
             }

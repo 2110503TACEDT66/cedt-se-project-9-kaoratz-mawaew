@@ -9,7 +9,6 @@ import getUserProfile from "@/libs/getUserProfile";
 import getRestaurants from "@/libs/getRestaurants";
 import getUserReviews from "@/libs/getUserReviews";
 import { reserveItem, RestaurantItem } from "../../../interface";
-// import ManagerStatistics from "../managerDashboard/Statistic";
 import { profile } from "console";
 
 import Manager from "../managerDashboard/Manager";
@@ -33,6 +32,7 @@ export default async function HeroDash() {
     // restaurantJson = await getRestaurants();
     // reviewsJson = await getUserReviews(profile.data._id);
     userRole = profile.data.role.charAt(0).toUpperCase() + profile.data.role.slice(1);
+    console.log("redirect!!!");
         
     return (
         <div className="pl-9 w-[100%] ">

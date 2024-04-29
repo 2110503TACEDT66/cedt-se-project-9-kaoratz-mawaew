@@ -88,6 +88,7 @@ export default function Card({
             <div className="flex flex-row h-[15%] items-center justify-evenly">
               <Link
                 data-testid="details"
+                id="details"
                 href={`/restaurant/${restaurantItem.id}`}
               >
                 <button
@@ -101,6 +102,7 @@ export default function Card({
               </Link>
               <Link
                 data-testid="reserve"
+                id="reserve"
                 href={`/reserve?id=${restaurantItem.id}&name=${restaurantItem.name}`}
               >
                 <button

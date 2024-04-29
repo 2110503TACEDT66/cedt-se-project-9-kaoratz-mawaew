@@ -6,8 +6,8 @@ export default defineConfig({
         baseUrl: "http://localhost:3000",
     },
     env: {
-        userEmail: "dick@dick.com",
-        userPassword: "dickdick",
+        userEmail: "kaorat@user.com",
+        userPassword: "kaorat@user.com",
         managerEmail: "nightfall@gmail.com",
         managerPassword: "12345678",
         adminEmail: "admin@admin.com",

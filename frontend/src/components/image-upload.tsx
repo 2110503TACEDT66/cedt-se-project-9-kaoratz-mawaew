@@ -51,6 +51,7 @@ const ImageUpload = ({
           </div>
           <div className="flex justify-center mt-5">
             <Button
+              id="uploadButton"
               variant="outlined"
               color="error"
               onClick={(e) => {
@@ -63,6 +64,7 @@ const ImageUpload = ({
         </>
       ) : (
         <UploadDropzone
+          data-testcy="uploadDropzone"
           className="border-primary border-2 ut-label:text-lg ut-label:text-primary ut-button:bg-primary hover:cursor-pointer ut-button:text-white hover:scale-[101%] 
           transition-all ut-uploading:ut
           ut-allowed-content:ut-uploading:text-white"

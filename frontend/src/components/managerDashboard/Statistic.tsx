@@ -1,6 +1,6 @@
 'use client'
 import dayjs from "dayjs";
-import { UserItem, reserveJson } from "../../../interface";
+import { UserItem, reserveJson, reserveItemForManager, reserveJsonForManager } from "../../../interface";
 import { getSession } from "next-auth/react";
 import { authOptions } from "../auth";
 import { getServerSession } from "next-auth";
@@ -12,32 +12,28 @@ const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
 
-export default function Statistic({reservation} : {reservation: reserveJson}){
+export default function Statistic({reservation, mid} : {reservation: reserveJsonForManager, mid: string}){
     const data = reservation.data;
     const [current, setCurrent] = useState(0);
     const [reservedSinceLastYear, setReservedSinceLastYear] = useState(0);
     const [alltime, setAlltime] = useState(0);
 
-    // console.log(data)
-
-    
     useEffect(() => {
         let count = 0;
         let inyear = 0;
         let alltime = 0;
         const currentyear = dayjs().year();
 
-        data.forEach((res) => {
-            
-            alltime++;
-            if (!res.completed) {
-                count++;
+        data.forEach((res: reserveItemForManager) => {
+            if (res.restaurant.manager == mid) {
+                alltime++;
+                if (!res.completed) {
+                    count++;
+                }
+                if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
+                    inyear++;
+                }
             }
-            if (dayjs(res.resvDate, 'YYYY-MM-DDTHH:mm:ss').year() === currentyear){
-                console.log("Domo")
-                inyear++;
-            }
-            
         });
         setCurrent(count);
         setReservedSinceLastYear(inyear);

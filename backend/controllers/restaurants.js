@@ -18,13 +18,7 @@ exports.getRestaurants = async (req, res, next) => {
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
-  query = Restaurant.find(JSON.parse(queryStr)).populate({
-    path: 'reservation',
-    select: 'resvDate user'
-  }).populate({
-    path: 'manager',
-    select: 'name tel email role'
-  });
+  query = Restaurant.find(JSON.parse(queryStr)).populate("reservation");
 
   if (req.query.tag) {
     const tags = req.query.tag.split(",");
@@ -88,10 +82,12 @@ exports.getRestaurants = async (req, res, next) => {
 // @access  Private
 exports.getRestaurant = async (req, res, next) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id).populate({
-      path: 'reservation',
-      select: 'resvDate user'
-    });
+    const restaurant = await Restaurant.findById(req.params.id).populate([
+    {
+      path: 'manager',
+      select: 'name',
+    },
+  ]);
 
     if (!restaurant) {
       return res.status(404).json({

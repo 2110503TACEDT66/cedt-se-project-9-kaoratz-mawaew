@@ -20,8 +20,9 @@ export default async function RatingSection({
     reviewsStat[review.rating - 1] += 1;
     reviewTotal += review.rating;
   });
-
-  const averageRating = (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1);
+  
+  
+  const averageRating = reviewJson.count !== 0 ? (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1) : 0.0.toFixed(1);
 
 
 

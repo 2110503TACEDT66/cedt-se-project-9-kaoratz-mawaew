@@ -17,12 +17,16 @@ import { authOptions } from '@/components/auth';
 
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
+<<<<<<< HEAD
     const session = await getServerSession(authOptions);
     if(!session || !session.user.token){
         return null;
     }
+=======
+
+>>>>>>> 0fd698831d325510f641194b71c8cb4fc6cb3d92
     const restaurantDetails = await getRestaurant(params.rid);
-    const restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);
 
     const currentTime = new Date(); // Get current time

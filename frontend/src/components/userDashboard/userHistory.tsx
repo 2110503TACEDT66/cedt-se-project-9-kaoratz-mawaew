@@ -38,7 +38,7 @@ export default async function UserHistory({ reservePromise
                     <tbody>
                         {
                             data.length > 0 ? data.map((res) =>
-                                <tr>
+                                <tr key={res._id}>
                                     <td className="w-[15%] py-4 border-r-2 border-gray-900" suppressHydrationWarning>
                                         {dayjs(res.resvDate).format('DD/MM/YY HH:mm:ss')}
                                     </td>
@@ -54,7 +54,9 @@ export default async function UserHistory({ reservePromise
                                     {
                                         res.completed ? <td className="w-[10%] py-4">
                                             <Link href={`/restaurant/${res.restaurant._id}`}>
-                                                <button className="w-[55px] h-[25px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
+                                                <button 
+                                                id={`${res._id}`}
+                                                className="w-[55px] h-[25px] border border-stone-800 relative overflow-hidden transition-transform duration-300 ease-in-out 
                         hover:shadow-lg hover:shadow-stone-500/100 bg-stone-100 hover:bg-stone-800 text-stone-800 hover:text-stone-100 transform 
                         hover:-translate-x-1 hover:-translate-y-1 text-xs">
                                                     Review

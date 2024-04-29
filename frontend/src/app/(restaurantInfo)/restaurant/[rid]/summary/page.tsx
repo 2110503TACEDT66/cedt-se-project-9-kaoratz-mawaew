@@ -11,6 +11,7 @@ import getSummaryReservation from "@/libs/getSummaryReservation"
 import PeakHourChart from "@/components/dashboard/ChartFetch"
 import getReviews from "@/libs/getReviews"
 import { ReviewItem } from "../../../../../../interface"
+import getUserProfile from "@/libs/getUserProfile"
 
 export default async function SummaryPage({params}: {params: {rid: string}}) {
     
@@ -19,8 +20,8 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
     const restaurant = await getRestaurant(params.rid)
     const review = await getReviews(params.rid);
     const reservation = await getRestaurantReservation(session.user.token)
-
-    const restaurantSummaryReservations = await getSummaryReservation(params.rid, session.user.token);
+    const profile = await getUserProfile(session.user.token);
+    const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviewJson = await getReviews(params.rid);
     let reviewTotal = 0;
     const reviewData = reviewJson.data;
@@ -29,6 +30,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
         reviewData.map((review: ReviewItem) => {
             reviewTotal += review.rating;
         });
+
         averageRating = (Math.round((reviewTotal / reviewJson.count) * 10) / 10).toFixed(1);
     }
 
@@ -114,7 +116,7 @@ export default async function SummaryPage({params}: {params: {rid: string}}) {
                 <hr className="border-zinc-900 grow ml-7"/>
             </div>
             <div className="mt-9">
-                <AllCommentCard review={review}/>
+                <AllCommentCard review={review} role={profile.data.role}/>
             </div>
         </div>
     )

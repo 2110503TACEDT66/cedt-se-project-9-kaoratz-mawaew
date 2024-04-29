@@ -42,6 +42,7 @@ export default function MapSearchSection({
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
+        console.log(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`),
         fetch(`${NOMINATIM}?q=${searchText}&format=json&limit=10&addressdetails=1`)
             .then((response) => response.json())
             .then((data) => {

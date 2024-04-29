@@ -1,5 +1,3 @@
-
-import Link from "next/link";
 import Card from "./Card";
 import { RestaurantJson, RestaurantItem } from "../../interface";
 import RestaurantNotFound from "./RestaurantNotFound";
