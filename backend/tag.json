@@ -1,0 +1,60 @@
+{
+  "restaurantCategories": [
+    {
+      "name": "Fine Dining",
+      "description": "High-end restaurants with formal atmosphere and exquisite cuisine."
+    },
+    {
+      "name": "Casual Dining",
+      "description": "Relaxed dining experience suitable for everyday meals."
+    },
+    {
+      "name": "Fast Food",
+      "description": "Quick-service restaurants offering fast and affordable meals."
+    },
+    {
+      "name": "Seafood",
+      "description": "Restaurants specializing in fresh seafood dishes."
+    },
+    {
+      "name": "Steakhouse",
+      "description": "Grill restaurants offering premium cuts of steak and grilled meats."
+    },
+    {
+      "name": "Vegetarian/Vegan",
+      "description": "Restaurants focusing on plant-based and vegan-friendly options."
+    },
+    {
+      "name": "Buffet",
+      "description": "All-you-can-eat buffet-style dining with a variety of dishes."
+    },
+    {
+      "name": "Food Truck",
+      "description": "Mobile kitchens serving a range of street food and snacks."
+    },
+    {
+      "name": "Bakery/Dessert Shop",
+      "description": "Specialty bakeries and dessert shops offering sweet treats."
+    },
+    {
+      "name": "Cafe/Coffeehouse",
+      "description": "Relaxed cafes serving coffee, pastries, and light meals."
+    },
+    {
+      "name": "Barbecue",
+      "description": "Barbecue joints specializing in grilled and smoked meats."
+    },
+    {
+      "name": "Pub/Bar",
+      "description": "Casual pubs and bars offering drinks and pub-style food."
+    },
+    {
+      "name": "Family Style",
+      "description": "Family-friendly restaurants with shared or large portions."
+    },
+    {
+      "name": "Food Court",
+      "description": "Dining areas in malls or public spaces with multiple food options."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# Next.js build output
+.next/
+
+# Node modules directory
+node_modules/
+
+# Environment variables
+# a deliberate choice to not include .env.local in the .gitignore file (easier).
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode/
+
+.DS_Store
+
+backend/config
