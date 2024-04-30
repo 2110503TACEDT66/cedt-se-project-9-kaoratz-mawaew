@@ -12,25 +12,36 @@ interface Userdata{
 }
 
 
-export default function RegisterManager() {
+export default function RegisterManager({
+    role
+}:{
+    role:string
+}) {
     const { data: session } = useSession();
     const [userProfile , setUserProfile] = useState<Userdata | null>(null);
-    const { register, handleSubmit,formState:{errors} } = useForm<managerform>()
-    
-    useEffect(() => {
-        if (session?.user?.token) {
-            getUserProfile(session.user.token)
-                .then(profile => {
-                    setUserProfile(profile);
-                })
-                .catch(err => {
-                    console.error("Error fetching user profile:", err);
-                
-                });
-        }
-    }, [session?.user?.token]);
-    
-    if(userProfile?.data.role !== 'admin') return null;
+    const { register, handleSubmit, formState: { errors } } = useForm<managerform>()
+
+    // useEffect(() => {
+    //     const fetchUserProfile = async () => {
+    //         try {
+    //             if (session?.user?.token) {
+    //                 const profile = await getUserProfile(session.user.token);
+    //                 setUserProfile(profile);
+    //             }
+    //         } catch (err) {
+    //             console.error("Error fetching user profile:", err);
+    //         }
+    //     };
+
+    //     fetchUserProfile();
+    //     // console.log(userProfile);
+
+    // }, [session?.user?.token]);
+
+    console.log(role);
+    if (role !== 'admin') {
+        return null;
+    }
     
 
     
