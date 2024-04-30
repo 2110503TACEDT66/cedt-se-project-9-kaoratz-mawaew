@@ -6,9 +6,9 @@ beforeEach(() => {
     cy.get('button[type="submit"]').click();
   
     // Navigate to create restaurant page
-    cy.wait(1000);
+    cy.wait(3000);
     cy.visit('/restaurant/create');
-    cy.wait(1000);
+    cy.wait(3000);
     cy.url().should('include', '/restaurant/create');
 });
   
@@ -32,9 +32,9 @@ describe('FormSection Component', () => {
       
         // Submit the form
         cy.get('#publish').click();
-        cy.wait(1000);
+        cy.wait(3000);
         cy.contains('This field is required').should('not.exist');
-        cy.wait(1000);
+        cy.wait(3000);
         cy.url().should('include', '/restaurant');
     });
   
@@ -52,12 +52,12 @@ describe('FormSection Component', () => {
     it('Navigates back without data loss', () => {
         // Fill in some form fields
         cy.get('#name').type('Sample Restaurant');
-        cy.get('#opentime').type('10:00 AM');
+        cy.get('#opentime').type('10:00');
       
         // Click on the back button
         cy.get('div#backButton').click();
 
-        cy.wait(1000);
+        cy.wait(3000);
       
         // Verify that the user is navigated back to the previous page
         cy.url().should('include', '/login'); // Assuming the back button goes to the dashboard

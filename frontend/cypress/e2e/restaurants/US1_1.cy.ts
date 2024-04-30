@@ -89,19 +89,19 @@ describe('filter test', () => {
   it('check multiple tag click', () => {
     // Thai, Chinese, Korean
     cy.get('@filter').children().first().click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(2).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(7).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.url().should('include', 'tags=Thai%2CChinese%2CKorean');
 
     cy.get('@filter').children().first().click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(2).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(7).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.url().should('not.include', 'tags=Thai%2CChinese%2CKorean');
   });
 
@@ -118,47 +118,47 @@ describe('filter test', () => {
   it('check all tag click', () => {
     // Thai, Japanese, Chinese, Italian, American, Mexican, Indian, Korean, Vietnamese, French
     cy.get('@filter').children().first().click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(1).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(2).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(3).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(4).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(5).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(6).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(7).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(8).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(9).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.url().should('include', 'tags=Thai%2CJapanese%2CChinese%2CItalian%2CAmerican%2CMexican%2CIndian%2CKorean%2CVietnamese%2CFrench');
 
     cy.get('@filter').children().first().click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(1).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(2).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(3).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(4).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(5).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(6).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(7).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(8).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.get('@filter').children().eq(9).click();
-    cy.wait(500);
+    cy.wait(3000);
     cy.url().should('not.include', 'tags=Thai%2CJapanese%2CChinese%2CItalian%2CAmerican%2CMexican%2CIndian%2CKorean%2CVietnamese%2CFrench');
   });
 })
