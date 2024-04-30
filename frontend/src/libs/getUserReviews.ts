@@ -1,5 +1,3 @@
-import { ReviewJson } from "../../interface";
-
 export default async function getUserReviews(uid: string){
     await new Promise((resolve) => setTimeout(resolve, 2000));
   

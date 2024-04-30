@@ -8,13 +8,11 @@ export default async function getSummaryReservation(rid: string): Promise<Reserv
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                // authorization: `Bearer ${token}`,
             },
         }
     );
 
     if (!response.ok) {
-        // throw new Error("Failed to fetch peak hour data");
         console.log(await response.json());
 
     }

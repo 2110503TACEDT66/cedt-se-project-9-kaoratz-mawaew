@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/legacy/image";
 import { Button, CircularProgress } from "@mui/material";
@@ -16,15 +16,8 @@ const ImageUpload = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   if (uploadedImage) {
-  //     setImageUrl(uploadedImage);
-  //     setIsLoading(true);
-  //   }
-  // }, [uploadedImage]);
-
   const handleImageLoad = () => {
-    // setIsLoading(false);
+    
   };
 
   return (

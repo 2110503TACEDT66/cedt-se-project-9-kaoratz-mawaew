@@ -1,7 +1,4 @@
-
-
 import { z } from 'zod';
-
 
 export const userCustomizeSchema = z.object({
     name: z.string().min(1 , "Username must not be blank"),

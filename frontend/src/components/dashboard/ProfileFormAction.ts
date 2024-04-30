@@ -11,7 +11,7 @@ export default async function ProfileFormAction(
     token : string
  ) {
 
-    const response = await updateUser(userData.name, userData.email, userData.tel, token);
+    await updateUser(userData.name, userData.email, userData.tel, token);
 
     
     revalidatePath('profile');

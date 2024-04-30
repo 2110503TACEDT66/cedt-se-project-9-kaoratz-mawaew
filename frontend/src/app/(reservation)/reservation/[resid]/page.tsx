@@ -11,8 +11,6 @@ export default function update({ params }: { params: { resid: string } }) {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            const newTime = dayjs().format('HH:mm');
-
             // Check if the minutes have changed
             const currentMinutes = dayjs().minute();
             if (currentMinutes === 0) {
