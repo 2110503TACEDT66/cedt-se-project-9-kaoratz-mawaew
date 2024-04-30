@@ -24,7 +24,7 @@ describe('FormSection Component', () => {
         cy.get('#district').type('Test District');
         cy.get('#province').type('Test Province');
         cy.get('#postalcode').type('10500');
-        cy.get('#tel').type('1234567890');
+        cy.get('#tel').type('039403233');
 
         // Select tags
         cy.get('.MuiChip-label').contains('Thai').click();
