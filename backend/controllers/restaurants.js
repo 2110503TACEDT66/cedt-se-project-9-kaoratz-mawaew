@@ -120,9 +120,10 @@ exports.createRestaurant = async (req, res, next) => {
       req.body.manager = req.user.id;
     }
 
-    const tags = req.body.tag.split(",");
-    req.body.tag = tags;
-
+    if (req.body.tag) {
+      const tags = req.body.tag.split(",");
+      req.body.tag = tags;
+    }
     const restaurant = await Restaurant.create(req.body);
 
     res.status(201).json({
