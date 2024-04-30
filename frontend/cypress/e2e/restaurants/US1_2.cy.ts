@@ -60,6 +60,6 @@ describe('FormSection Component', () => {
         cy.wait(3000);
       
         // Verify that the user is navigated back to the previous page
-        cy.url().should('include', '/login'); // Assuming the back button goes to the dashboard
+        cy.url().should('include', '/dashboard'); // Assuming the back button goes to the dashboard
     });      
 });
