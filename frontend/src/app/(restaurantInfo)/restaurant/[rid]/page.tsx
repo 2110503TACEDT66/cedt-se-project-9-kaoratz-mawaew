@@ -14,7 +14,6 @@ import Image from "next/legacy/image";
 import getSummaryReservation from '@/libs/getSummaryReservation';
 
 export default async function GetOne({ params }: { params: { rid: string } }) {
-
     const restaurantDetails = await getRestaurant(params.rid);
     const restaurantSummaryReservations = await getSummaryReservation(params.rid);
     const reviews = getReviews(params.rid);

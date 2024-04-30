@@ -52,7 +52,7 @@ const mockRestaurantWithoutMap: RestaurantItem = {
 
 it('If map does exist then show map', ()=>{
     render(<Map restaurant={mockRestaurantWithMap} />);
-    const mapIframe = screen.getByRole('iframe');
+    const mapIframe = screen.getByTestId('map');
     expect(mapIframe).toBeInTheDocument();
     })
 

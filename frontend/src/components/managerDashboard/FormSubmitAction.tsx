@@ -20,6 +20,7 @@ export async function ActionPostRestaurant(
         const lon = location?.lon;
         mapLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`
     }
+    
 
     if (!imageUrl){
         imageUrl = "https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"

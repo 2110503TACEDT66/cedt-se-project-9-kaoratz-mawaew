@@ -439,6 +439,7 @@ exports.getSummaryReservation = async (req, res, next) => {
 
     const reservations = await query;
 
+    
     const resvDates = reservations.map((reservation) => reservation.resvDate);
     const chartdata = [];
 

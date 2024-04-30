@@ -2,7 +2,6 @@ const request = require("supertest");
 const app = require("../server");
 
 describe("Tag and filters", () => {
-
     it("should return restaurants filtered by tags", async () => {
       const response = await request("http://localhost:4000").get
         ("/api/v1/restaurants")
@@ -25,13 +24,11 @@ describe("Tag and filters", () => {
     });
 
     it("Return nothing on Vietnam tag because it has nothing", async () =>{
-        const response = await request("http://localhost:4000")
+        const response = await request("http:localhost:4000")
         .get("/api/v1/restaurants")
         .query({tag: "Vietnamese"})
 
         expect(response.status).toBe(200);
         expect(response.body.data.length).toBe(0);
-    });
-
-
+    })
   });

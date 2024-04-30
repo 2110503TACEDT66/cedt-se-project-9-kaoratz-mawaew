@@ -5,6 +5,7 @@ const Restaurant = require("../models/Restaurant");
 // @access  Public
 exports.getRestaurants = async (req, res, next) => {
   let query;
+  let tagForCount;
   const reqQuery = { ...req.query };
   const removeFields = ["select", "sort", "page", "limit", "tag"]; // remove redundancies
 
@@ -20,7 +21,7 @@ exports.getRestaurants = async (req, res, next) => {
 
   if (req.query.tag) {
     const tags = req.query.tag.split(",");
-
+    tagForCount = tags;
     query = query.find({ tag: { $in: tags } }); // union approach
   }
 
@@ -33,12 +34,19 @@ exports.getRestaurants = async (req, res, next) => {
   }
 
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 50;
+  const limit = parseInt(req.query.limit, 10) || 45;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
 
   try {
     const total = Restaurant.countDocuments;
+    let restaurantCount;
+    if (tagForCount) {
+      restaurantCount = await Restaurant.countDocuments({tag: {$in: tagForCount}});
+    }
+    else {
+      restaurantCount = await Restaurant.countDocuments({});
+    }
 
     query = query.skip(startIndex).limit(limit);
 
@@ -62,7 +70,10 @@ exports.getRestaurants = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      countAll: restaurantCount,
+      limit: limit,
       count: restaurant.length,
+      page: page,
       data: restaurant,
     });
   } catch (err) {
@@ -118,8 +129,13 @@ exports.createRestaurant = async (req, res, next) => {
       req.body.manager = req.user.id;
     }
 
-    const tags = req.body.tag.split(",");
-    req.body.tag = tags;
+    if (req.body.tag) {
+      const tags = req.body.tag.split(",");
+      req.body.tag = tags;
+    }
+    else {
+      req.body.tag = [];
+    }
 
     const restaurant = await Restaurant.create(req.body);
 
@@ -155,8 +171,10 @@ exports.updateRestaurant = async (req, res, next) => {
         message: "You are not the manager of this restaurant",
       });
     }
-    const tags = req.body.tag.split(",");
-    req.body.tag = tags;
+    if (req.body.tag) {
+      const tags = req.body.tag.split(",");
+      req.body.tag = tags;
+    }
 
     await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -168,7 +186,7 @@ exports.updateRestaurant = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Oh something went wrong to update restaurant.",
     });
