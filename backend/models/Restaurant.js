@@ -28,7 +28,7 @@ const RestaurantSchema = new mongoose.Schema(
     postalcode: {
       type: String,
       required: [true, "Please add a postal code"],
-      maxlength: [5, "Postal code can not be more than 5 digits"],
+      maxlength: [10, "Postal code can not be more than 10 digits"],
     },
     region: {
       type: String,

@@ -14,11 +14,10 @@ describe("Peak Hours", () => {
   
     it("success but return nothing if reservation not exist on restaurant", async () => {
       const response = await request("http://localhost:4000")
-        .get("/api/v1/reservations/661e838220095d18d2023c73/summary")
+        .get("/api/v1/reservations/6630a0f4204ca9659155c6b9/summary")
   
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
-      expect(response.body.msg).toBe("No reservation found");
       expect(response.body.count).toBe(0);
       // Add more specific expectations based on your application's logic
     });

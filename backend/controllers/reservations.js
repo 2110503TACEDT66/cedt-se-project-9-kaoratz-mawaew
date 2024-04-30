@@ -436,15 +436,9 @@ exports.getSummaryReservation = async (req, res, next) => {
         select: "resvDate",
       })
       .sort({ resvDate: 1, createdAt: 1 });
-    const restaurant = await Restaurant.findById(req.params.restaurantId);
-    if(restaurant.reservation.length < 1){
-      res.status(200).json({
-        success: true,
-        count: 0,
-        msg: 'No reservation found'
-      });
-    }
+
     const reservations = await query;
+
     
     const resvDates = reservations.map((reservation) => reservation.resvDate);
     const chartdata = [];
