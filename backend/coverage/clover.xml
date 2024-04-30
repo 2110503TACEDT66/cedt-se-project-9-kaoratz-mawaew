@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1714463564098" clover="3.2.0">
-  <project timestamp="1714463564098" name="All files">
-    <metrics statements="584" coveredstatements="193" conditionals="231" coveredconditionals="5" methods="55" coveredmethods="8" elements="870" coveredelements="206" complexity="0" loc="584" ncloc="584" packages="6" files="18" classes="18"/>
+<coverage generated="1714485619515" clover="3.2.0">
+  <project timestamp="1714485619515" name="All files">
+    <metrics statements="584" coveredstatements="197" conditionals="231" coveredconditionals="12" methods="55" coveredmethods="5" elements="870" coveredelements="214" complexity="0" loc="584" ncloc="584" packages="6" files="18" classes="18"/>
     <package name="backend">
       <metrics statements="42" coveredstatements="40" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="0"/>
-      <file name="server.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\server.js">
+      <file name="server.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\server.js">
         <metrics statements="42" coveredstatements="40" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -52,7 +52,7 @@
     </package>
     <package name="backend.config">
       <metrics statements="19" coveredstatements="13" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
-      <file name="db.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\config\db.js">
+      <file name="db.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\config\db.js">
         <metrics statements="19" coveredstatements="13" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -76,8 +76,8 @@
       </file>
     </package>
     <package name="backend.controllers">
-      <metrics statements="422" coveredstatements="62" conditionals="213" coveredconditionals="4" methods="41" coveredmethods="5"/>
-      <file name="auth.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\controllers\auth.js">
+      <metrics statements="422" coveredstatements="66" conditionals="213" coveredconditionals="11" methods="41" coveredmethods="2"/>
+      <file name="auth.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\controllers\auth.js">
         <metrics statements="36" coveredstatements="7" conditionals="10" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -116,7 +116,7 @@
         <line num="99" count="0" type="stmt"/>
         <line num="104" count="0" type="stmt"/>
       </file>
-      <file name="payments.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\controllers\payments.js">
+      <file name="payments.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\controllers\payments.js">
         <metrics statements="48" coveredstatements="7" conditionals="12" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -167,8 +167,8 @@
         <line num="162" count="0" type="stmt"/>
         <line num="163" count="0" type="stmt"/>
       </file>
-      <file name="reservations.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\controllers\reservations.js">
-        <metrics statements="163" coveredstatements="32" conditionals="118" coveredconditionals="4" methods="11" coveredmethods="5"/>
+      <file name="reservations.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\controllers\reservations.js">
+        <metrics statements="163" coveredstatements="9" conditionals="118" coveredconditionals="0" methods="11" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
@@ -300,29 +300,29 @@
         <line num="414" count="0" type="stmt"/>
         <line num="419" count="0" type="stmt"/>
         <line num="426" count="1" type="stmt"/>
-        <line num="429" count="2" type="stmt"/>
-        <line num="430" count="2" type="stmt"/>
-        <line num="440" count="2" type="stmt"/>
-        <line num="443" count="2" type="stmt"/>
-        <line num="444" count="2" type="stmt"/>
-        <line num="446" count="2" type="stmt"/>
-        <line num="447" count="48" type="cond" truecount="2" falsecount="0"/>
-        <line num="448" count="48" type="stmt"/>
-        <line num="449" count="48" type="stmt"/>
-        <line num="453" count="2" type="stmt"/>
-        <line num="454" count="48" type="stmt"/>
-        <line num="455" count="48" type="cond" truecount="2" falsecount="0"/>
-        <line num="456" count="48" type="stmt"/>
-        <line num="460" count="2" type="stmt"/>
-        <line num="461" count="2" type="stmt"/>
-        <line num="462" count="2" type="stmt"/>
-        <line num="463" count="48" type="stmt"/>
-        <line num="464" count="48" type="stmt"/>
-        <line num="465" count="144" type="stmt"/>
-        <line num="467" count="48" type="stmt"/>
-        <line num="468" count="48" type="stmt"/>
-        <line num="469" count="48" type="stmt"/>
-        <line num="472" count="2" type="stmt"/>
+        <line num="429" count="0" type="stmt"/>
+        <line num="430" count="0" type="stmt"/>
+        <line num="440" count="0" type="stmt"/>
+        <line num="443" count="0" type="stmt"/>
+        <line num="444" count="0" type="stmt"/>
+        <line num="446" count="0" type="stmt"/>
+        <line num="447" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="448" count="0" type="stmt"/>
+        <line num="449" count="0" type="stmt"/>
+        <line num="453" count="0" type="stmt"/>
+        <line num="454" count="0" type="stmt"/>
+        <line num="455" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="456" count="0" type="stmt"/>
+        <line num="460" count="0" type="stmt"/>
+        <line num="461" count="0" type="stmt"/>
+        <line num="462" count="0" type="stmt"/>
+        <line num="463" count="0" type="stmt"/>
+        <line num="464" count="0" type="stmt"/>
+        <line num="465" count="0" type="stmt"/>
+        <line num="467" count="0" type="stmt"/>
+        <line num="468" count="0" type="stmt"/>
+        <line num="469" count="0" type="stmt"/>
+        <line num="472" count="0" type="stmt"/>
         <line num="481" count="0" type="stmt"/>
         <line num="486" count="0" type="stmt"/>
         <line num="493" count="1" type="stmt"/>
@@ -333,42 +333,42 @@
         <line num="515" count="0" type="stmt"/>
         <line num="520" count="0" type="stmt"/>
       </file>
-      <file name="restaurants.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\controllers\restaurants.js">
-        <metrics statements="90" coveredstatements="7" conditionals="39" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <file name="restaurants.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\controllers\restaurants.js">
+        <metrics statements="90" coveredstatements="34" conditionals="39" coveredconditionals="11" methods="10" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="15" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="22" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="28" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="29" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="57" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="36" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="44" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="57" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="58" count="0" type="stmt"/>
-        <line num="64" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="64" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="65" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
+        <line num="71" count="3" type="stmt"/>
         <line num="80" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
@@ -426,7 +426,7 @@
         <line num="253" count="0" type="stmt"/>
         <line num="255" count="0" type="stmt"/>
       </file>
-      <file name="reviews.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\controllers\reviews.js">
+      <file name="reviews.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\controllers\reviews.js">
         <metrics statements="85" coveredstatements="9" conditionals="34" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -517,7 +517,7 @@
     </package>
     <package name="backend.middleware">
       <metrics statements="18" coveredstatements="5" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="1"/>
-      <file name="auth.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\middleware\auth.js">
+      <file name="auth.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\middleware\auth.js">
         <metrics statements="18" coveredstatements="5" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -541,13 +541,13 @@
     </package>
     <package name="backend.models">
       <metrics statements="33" coveredstatements="23" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="Payment.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\models\Payment.js">
+      <file name="Payment.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\models\Payment.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
-      <file name="Reservation.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\models\Reservation.js">
+      <file name="Reservation.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\models\Reservation.js">
         <metrics statements="7" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -557,7 +557,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
       </file>
-      <file name="Restaurant.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\models\Restaurant.js">
+      <file name="Restaurant.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\models\Restaurant.js">
         <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -568,13 +568,13 @@
         <line num="93" count="0" type="stmt"/>
         <line num="97" count="1" type="stmt"/>
       </file>
-      <file name="Review.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\models\Review.js">
+      <file name="Review.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\models\Review.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
       </file>
-      <file name="User.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\models\User.js">
+      <file name="User.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\models\User.js">
         <metrics statements="12" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -592,7 +592,7 @@
     </package>
     <package name="backend.routes">
       <metrics statements="50" coveredstatements="50" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="auth.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\routes\auth.js">
+      <file name="auth.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\routes\auth.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -605,7 +605,7 @@
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
       </file>
-      <file name="payments.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\routes\payments.js">
+      <file name="payments.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\routes\payments.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -615,7 +615,7 @@
         <line num="18" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
       </file>
-      <file name="reservations.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\routes\reservations.js">
+      <file name="reservations.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\routes\reservations.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -629,7 +629,7 @@
         <line num="30" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
       </file>
-      <file name="restaurants.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\routes\restaurants.js">
+      <file name="restaurants.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\routes\restaurants.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -644,7 +644,7 @@
         <line num="31" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
-      <file name="reviews.js" path="C:\Users\USER\Desktop\9-Kaoratz-Mawaew\backend\routes\reviews.js">
+      <file name="reviews.js" path="C:\Users\Tony\Desktop\cedt-se-project-9-kaoratz-mawaew\backend\routes\reviews.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
