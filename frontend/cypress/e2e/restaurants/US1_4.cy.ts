@@ -6,9 +6,9 @@ beforeEach(() => {
     cy.get('button[type="submit"]').click();
 
     // Navigate to create restaurant page
-    cy.wait(1000);
+    cy.wait(3000);
     cy.visit('/restaurant/create');
-    cy.wait(1000);
+    cy.wait(3000);
     cy.url().should('include', '/restaurant/create');
 });
 
