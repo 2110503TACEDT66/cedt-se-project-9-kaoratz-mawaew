@@ -16,15 +16,15 @@ describe('FormSection Component', () => {
     it('Successfully creates a restaurant', () => {
         // Fill in form fields
         cy.get('#name').type('Sample Restaurant');
-        cy.get('#opentime').type('10:00 AM');
-        cy.get('#closetime').type('8:00 PM');
+        cy.get('#opentime').type('10:00');
+        cy.get('#closetime').type('08:00');
         cy.get('#address').type('123 Test St');
         cy.get('#subdistrict').type('Test Subdistrict');
         cy.get('#region').type('Test Region');
         cy.get('#district').type('Test District');
         cy.get('#province').type('Test Province');
-        cy.get('#postalcode').type('12345');
-        cy.get('#tel').type('123-456-7890');
+        cy.get('#postalcode').type('10500');
+        cy.get('#tel').type('1234567890');
 
         // Select tags
         cy.get('.MuiChip-label').contains('Thai').click();
