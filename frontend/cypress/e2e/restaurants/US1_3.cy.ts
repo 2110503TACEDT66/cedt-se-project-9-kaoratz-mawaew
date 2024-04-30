@@ -34,10 +34,10 @@ describe('Review Section', () => {
         cy.get('button[type="submit"]').click();
 
         // Navigate to create dashboard page
-        cy.wait(1000);
+        cy.wait(3000);
         cy.url().should('include', '/dashboard');
         cy.get('#662f2f603ea198b363379af5').click();
-        cy.wait(1000);
+        cy.wait(3000);
         cy.url().should('include', '/restaurant/662a06d40bd437f0efda6efd');
         
         cy.get('span#rating').children().eq(6).click();
