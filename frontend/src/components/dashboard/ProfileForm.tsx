@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { TUserCustomSchema, userCustomizeSchema } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -36,9 +35,7 @@ export default function ProfileForm({
 
     
     const onSubmit = async (data: TUserCustomSchema) => {
-        // console.log(data);
-        const response = await ProfileFormAction(data, token);
-        
+        await ProfileFormAction(data, token);
     };
 
 

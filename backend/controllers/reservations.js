@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const Restaurant = require("../models/Restaurant");
 const Reservation = require("../models/Reservation");
 
@@ -19,11 +18,9 @@ exports.getReservations = async (req, res, next) => {
         path: 'user',
         select: 'name'
       });
-    //console.log("1");
   } else {
     //admin see all
     if (req.params.restaurantId) {
-      //console.log(req.params.restaurantId);
       query = Reservation.find({ restaurant: req.params.restaurantId })
         .populate({
           path: "restaurant",
@@ -33,7 +30,6 @@ exports.getReservations = async (req, res, next) => {
           path: 'user',
           select: 'name'
         });
-      //console.log("2");
     } else {
       query = Reservation.find()
         .populate({
@@ -44,7 +40,6 @@ exports.getReservations = async (req, res, next) => {
           path: 'user',
           select: 'name'
         });
-      //console.log("3");
     }
   }
 
@@ -390,7 +385,6 @@ exports.updateReservation = async (req, res, next) => {
 // @access registered
 exports.deleteReservation = async (req, res, next) => {
   try {
-    //console.log(req.params);
     const reservation = await Reservation.findById(req.params.id);
 
     if (
@@ -514,7 +508,6 @@ exports.getRestaurantReservation = async (req,res,next) => {
         path: 'user',
         select: 'name'
       });
-    //console.log("3");
 
     try {
       const reservation = await query;

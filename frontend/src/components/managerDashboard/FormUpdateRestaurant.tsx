@@ -11,7 +11,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from "react-hook-form"
 
-import { RestaurantJson, RestaurantItem, forminput, nominatimItem} from "../../../interface";
+import { RestaurantItem, forminput, nominatimItem} from "../../../interface";
 
 type RestaurantJsonHa = {
         success: boolean,
@@ -75,7 +75,6 @@ export default function FormUpdateSection({restaurant}: {restaurant: RestaurantJ
 
     const onSubmit:SubmitHandler<forminput> = async (formData) => {
         const token = session?.user.token;
-        //if (!location) return alert("Please select location");
         const tags = clickedChips.join(',');
         var finalLocation = location
         var finalTags = tags

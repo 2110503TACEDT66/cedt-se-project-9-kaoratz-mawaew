@@ -1,5 +1,5 @@
 import { Rating } from "@mui/material"
-import { ReviewItem, RestaurantItem } from "../../../interface"
+import { ReviewItem } from "../../../interface"
 import getRestaurant from "@/libs/getRestaurant"
 import moment from 'moment';
 
@@ -8,7 +8,6 @@ export default async function CommentCard({ review }: { review: ReviewItem }) {
     const dateObject = moment(review.createdAt);
     const formattedDate = dateObject.format('DD MMM YYYY');
     
-    console.log(dateObject)
     return (
         <div className="p-3 border-black border-2 space-y-2 w-full">
             <h1 className="text-xl font-bold">{restaurant.name}</h1>

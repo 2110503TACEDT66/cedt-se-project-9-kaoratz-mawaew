@@ -1,10 +1,8 @@
 import { reserveJson } from "../../../interface";
 import dayjs from "dayjs";
-import Link from "next/link";
 
 export default function RestaurantHistory ({reservation, rid} : {reservation : reserveJson, rid: string}) {
     const data = reservation.data;
-    console.log(data)
     
     return (
         <div className="w-full">

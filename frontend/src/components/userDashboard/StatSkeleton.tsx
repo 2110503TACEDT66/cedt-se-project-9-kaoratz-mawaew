@@ -1,4 +1,3 @@
-
 export default function StatSkeleton() {
     return (
         <table className="h-[10vh]">

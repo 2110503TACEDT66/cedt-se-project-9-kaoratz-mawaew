@@ -1,9 +1,7 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import getUserProfile from '@/libs/getUserProfile';
 import toast, { Toaster } from 'react-hot-toast';
 
 
@@ -15,15 +13,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  // const [role, setRole] = useState('');
-
-  const { data: session } = useSession();
-
-  // const getProfile = async (token: string) => {
-  //   const profile = await getUserProfile(token);
-  //   setRole(profile.data.role)
-  // }
-
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -157,13 +146,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// const login = (role: string) => {
-//   if (role == 'manager' || role == 'admin') {
-//     redirect('/dashboard')
-//   }
-
-//   if (role == 'user') {
-//     redirect('/restaurant')
-//   }
-// }

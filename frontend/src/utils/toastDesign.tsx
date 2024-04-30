@@ -1,8 +1,5 @@
-        // setError('Login failed, please try again.');
 "use client";
-import toast, { Toast } from "react-hot-toast";
-
-
+import toast from "react-hot-toast";
 
 export const LogginToast = ({
     t,

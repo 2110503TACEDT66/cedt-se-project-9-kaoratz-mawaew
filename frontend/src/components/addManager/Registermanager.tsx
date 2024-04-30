@@ -35,7 +35,6 @@ export default function RegisterManager() {
 
     
     const onSubmit:SubmitHandler<managerform> = async (formData) => {
-        // console.log(formData)
         
         const response = await RegisterAction(formData); // server action 
     }

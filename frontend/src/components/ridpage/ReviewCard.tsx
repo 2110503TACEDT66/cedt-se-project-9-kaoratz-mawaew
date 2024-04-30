@@ -29,9 +29,4 @@ export default async function ReviewCard({ ReviewItem }: { ReviewItem: ReviewIte
         </>
     )
 }
-
-// Previous Design
-// <div className="w-2/5 h-[15%] m-4 rounded-xl shadow-[-1px_1px_3px_rgba(0,0,0,0.3)] flex-none font-mono mb-10">
-//     <div className="bg-[#ededed] rounded-xl shadow-[4px_6px_6px_rgba(0,0,0,0.3)]">
-//         <div className="border-[7px] border-[#ededed] rounded-xl p-5 shadow-[inset_6px_6px_12px_rgba(0,0,0,0.3)]">
             

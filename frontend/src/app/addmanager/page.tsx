@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import RegisterManager from "@/components/addManager/Registermanager";
 export default function page() {
   return (

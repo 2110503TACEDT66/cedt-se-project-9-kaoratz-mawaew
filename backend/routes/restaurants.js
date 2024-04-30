@@ -88,7 +88,6 @@ module.exports = router;
  *         name: id
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's id
  *     responses:
@@ -265,9 +264,8 @@ module.exports = router;
  *         name: id
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
- *         description: Reservation's id
+ *         description: Reservation's ID
  *     responses:
  *       200:
  *         description: The reservation by id
@@ -286,6 +284,13 @@ module.exports = router;
  *       - bearerAuth: []
  *     summary: Update a reservation
  *     tags: [Reservation]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Reservation's ID
  *     requestBody:
  *       required: true
  *       content:
@@ -312,6 +317,13 @@ module.exports = router;
  *       - bearerAuth: []
  *     summary: Delete a reservation
  *     tags: [Reservation]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Reservation's ID
  *     responses:
  *       200:
  *         description: Successfully deleted reservation
@@ -332,7 +344,6 @@ module.exports = router;
  *         name: restaurantId
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's ID
  *     responses:
@@ -358,7 +369,6 @@ module.exports = router;
  *         name: restaurantId
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's ID
  *     requestBody:
@@ -384,8 +394,6 @@ module.exports = router;
  *         description: Server error
  * /reservations/{restaurantId}/summary:
  *   get:
- *     security:
- *       - bearerAuth: []
  *     summary: Return a summary of a restaurant's reservations
  *     tags: [Reservation]
  *     parameters:
@@ -393,7 +401,6 @@ module.exports = router;
  *         name: restaurantId
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's id
  *     responses:
@@ -418,10 +425,6 @@ module.exports = router;
  *                       type: integer
  *                     forecast:
  *                       type: integer
- *       401: 
- *         $ref: '#/components/responses/Unauthenticated'
- *       403:
- *         $ref: '#/components/responses/Unauthorized'
  *       404:
  *         description: Reservation/Restaurant not found
  *       500: 
@@ -473,7 +476,6 @@ module.exports = router;
  *         name: id
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Review's ID
  *     responses:
@@ -501,7 +503,6 @@ module.exports = router;
  *         name: id
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Review's ID
  *     requestBody:
@@ -537,7 +538,6 @@ module.exports = router;
  *         name: id
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Review's ID 
  *     responses:
@@ -550,7 +550,7 @@ module.exports = router;
  *       403:
  *         $ref: '#/components/responses/Unauthorized'
  *       404:
- *         desription: Review not found
+ *         description: Review not found
  *       500:
  *         description: Server error
  * /restaurants/{restaurantId}/reviews:
@@ -562,7 +562,6 @@ module.exports = router;
  *         name: restaurantId
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's ID
  *     responses:
@@ -586,7 +585,6 @@ module.exports = router;
  *         name: restaurantId
  *         schema:
  *           type: string
- *           format: uuid
  *         required: true
  *         description: Restaurant's ID
  *     requestBody:
@@ -662,7 +660,6 @@ module.exports = router;
  *       properties: 
  *         id:
  *           type: string
- *           format: uuid
  *           description: auto-generated object id of the restaurant
  *         name:
  *           type: string
@@ -710,10 +707,8 @@ module.exports = router;
  *           type: array
  *           items:
  *             type: string
- *             format: uuid
  *         manager:
  *           type: string
- *           format: uuid
  *           description: manager of this restaurant
  *     User:
  *       type: object
@@ -725,7 +720,6 @@ module.exports = router;
  *       properties: 
  *         id:
  *           type: string
- *           format: uuid
  *           description: auto-generated object id of the user
  *         name:
  *           type: string
@@ -757,7 +751,6 @@ module.exports = router;
  *       properties: 
  *         id:
  *           type: string
- *           format: uuid
  *           description: auto-generated object id of the reservation
  *         resvDate:
  *           type: string
@@ -765,11 +758,9 @@ module.exports = router;
  *           description: date-time of reservation
  *         user:
  *           type: string
- *           format: uuid
  *           description: user of this reservation
  *         restaurant:
  *           type: string
- *           format: uuid
  *           description: restaurant of this reservation
  *         completed:
  *           type: boolean
@@ -788,7 +779,6 @@ module.exports = router;
  *       properties: 
  *         id:
  *           type: string
- *           format: uuid
  *           description: auto-generated object id of the review
  *         rating:
  *           type: integer
@@ -801,17 +791,15 @@ module.exports = router;
  *           description: username
  *         user:
  *           type: string
- *           format: uuid
  *           description: user of this review
  *         restaurant:
  *           type: string
- *           format: uuid
  *           description: restaurant of this review
  *         createdAt:
  *           type: string
  *           format: date-time
  *           description: date-time of review
- *   securitySchemas:
+ *   securitySchemes:
  *     bearerAuth: 
  *       type: http
  *       scheme: bearer

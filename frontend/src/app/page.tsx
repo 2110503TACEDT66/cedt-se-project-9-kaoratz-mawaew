@@ -1,10 +1,6 @@
 // pages/index.tsx
 
-import MainPageMiddle from "@/components/mainpage/herosection";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/components/auth";
-import getUserProfile from "@/libs/getUserProfile";
-import { redirect } from "next/navigation";
+import MainPageMiddle from "@/components/mainPage/herosection";
 
 export default async function Home() {
   return (

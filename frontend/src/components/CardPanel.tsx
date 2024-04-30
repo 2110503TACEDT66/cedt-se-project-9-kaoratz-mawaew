@@ -1,7 +1,7 @@
 "use client";
 
-import { useReducer, useState } from "react";
-import { useRef, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import getRestaurants from "@/libs/getRestaurants";
 
 export default function CardPanel() {

@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { nominatimItem } from "../../../interface";
 import { forminput } from "../../../interface";
@@ -44,6 +44,5 @@ export async function FormUpdateAction(
         throw new Error("Failed to update restaurant")
     }
     revalidateTag("restaurant") 
-    // revalidatePath("/restaurant") 
     redirect("/dashboard")
 }

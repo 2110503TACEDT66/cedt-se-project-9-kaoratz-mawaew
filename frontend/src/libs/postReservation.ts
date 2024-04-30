@@ -18,8 +18,8 @@ export default async function postReservation(
   );
 
   if (!response.ok) {
-    // throw new Error("Failed to Post Reservation")
     return null;
   }
+  
   return await response.json();
 }

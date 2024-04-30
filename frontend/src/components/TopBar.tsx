@@ -1,5 +1,4 @@
 import Marquee from "./marquee";
-import { UserItem } from "../../interface";
 import Link from "next/link";
 
 export default function TopBar({
